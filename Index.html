@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PrintFlow">
+<meta name="application-name" content="PrintFlow">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="description" content="Print business tracker — track revenue, expenses and savings per ream">
+
+<!-- Inline SVG icon as data URI for apple-touch-icon -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%230a0a0f'/%3E%3Crect x='120' y='140' width='272' height='232' rx='18' fill='%231a1a24' stroke='%232a2a3a' stroke-width='8'/%3E%3Crect x='148' y='168' width='216' height='24' rx='6' fill='%23f5a623'/%3E%3Crect x='148' y='208' width='160' height='14' rx='5' fill='%234ade80'/%3E%3Crect x='148' y='232' width='120' height='14' rx='5' fill='%237070a0'/%3E%3Crect x='148' y='260' width='216' height='14' rx='5' fill='%237070a0'/%3E%3Crect x='148' y='284' width='180' height='14' rx='5' fill='%237070a0'/%3E%3Ctext x='256' y='410' text-anchor='middle' font-family='Arial' font-weight='900' font-size='52' fill='%23f5a623'%3EPF%3C/text%3E%3C/svg%3E">
+
+<title>PrintFlow</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --card: #1a1a24;
+    --border: #2a2a3a;
+    --accent: #f5a623;
+    --accent2: #4ade80;
+    --accent3: #f87171;
+    --text: #f0f0f5;
+    --muted: #7070a0;
+    --font: 'Syne', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html { height: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100%;
+    padding-top: var(--safe-top);
+    padding-bottom: calc(80px + var(--safe-bottom));
+    overscroll-behavior: none;
+  }
+
+  /* ── INSTALL BANNER ── */
+  #installBanner {
+    display: none;
+    background: linear-gradient(135deg, #1a1a0e, #1e1a0e);
+    border-bottom: 1.5px solid var(--accent);
+    padding: 12px 16px;
+    gap: 12px;
+    align-items: center;
+    animation: slideDown 0.3s ease;
+  }
+
+  #installBanner.show { display: flex; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-100%); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .install-text { flex: 1; font-size: 0.75rem; line-height: 1.4; color: var(--text); }
+  .install-text strong { color: var(--accent); }
+
+  .install-btn {
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-family: var(--font);
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #000;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .install-dismiss {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; }
+  .logo span { color: var(--accent); }
+
+  .ream-badge {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.72rem;
+    font-family: var(--mono);
+    color: var(--accent);
+  }
+
+  /* ── OFFLINE PILL ── */
+  .offline-pill {
+    display: none;
+    position: fixed;
+    top: calc(var(--safe-top) + 70px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1500;
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.68rem;
+    color: var(--accent);
+    z-index: 200;
+    font-family: var(--mono);
+  }
+
+  .offline-pill.show { display: block; }
+
+  .main { padding: 16px; max-width: 480px; margin: 0 auto; }
+
+  /* ── FLAG BANNERS ── */
+  .flag-banner {
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    display: none;
+    animation: slideIn 0.35s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .flag-banner.show { display: block; }
+  .flag-banner.red    { background: #1e0808; border: 1.5px solid var(--accent3); }
+  .flag-banner.yellow { background: #1a1500; border: 1.5px solid var(--accent); }
+  .flag-banner.blue   { background: #080f1e; border: 1.5px solid #60a5fa; }
+
+  .flag-icon  { font-size: 1.2rem; margin-bottom: 3px; }
+  .flag-title { font-size: 0.8rem; font-weight: 800; margin-bottom: 4px; letter-spacing: 0.03em; }
+  .flag-banner.red    .flag-title { color: var(--accent3); }
+  .flag-banner.yellow .flag-title { color: var(--accent); }
+  .flag-banner.blue   .flag-title { color: #60a5fa; }
+  .flag-body { font-size: 0.71rem; color: var(--muted); line-height: 1.55; }
+
+  /* ── KPI GRID ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .kpi {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+
+  .kpi.full      { grid-column: 1 / -1; }
+  .kpi.highlight { border-color: var(--accent); background: #1e1a0e; }
+
+  .kpi-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .kpi-value {
+    font-size: 1.45rem;
+    font-weight: 800;
+    font-family: var(--mono);
+    line-height: 1;
+  }
+
+  .kpi-value.green  { color: var(--accent2); }
+  .kpi-value.orange { color: var(--accent); }
+  .kpi-value.red    { color: var(--accent3); }
+
+  .kpi-sub {
+    font-size: 0.61rem;
+    color: var(--muted);
+    margin-top: 4px;
+    font-family: var(--mono);
+  }
+
+  /* ── REAM PROGRESS ── */
+  .progress-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .progress-title { font-size: 0.75rem; font-weight: 700; }
+
+  .progress-bar-bg {
+    background: var(--border);
+    border-radius: 10px;
+    height: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease, background 0.4s;
+  }
+
+  .progress-bar-fill.ok   { background: linear-gradient(90deg, var(--accent), #fbbf24); }
+  .progress-bar-fill.done { background: linear-gradient(90deg, var(--accent2), #86efac); }
+
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.62rem;
+    font-family: var(--mono);
+    color: var(--muted);
+  }
+
+  .progress-insight {
+    margin-top: 10px;
+    font-size: 0.66rem;
+    color: var(--muted);
+    line-height: 1.65;
+    font-family: var(--mono);
+  }
+
+  /* ── SPEND STATUS BOX ── */
+  .spend-box {
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    transition: background 0.4s, border-color 0.4s;
+  }
+
+  .spend-box.safe    { background: #0d1e12; border: 1.5px solid var(--accent2); }
+  .spend-box.caution { background: #1a1500; border: 1.5px solid var(--accent); }
+  .spend-box.danger  { background: #1e0808; border: 1.5px solid var(--accent3); }
+
+  .spend-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 10px;
+  }
+
+  .spend-box.safe    .spend-title { color: var(--accent2); }
+  .spend-box.caution .spend-title { color: var(--accent); }
+  .spend-box.danger  .spend-title { color: var(--accent3); }
+
+  .spend-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .spend-big {
+    font-size: 2.2rem;
+    font-weight: 800;
+    font-family: var(--mono);
+    line-height: 1;
+  }
+
+  .spend-box.safe    .spend-big { color: var(--accent2); }
+  .spend-box.caution .spend-big { color: var(--accent); }
+  .spend-box.danger  .spend-big { color: var(--accent3); }
+
+  .spend-sub { font-size: 0.68rem; color: var(--muted); line-height: 1.5; }
+
+  .meter-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.62rem;
+    font-family: var(--mono);
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+
+  .meter-bg {
+    background: var(--border);
+    border-radius: 8px;
+    height: 7px;
+    overflow: hidden;
+  }
+
+  .meter-fill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.5s ease, background 0.4s;
+  }
+
+  .meter-fill.ok   { background: var(--accent2); }
+  .meter-fill.near { background: var(--accent); }
+  .meter-fill.over { background: var(--accent3); }
+
+  /* ── FORMS ── */
+  .log-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .form-row { display: flex; gap: 10px; margin-bottom: 10px; }
+  .form-group { flex: 1; }
+
+  label {
+    display: block;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+  textarea { resize: none; height: 50px; font-size: 0.78rem; }
+
+  .pay-toggle { display: flex; gap: 8px; margin-bottom: 10px; }
+
+  .pay-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--muted);
+    font-family: var(--font);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .pay-btn.active-cash     { background: #1a1500; border-color: var(--accent); color: var(--accent); }
+  .pay-btn.active-transfer { background: #0d1e12; border-color: var(--accent2); color: var(--accent2); }
+
+  .log-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    border: none;
+    border-radius: 11px;
+    color: #000;
+    font-family: var(--font);
+    font-size: 0.9rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    user-select: none;
+  }
+
+  .log-btn:active { opacity: 0.8; transform: scale(0.98); }
+
+  .exp-btn {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid var(--accent3);
+    border-radius: 11px;
+    color: var(--accent3);
+    font-family: var(--font);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+    user-select: none;
+  }
+
+  .exp-btn:active { background: #1e0d0d; transform: scale(0.98); }
+
+  /* ── FEED ── */
+  .feed-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .feed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .feed-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .feed-item:last-child { border-bottom: none; }
+
+  .feed-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .feed-dot.income  { background: var(--accent2); }
+  .feed-dot.expense { background: var(--accent3); }
+
+  .feed-info { flex: 1; min-width: 0; }
+  .feed-note { font-size: 0.75rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .feed-meta { font-size: 0.62rem; color: var(--muted); margin-top: 2px; font-family: var(--mono); }
+
+  .feed-amount { font-family: var(--mono); font-size: 0.85rem; font-weight: 600; flex-shrink: 0; }
+  .feed-amount.income  { color: var(--accent2); }
+  .feed-amount.expense { color: var(--accent3); }
+
+  .empty-state { text-align: center; color: var(--muted); font-size: 0.75rem; padding: 20px 0; line-height: 1.6; }
+
+  /* ── RESET BUTTON ── */
+  .reset-btn {
+    width: 100%;
+    padding: 13px;
+    background: transparent;
+    border: 1px dashed var(--border);
+    border-radius: 11px;
+    color: var(--muted);
+    font-family: var(--font);
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 8px;
+  }
+
+  .reset-btn:active { border-color: var(--accent3); color: var(--accent3); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: calc(24px + var(--safe-bottom));
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+    z-index: 999;
+    white-space: nowrap;
+    font-family: var(--font);
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.good { background: var(--accent2); color: #000; }
+  .toast.bad  { background: var(--accent3); color: #000; }
+  .toast.info { background: var(--accent);  color: #000; }
+
+  select option { background: #1a1a24; }
+
+  /* ── iOS safe area for notch phones ── */
+  @supports (padding-top: env(safe-area-inset-top)) {
+    header { padding-top: max(16px, env(safe-area-inset-top)); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Install prompt banner (Android Chrome) -->
+<div id="installBanner">
+  <div class="install-text">
+    <strong>Install PrintFlow</strong><br>Add to home screen for offline use
+  </div>
+  <button class="install-btn" id="installBtn">Install</button>
+  <button class="install-dismiss" id="dismissBtn">✕</button>
+</div>
+
+<!-- Offline indicator -->
+<div class="offline-pill" id="offlinePill">📡 Offline — data saved locally</div>
+
+<header>
+  <div class="logo">Print<span>Flow</span></div>
+  <div class="ream-badge" id="reamBadge">Ream Day 1</div>
+</header>
+
+<div class="main">
+
+  <!-- FLAG BANNERS -->
+  <div class="flag-banner red" id="flagOver">
+    <div class="flag-icon">🚨</div>
+    <div class="flag-title">DAILY BUDGET EXCEEDED</div>
+    <div class="flag-body" id="flagOverMsg"></div>
+  </div>
+
+  <div class="flag-banner yellow" id="flagNear">
+    <div class="flag-icon">⚠️</div>
+    <div class="flag-title">APPROACHING DAILY LIMIT</div>
+    <div class="flag-body" id="flagNearMsg"></div>
+  </div>
+
+  <div class="flag-banner blue" id="flagSlow">
+    <div class="flag-icon">📉</div>
+    <div class="flag-title">NO RECENT REVENUE</div>
+    <div class="flag-body" id="flagSlowMsg"></div>
+  </div>
+
+  <div class="flag-banner yellow" id="flagBehind">
+    <div class="flag-icon">🐢</div>
+    <div class="flag-title">BEHIND TARGET PACE</div>
+    <div class="flag-body" id="flagBehindMsg"></div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi highlight">
+      <div class="kpi-label">Today's Revenue</div>
+      <div class="kpi-value orange" id="todayRevenue">₦0</div>
+      <div class="kpi-sub" id="todaySub">No sales yet</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Today's Expenses</div>
+      <div class="kpi-value red" id="todayExpenses">₦0</div>
+      <div class="kpi-sub" id="expSub">Net: ₦0</div>
+    </div>
+    <div class="kpi full">
+      <div class="kpi-label">Ream Total Revenue</div>
+      <div class="kpi-value green" id="reamRevenue">₦0</div>
+      <div class="kpi-sub" id="reamSub">Target ₦25,000 · Cost ₦5,000 · Save ₦12,500</div>
+    </div>
+  </div>
+
+  <!-- Ream Progress -->
+  <div class="progress-section">
+    <div class="progress-header">
+      <div class="progress-title">📄 Ream Progress</div>
+      <div style="font-size:0.68rem;font-family:var(--mono);color:var(--muted)" id="reamPercent">0%</div>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill ok" id="reamBar" style="width:0%"></div>
+    </div>
+    <div class="progress-labels">
+      <span id="reamEarned">₦0 earned</span>
+      <span id="reamLeft">₦25,000 to go</span>
+    </div>
+    <div class="progress-insight" id="reamInsight">Log your first sale to see projections.</div>
+  </div>
+
+  <!-- Spend Status -->
+  <div class="spend-box safe" id="spendBox">
+    <div class="spend-title" id="spendTitle">✅ Spending on Track</div>
+    <div class="spend-row">
+      <div class="spend-big" id="spendBig">₦2,500</div>
+      <div class="spend-sub" id="spendSub">remaining today<br>of ₦2,500 daily budget</div>
+    </div>
+    <div class="meter-label">
+      <span id="meterLeft">₦0 spent today</span>
+      <span>₦2,500 limit</span>
+    </div>
+    <div class="meter-bg">
+      <div class="meter-fill ok" id="meterFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Log Income -->
+  <div class="log-section">
+    <div class="section-title">+ Log Revenue</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Amount (₦)</label>
+        <input type="number" id="incomeAmount" placeholder="e.g. 1500" inputmode="numeric">
+      </div>
+    </div>
+    <label>Payment Method</label>
+    <div class="pay-toggle">
+      <button class="pay-btn active-cash" id="cashBtn" onclick="setPayment('cash')">💵 Cash</button>
+      <button class="pay-btn" id="transferBtn" onclick="setPayment('transfer')">🏦 Transfer</button>
+    </div>
+    <div class="form-group" style="margin-bottom:10px">
+      <label>Short Note (optional)</label>
+      <textarea id="incomeNote" placeholder="e.g. 3 students, thesis printing, big job…"></textarea>
+    </div>
+    <button class="log-btn" onclick="logIncome()">LOG INCOME</button>
+  </div>
+
+  <!-- Log Expense -->
+  <div class="log-section">
+    <div class="section-title" style="color:var(--accent3)">− Log Expense</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Amount (₦)</label>
+        <input type="number" id="expenseAmount" placeholder="e.g. 500" inputmode="numeric">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="expenseCategory">
+          <option value="Personal">Personal</option>
+          <option value="Food">Food</option>
+          <option value="Transport">Transport</option>
+          <option value="Restock">Paper/Restock</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:10px">
+      <label>Short Note</label>
+      <textarea id="expenseNote" placeholder="e.g. lunch, transport, airtime…"></textarea>
+    </div>
+    <button class="exp-btn" onclick="logExpense()">LOG EXPENSE</button>
+  </div>
+
+  <!-- Feed -->
+  <div class="feed-section">
+    <div class="feed-header">
+      <div class="section-title" style="margin-bottom:0">Recent Activity</div>
+      <div style="font-size:0.65rem;color:var(--muted);font-family:var(--mono)" id="feedCount"></div>
+    </div>
+    <div id="feedList">
+      <div class="empty-state">No transactions yet.<br>Log your first sale above ↑</div>
+    </div>
+  </div>
+
+  <button class="reset-btn" onclick="newReam()">📄 Start New Ream of Paper</button>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── BUSINESS CONSTANTS ───────────────────────────────────
+const REAM_COST     = 5000;
+const REAM_TARGET   = 25000;
+const SAVE_GOAL     = 12500;
+const DAILY_BUDGET  = 2500;
+const REAM_DAYS     = 3;
+const NEAR_PCT      = 0.80;
+const SLOW_THRESHOLD = 2;
+const BEHIND_RATIO  = 0.55;
+
+// ── STATE ────────────────────────────────────────────────
+let state = loadState();
+let selectedPayment = 'cash';
+let deferredInstallPrompt = null;
+
+function loadState() {
+  try {
+    const s = localStorage.getItem('printflow_ream_v1');
+    if (s) return JSON.parse(s);
+  } catch(e) {}
+  return { reamStart: new Date().toDateString(), transactions: [] };
+}
+
+function saveState() {
+  try { localStorage.setItem('printflow_ream_v1', JSON.stringify(state)); } catch(e) {}
+}
+
+// ── PWA: SERVICE WORKER REGISTRATION ────────────────────
+if ('serviceWorker' in navigator) {
+  // Inline service worker as a blob — no separate file needed
+  const swCode = `
+    const CACHE = 'printflow-v1';
+    const ASSETS = [self.location.href.replace('/sw-inline', '')];
+
+    self.addEventListener('install', e => {
+      e.waitUntil(
+        caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting())
+      );
+    });
+
+    self.addEventListener('activate', e => {
+      e.waitUntil(
+        caches.keys().then(keys =>
+          Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+        ).then(() => self.clients.claim())
+      );
+    });
+
+    self.addEventListener('fetch', e => {
+      if (e.request.method !== 'GET') return;
+      e.respondWith(
+        caches.match(e.request).then(cached => {
+          if (cached) return cached;
+          return fetch(e.request).then(res => {
+            if (res && res.status === 200) {
+              const clone = res.clone();
+              caches.open(CACHE).then(c => c.put(e.request, clone));
+            }
+            return res;
+          }).catch(() => cached || new Response('Offline', {status: 503}));
+        })
+      );
+    });
+  `;
+
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  const swUrl = URL.createObjectURL(blob);
+
+  navigator.serviceWorker.register(swUrl, { scope: '/' })
+    .then(reg => {
+      console.log('PrintFlow SW registered');
+    })
+    .catch(err => console.log('SW reg failed (normal for file://):', err));
+}
+
+// ── PWA: INSTALL PROMPT (Android Chrome) ────────────────
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  if (!localStorage.getItem('pf_install_dismissed')) {
+    document.getElementById('installBanner').classList.add('show');
+  }
+});
+
+document.getElementById('installBtn').addEventListener('click', async () => {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  const { outcome } = await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  document.getElementById('installBanner').classList.remove('show');
+  if (outcome === 'accepted') showToast('App installed! 🎉', 'good');
+});
+
+document.getElementById('dismissBtn').addEventListener('click', () => {
+  localStorage.setItem('pf_install_dismissed', '1');
+  document.getElementById('installBanner').classList.remove('show');
+});
+
+// ── OFFLINE INDICATOR ────────────────────────────────────
+function updateOnlineStatus() {
+  document.getElementById('offlinePill').classList.toggle('show', !navigator.onLine);
+}
+window.addEventListener('online',  updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+updateOnlineStatus();
+
+// ── HELPERS ──────────────────────────────────────────────
+function today()  { return new Date().toDateString(); }
+function fmt(n)   { return Math.abs(Math.round(n)).toLocaleString('en-NG'); }
+
+function getReamTx()  { return state.transactions.filter(t => !t.oldReam); }
+function getTodayTx() { return state.transactions.filter(t => t.date === today() && !t.oldReam); }
+function getTodayExp(){ return getTodayTx().filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0); }
+function sumIncome(tx){ return tx.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0); }
+function sumExp(tx)   { return tx.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0); }
+function getDayNum()  {
+  return Math.max(1, Math.floor((new Date()-new Date(state.reamStart))/86400000)+1);
+}
+
+function setPayment(type) {
+  selectedPayment = type;
+  document.getElementById('cashBtn').className   = 'pay-btn'+(type==='cash'?' active-cash':'');
+  document.getElementById('transferBtn').className = 'pay-btn'+(type==='transfer'?' active-transfer':'');
+}
+
+// ── ACTIONS ──────────────────────────────────────────────
+function logIncome() {
+  const amt  = parseFloat(document.getElementById('incomeAmount').value);
+  const note = document.getElementById('incomeNote').value.trim() || 'Sale';
+  if (!amt || amt <= 0) { showToast('Enter a valid amount', 'bad'); return; }
+
+  state.transactions.unshift({
+    type:'income', amount:amt, payment:selectedPayment, note,
+    date:today(), time:new Date().toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'})
+  });
+
+  saveState();
+  document.getElementById('incomeAmount').value = '';
+  document.getElementById('incomeNote').value   = '';
+  render();
+  showToast(`+₦${fmt(amt)} logged ✓`, 'good');
+}
+
+function logExpense() {
+  const amt  = parseFloat(document.getElementById('expenseAmount').value);
+  const note = document.getElementById('expenseNote').value.trim() || 'Expense';
+  const cat  = document.getElementById('expenseCategory').value;
+  if (!amt || amt <= 0) { showToast('Enter a valid amount', 'bad'); return; }
+
+  state.transactions.unshift({
+    type:'expense', amount:amt, category:cat, note,
+    date:today(), time:new Date().toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'})
+  });
+
+  saveState();
+  document.getElementById('expenseAmount').value = '';
+  document.getElementById('expenseNote').value   = '';
+  render();
+
+  const exp = getTodayExp();
+  if      (exp > DAILY_BUDGET)            showToast(`🚨 ₦${fmt(exp-DAILY_BUDGET)} over budget!`, 'bad');
+  else if (exp >= DAILY_BUDGET*NEAR_PCT)  showToast(`⚠️ Only ₦${fmt(DAILY_BUDGET-exp)} left today`, 'info');
+  else                                    showToast(`−₦${fmt(amt)} logged`, 'bad');
+}
+
+function newReam() {
+  if (!confirm('Start a new ream? Ream counters reset. History is kept.')) return;
+  state.reamStart    = today();
+  state.transactions = state.transactions.map(t=>({...t,oldReam:true}));
+  saveState();
+  render();
+  showToast('New ream started! 📄', 'good');
+}
+
+// ── FLAGS ─────────────────────────────────────────────────
+function updateFlags(todayExp, reamIncome, dayNum) {
+  const over = todayExp > DAILY_BUDGET;
+  const near = !over && todayExp >= DAILY_BUDGET*NEAR_PCT && todayExp > 0;
+
+  const incomeDates = [...new Set(getReamTx().filter(t=>t.type==='income').map(t=>t.date))];
+  const lastDate = incomeDates[0];
+  const daysSince = lastDate
+    ? Math.floor((new Date()-new Date(lastDate))/86400000)
+    : dayNum;
+  const slow   = daysSince >= SLOW_THRESHOLD && reamIncome === 0;
+  const behind = !slow && dayNum>1 && reamIncome < (REAM_TARGET/REAM_DAYS)*Math.min(dayNum,REAM_DAYS)*BEHIND_RATIO;
+
+  flagShow('flagOver',   over);
+  flagShow('flagNear',   near);
+  flagShow('flagSlow',   slow && !over);
+  flagShow('flagBehind', behind && !over && !slow);
+
+  if (over) {
+    el('flagOverMsg').textContent =
+      `You've spent ₦${fmt(todayExp)} today — ₦${fmt(todayExp-DAILY_BUDGET)} over your ₦${fmt(DAILY_BUDGET)} limit. Stop personal spending now. Every extra naira eats your ₦${fmt(SAVE_GOAL)} savings goal.`;
+  }
+  if (near) {
+    el('flagNearMsg').textContent =
+      `₦${fmt(todayExp)} used of your ₦${fmt(DAILY_BUDGET)} daily budget. Only ₦${fmt(DAILY_BUDGET-todayExp)} left — be careful.`;
+  }
+  if (slow) {
+    el('flagSlowMsg').textContent =
+      `No revenue in ${daysSince} day${daysSince!==1?'s':''}. Business is slow — cut personal spending to ₦${fmt(Math.round(DAILY_BUDGET*0.5))}/day until sales pick up.`;
+  }
+  if (behind) {
+    const dLeft  = Math.max(1, REAM_DAYS-dayNum);
+    const needed = Math.round((REAM_TARGET-reamIncome)/dLeft);
+    el('flagBehindMsg').textContent =
+      `You need ₦${fmt(needed)}/day to hit your ₦${fmt(REAM_TARGET)} target. Reduce spending to ₦${fmt(Math.min(DAILY_BUDGET,1500))}/day until you're back on track.`;
+  }
+}
+
+function flagShow(id, show) { el(id).classList.toggle('show', show); }
+function el(id) { return document.getElementById(id); }
+
+// ── RENDER ────────────────────────────────────────────────
+function render() {
+  const reamTx  = getReamTx();
+  const todayTx = getTodayTx();
+  const dayNum  = getDayNum();
+
+  const todayIncome = sumIncome(todayTx);
+  const todayExp    = sumExp(todayTx);
+  const reamIncome  = sumIncome(reamTx);
+
+  el('reamBadge').textContent = `Ream Day ${dayNum}`;
+
+  // KPIs
+  el('todayRevenue').textContent  = '₦'+fmt(todayIncome);
+  const nSales = todayTx.filter(t=>t.type==='income').length;
+  el('todaySub').textContent      = nSales+' sale'+(nSales!==1?'s':'')+' today';
+  el('todayExpenses').textContent = '₦'+fmt(todayExp);
+  el('expSub').textContent        = `Net today: ₦${fmt(todayIncome-todayExp)}`;
+  el('reamRevenue').textContent   = '₦'+fmt(reamIncome);
+  el('reamSub').textContent       = `Target ₦${fmt(REAM_TARGET)} · Cost ₦${fmt(REAM_COST)} · Save ₦${fmt(SAVE_GOAL)}`;
+
+  // Progress
+  const pct = Math.min(100, Math.round((reamIncome/REAM_TARGET)*100));
+  const bar = el('reamBar');
+  bar.style.width = pct+'%';
+  bar.className   = 'progress-bar-fill '+(pct>=100?'done':'ok');
+  el('reamPercent').textContent = pct+'%';
+  el('reamEarned').textContent  = '₦'+fmt(reamIncome)+' earned';
+  const toGo = Math.max(0, REAM_TARGET-reamIncome);
+  el('reamLeft').textContent = toGo>0 ? `₦${fmt(toGo)} to go` : '🎉 Target hit!';
+
+  // Insight
+  const avg     = dayNum>0 ? reamIncome/dayNum : 0;
+  const proj    = Math.round(avg*REAM_DAYS);
+  const dLeft   = Math.max(1, REAM_DAYS-dayNum);
+  const needed  = toGo>0 ? Math.round(toGo/dLeft) : 0;
+  let ins = reamIncome>0
+    ? `Avg ₦${fmt(avg)}/day · Projected: ₦${fmt(proj)}`
+    : 'Log your first sale to see projections.';
+  if (needed>0 && reamIncome>0) ins += ` · Need ₦${fmt(needed)}/day`;
+  el('reamInsight').textContent = ins;
+
+  // Spend box
+  const rem      = DAILY_BUDGET - todayExp;
+  const spendPct = Math.min(120, Math.round((todayExp/DAILY_BUDGET)*100));
+
+  let boxState, meterState, titleText, bigText, subText;
+  if (todayExp > DAILY_BUDGET) {
+    boxState='danger'; meterState='over'; titleText='🚨 Daily Budget Exceeded';
+    bigText=`−₦${fmt(Math.abs(rem))}`; subText=`over your ₦${fmt(DAILY_BUDGET)} limit\nstop spending now`;
+  } else if (todayExp >= DAILY_BUDGET*NEAR_PCT) {
+    boxState='caution'; meterState='near'; titleText='⚠️ Approaching Daily Limit';
+    bigText=`₦${fmt(rem)}`; subText=`remaining today\nof ₦${fmt(DAILY_BUDGET)} daily budget`;
+  } else {
+    boxState='safe'; meterState='ok'; titleText='✅ Spending on Track';
+    bigText=`₦${fmt(rem)}`; subText=`remaining today\nof ₦${fmt(DAILY_BUDGET)} daily budget`;
+  }
+
+  el('spendBox').className    = 'spend-box '+boxState;
+  el('spendTitle').textContent = titleText;
+  el('spendBig').textContent  = bigText;
+  el('spendSub').textContent  = subText;
+  el('meterLeft').textContent = `₦${fmt(todayExp)} spent today`;
+  const fill = el('meterFill');
+  fill.className  = 'meter-fill '+meterState;
+  fill.style.width = Math.min(100,spendPct)+'%';
+
+  // Flags
+  updateFlags(todayExp, reamIncome, dayNum);
+
+  // Feed
+  const recent = reamTx.slice(0, 15);
+  el('feedCount').textContent = recent.length+' entries this ream';
+  el('feedList').innerHTML = recent.length===0
+    ? '<div class="empty-state">No transactions yet.<br>Log your first sale above ↑</div>'
+    : recent.map(t => `
+        <div class="feed-item">
+          <div class="feed-dot ${t.type}"></div>
+          <div class="feed-info">
+            <div class="feed-note">${t.note}${t.category?' · '+t.category:''}</div>
+            <div class="feed-meta">${t.date===today()?'Today':t.date} · ${t.time} · ${t.payment||t.category||''}</div>
+          </div>
+          <div class="feed-amount ${t.type}">${t.type==='income'?'+':'−'}₦${fmt(t.amount)}</div>
+        </div>`).join('');
+}
+
+function showToast(msg, type='good') {
+  const t = el('toast');
+  t.textContent = msg;
+  t.className   = `toast ${type} show`;
+  clearTimeout(t._t);
+  t._t = setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+// ── iOS: show install instructions once ─────────────────
+const isIos   = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+
+if (isIos && isSafari && !isStandalone && !localStorage.getItem('pf_ios_hint')) {
+  setTimeout(() => {
+    showToast('Tap Share → Add to Home Screen to install', 'info');
+    localStorage.setItem('pf_ios_hint', '1');
+  }, 2000);
+}
+
+render();
+</script>
+</body>
+</html>
