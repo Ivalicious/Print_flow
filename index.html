@@ -7,326 +7,352 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="PrintFlow">
-<meta name="theme-color" content="#0a0a0f">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%230a0a0f'/%3E%3Ctext x='256' y='320' text-anchor='middle' font-family='Arial' font-weight='900' font-size='200' fill='%23f5a623'%3EPF%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d0d0d">
 <title>PrintFlow</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#0a0a0f; --surface:#13131a; --card:#1a1a24; --border:#2a2a3a;
-  --accent:#f5a623; --accent2:#4ade80; --accent3:#f87171; --blue:#60a5fa;
-  --purple:#a78bfa; --text:#f0f0f5; --muted:#7070a0;
-  --font:'Syne',sans-serif; --mono:'JetBrains Mono',monospace;
-  --st:env(safe-area-inset-top,0px); --sb:env(safe-area-inset-bottom,0px);
-}
+/* ── RESET & BASE ── */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
-body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100%;
-  padding-top:var(--st);padding-bottom:calc(70px + var(--sb));overscroll-behavior:none}
+:root{
+  --bg:#0d0d0d;
+  --card:#161616;
+  --card2:#1e1e1e;
+  --border:#272727;
+  --green:#22c55e;
+  --green-bg:#0a1f12;
+  --green-border:#166534;
+  --yellow:#f59e0b;
+  --yellow-bg:#1c1500;
+  --yellow-border:#92400e;
+  --red:#ef4444;
+  --red-bg:#1c0a0a;
+  --red-border:#7f1d1d;
+  --text:#f5f5f5;
+  --text2:#a3a3a3;
+  --text3:#525252;
+  --font:'Inter',sans-serif;
+  --sb:env(safe-area-inset-bottom,0px);
+  --st:env(safe-area-inset-top,0px);
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);overscroll-behavior:none}
+body{padding-top:var(--st);padding-bottom:calc(64px + var(--sb))}
 
 /* ── ONBOARDING ── */
-#onboarding{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;
-  flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;
-  animation:fadeIn .4s ease}
-.ob-logo{font-size:3rem;font-weight:800;margin-bottom:8px}
-.ob-logo span{color:var(--accent)}
-.ob-sub{color:var(--muted);font-size:0.85rem;margin-bottom:40px;text-align:center}
-.ob-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);
-  margin-bottom:6px;align-self:flex-start;width:100%}
-.ob-input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;
-  padding:14px 16px;color:var(--text);font-family:var(--font);font-size:1rem;outline:none;
-  margin-bottom:16px}
-.ob-input:focus{border-color:var(--accent)}
-.ob-btn{width:100%;padding:16px;background:var(--accent);border:none;border-radius:12px;
+#ob{position:fixed;inset:0;background:var(--bg);z-index:9999;
+  display:flex;flex-direction:column;justify-content:center;padding:32px 24px}
+.ob-logo{font-size:2.5rem;font-weight:900;margin-bottom:6px}
+.ob-logo b{color:var(--yellow)}
+.ob-tagline{color:var(--text2);font-size:0.9rem;margin-bottom:48px}
+.ob-field{margin-bottom:20px}
+.ob-label{font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--text2);margin-bottom:8px;display:block}
+.ob-input{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:12px;
+  padding:14px 16px;color:var(--text);font-family:var(--font);font-size:1rem;outline:none}
+.ob-input:focus{border-color:var(--yellow)}
+.ob-btn{width:100%;padding:16px;background:var(--yellow);border:none;border-radius:14px;
   color:#000;font-family:var(--font);font-size:1rem;font-weight:800;cursor:pointer;margin-top:8px}
-.ob-note{font-size:0.7rem;color:var(--muted);margin-top:16px;text-align:center;line-height:1.6}
 
 /* ── HEADER ── */
-header{background:var(--surface);border-bottom:1px solid var(--border);
-  padding:14px 20px;display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:100}
-.logo{font-size:1.1rem;font-weight:800;letter-spacing:-.5px}
-.logo span{color:var(--accent)}
+header{position:sticky;top:0;z-index:100;background:var(--bg);
+  border-bottom:1px solid var(--border);
+  padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.1rem;font-weight:900}
+.logo b{color:var(--yellow)}
 .header-right{display:flex;align-items:center;gap:10px}
-.ream-badge{background:var(--card);border:1px solid var(--border);border-radius:20px;
-  padding:5px 12px;font-size:0.68rem;font-family:var(--mono);color:var(--accent)}
-.settings-btn{background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;
-  padding:4px}
+.ream-pill{background:var(--card2);border:1px solid var(--border);border-radius:20px;
+  padding:6px 14px;font-size:0.75rem;font-weight:700;color:var(--yellow);cursor:pointer;
+  transition:background .15s}
+.ream-pill:active{background:var(--card)}
+.icon-btn{background:none;border:none;color:var(--text2);font-size:1.2rem;cursor:pointer;
+  padding:4px 6px;border-radius:8px;transition:background .15s}
+.icon-btn:active{background:var(--card2)}
 
 /* ── BOTTOM NAV ── */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;
-  background:var(--surface);border-top:1px solid var(--border);
-  display:flex;padding-bottom:var(--sb);z-index:100}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:var(--bg);border-top:1px solid var(--border);
+  display:flex;padding-bottom:var(--sb)}
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:10px 4px;background:none;border:none;color:var(--muted);font-family:var(--font);
-  font-size:0.58rem;font-weight:600;cursor:pointer;gap:4px;transition:color .2s;
-  text-transform:uppercase;letter-spacing:.04em}
-.nav-btn.active{color:var(--accent)}
-.nav-icon{font-size:1.2rem}
+  padding:10px 4px;background:none;border:none;color:var(--text3);font-family:var(--font);
+  font-size:0.6rem;font-weight:600;cursor:pointer;gap:3px;text-transform:uppercase;
+  letter-spacing:.05em;transition:color .2s}
+.nav-btn.active{color:var(--yellow)}
+.nav-icon{font-size:1.1rem;line-height:1}
 
 /* ── TABS ── */
 .tab{display:none;padding:16px;max-width:500px;margin:0 auto}
 .tab.active{display:block}
 
-/* ── CARDS ── */
-.card{background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:16px;margin-bottom:12px}
-.card.accent-border{border-color:var(--accent);background:#1e1a0e}
-.card.green-border{border-color:var(--accent2);background:#0d1e12}
-.card.red-border{border-color:var(--accent3);background:#1e0808}
-.card.blue-border{border-color:var(--blue);background:#080f1e}
-.card.purple-border{border-color:var(--purple);background:#120d1e}
-
 /* ── FLAG BANNERS ── */
-.flag{border-radius:14px;padding:13px 15px;margin-bottom:10px;display:none;
-  animation:slideIn .35s ease}
+.flag{border-radius:14px;padding:14px 16px;margin-bottom:12px;display:none;
+  animation:slideIn .3s ease}
 .flag.show{display:block}
-.flag.red{background:#1e0808;border:1.5px solid var(--accent3)}
-.flag.yellow{background:#1a1500;border:1.5px solid var(--accent)}
-.flag.blue{background:#080f1e;border:1.5px solid var(--blue)}
-.flag-icon{font-size:1.1rem;margin-bottom:2px}
-.flag-title{font-size:0.78rem;font-weight:800;margin-bottom:3px}
-.flag.red .flag-title{color:var(--accent3)}
-.flag.yellow .flag-title{color:var(--accent)}
-.flag.blue .flag-title{color:var(--blue)}
-.flag-body{font-size:0.7rem;color:var(--muted);line-height:1.5}
+.flag.danger{background:var(--red-bg);border:1px solid var(--red-border)}
+.flag.warn{background:var(--yellow-bg);border:1px solid var(--yellow-border)}
+.flag.info{background:#0a0f1c;border:1px solid #1e3a5f}
+.flag-head{font-size:0.8rem;font-weight:800;margin-bottom:4px}
+.flag.danger .flag-head{color:var(--red)}
+.flag.warn .flag-head{color:var(--yellow)}
+.flag.info .flag-head{color:#60a5fa}
+.flag-body{font-size:0.72rem;color:var(--text2);line-height:1.5}
 
-/* ── KPI GRID ── */
-.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 15px}
-.kpi.full{grid-column:1/-1}
-.kpi.hl{border-color:var(--accent);background:#1e1a0e}
-.kpi-label{font-size:0.6rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:5px}
-.kpi-value{font-size:1.4rem;font-weight:800;font-family:var(--mono);line-height:1}
-.kpi-value.g{color:var(--accent2)}.kpi-value.o{color:var(--accent)}.kpi-value.r{color:var(--accent3)}
-.kpi-sub{font-size:0.6rem;color:var(--muted);margin-top:3px;font-family:var(--mono)}
+/* ── BIG TODAY CARD ── */
+.today-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.today-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:16px;cursor:pointer;transition:background .15s}
+.today-card:active{background:var(--card2)}
+.today-card.earned{border-color:var(--yellow-border);background:var(--yellow-bg)}
+.today-label{font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--text2);margin-bottom:8px}
+.today-amount{font-size:1.6rem;font-weight:900;line-height:1;margin-bottom:4px}
+.today-amount.yellow{color:var(--yellow)}
+.today-amount.red{color:var(--red)}
+.today-sub{font-size:0.65rem;color:var(--text2)}
 
-/* ── PROGRESS BAR ── */
-.bar-bg{background:var(--border);border-radius:10px;height:9px;overflow:hidden;margin-bottom:7px}
-.bar-fill{height:100%;border-radius:10px;transition:width .5s ease,background .4s}
-.bar-fill.ok{background:linear-gradient(90deg,var(--accent),#fbbf24)}
-.bar-fill.done{background:linear-gradient(90deg,var(--accent2),#86efac)}
+/* ── REAM PROGRESS CARD ── */
+.ream-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:16px;margin-bottom:12px;cursor:pointer;transition:background .15s;position:relative}
+.ream-card:active{background:var(--card2)}
+.ream-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.ream-card-title{font-size:0.8rem;font-weight:700;color:var(--text)}
+.ream-card-pct{font-size:0.75rem;font-weight:800;color:var(--yellow)}
+.ream-add-btn{position:absolute;top:14px;right:14px;background:var(--yellow);border:none;
+  border-radius:8px;width:28px;height:28px;font-size:1rem;font-weight:900;color:#000;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.progress-track{background:var(--border);border-radius:99px;height:10px;overflow:hidden;margin-bottom:10px}
+.progress-fill{height:100%;border-radius:99px;transition:width .5s ease,background .3s}
+.progress-fill.going{background:var(--yellow)}
+.progress-fill.done{background:var(--green)}
+.ream-numbers{display:flex;justify-content:space-between;font-size:0.68rem;color:var(--text2)}
+.ream-numbers b{color:var(--text);font-weight:700}
 
-/* ── SPEND BOX ── */
-.spend-box{border-radius:14px;padding:15px;margin-bottom:12px;transition:background .4s,border-color .4s}
-.spend-box.safe{background:#0d1e12;border:1.5px solid var(--accent2)}
-.spend-box.caution{background:#1a1500;border:1.5px solid var(--accent)}
-.spend-box.danger{background:#1e0808;border:1.5px solid var(--accent3)}
-.spend-title{font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:9px}
-.spend-box.safe .spend-title{color:var(--accent2)}
-.spend-box.caution .spend-title{color:var(--accent)}
-.spend-box.danger .spend-title{color:var(--accent3)}
-.spend-big{font-size:2rem;font-weight:800;font-family:var(--mono);line-height:1;margin-bottom:4px}
-.spend-box.safe .spend-big{color:var(--accent2)}
-.spend-box.caution .spend-big{color:var(--accent)}
-.spend-box.danger .spend-big{color:var(--accent3)}
-.spend-sub{font-size:0.65rem;color:var(--muted);line-height:1.5;margin-bottom:10px}
-.meter-label{display:flex;justify-content:space-between;font-size:0.6rem;font-family:var(--mono);color:var(--muted);margin-bottom:4px}
-.meter-bg{background:var(--border);border-radius:8px;height:6px;overflow:hidden}
-.meter-fill{height:100%;border-radius:8px;transition:width .5s ease,background .4s}
-.meter-fill.ok{background:var(--accent2)}.meter-fill.near{background:var(--accent)}.meter-fill.over{background:var(--accent3)}
+/* ── SPEND STATUS BOX ── */
+.spend-box{border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;transition:all .15s}
+.spend-box.safe{background:var(--green-bg);border:1px solid var(--green-border)}
+.spend-box.warn{background:var(--yellow-bg);border:1px solid var(--yellow-border)}
+.spend-box.over{background:var(--red-bg);border:1px solid var(--red-border)}
+.spend-status-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:6px}
+.spend-box.safe .spend-status-label{color:var(--green)}
+.spend-box.warn .spend-status-label{color:var(--yellow)}
+.spend-box.over .spend-status-label{color:var(--red)}
+.spend-amount{font-size:2.4rem;font-weight:900;line-height:1;margin-bottom:4px}
+.spend-box.safe .spend-amount{color:var(--green)}
+.spend-box.warn .spend-amount{color:var(--yellow)}
+.spend-box.over .spend-amount{color:var(--red)}
+.spend-desc{font-size:0.72rem;color:var(--text2);margin-bottom:14px}
+.spend-meter-labels{display:flex;justify-content:space-between;font-size:0.62rem;
+  color:var(--text2);margin-bottom:5px}
+.meter-track{background:var(--border);border-radius:99px;height:6px;overflow:hidden}
+.meter-fill{height:100%;border-radius:99px;transition:width .5s,background .3s}
+.meter-fill.safe{background:var(--green)}
+.meter-fill.warn{background:var(--yellow)}
+.meter-fill.over{background:var(--red)}
 
-/* ── FORMS ── */
-.section-title{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:13px}
-.form-row{display:flex;gap:10px;margin-bottom:10px}
-.form-group{flex:1}
-label{display:block;font-size:0.6rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:4px}
-input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:9px;
-  padding:10px 12px;color:var(--text);font-family:var(--font);font-size:0.85rem;outline:none;
+/* ── LOG BUTTONS ── */
+.log-section{margin-bottom:12px}
+.log-toggle{display:flex;gap:2px;background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:4px;margin-bottom:12px}
+.log-toggle-btn{flex:1;padding:10px;border:none;border-radius:11px;font-family:var(--font);
+  font-size:0.8rem;font-weight:700;cursor:pointer;transition:all .2s;background:none;color:var(--text2)}
+.log-toggle-btn.active-inc{background:var(--yellow);color:#000}
+.log-toggle-btn.active-exp{background:var(--red);color:#fff}
+.log-form{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
+.field{margin-bottom:12px}
+.field-label{font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--text2);margin-bottom:6px;display:block}
+.field-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;
+  padding:12px 14px;color:var(--text);font-family:var(--font);font-size:0.95rem;outline:none;
   transition:border-color .2s;-webkit-appearance:none}
-input:focus,select:focus,textarea:focus{border-color:var(--accent)}
-textarea{resize:none;height:48px;font-size:0.77rem}
-.pay-toggle{display:flex;gap:8px;margin-bottom:10px}
-.pay-btn{flex:1;padding:9px;border-radius:9px;border:1px solid var(--border);background:var(--bg);
-  color:var(--muted);font-family:var(--font);font-size:0.76rem;font-weight:600;cursor:pointer;transition:all .2s}
-.pay-btn.ac{background:#1a1500;border-color:var(--accent);color:var(--accent)}
-.pay-btn.at{background:#0d1e12;border-color:var(--accent2);color:var(--accent2)}
-.log-btn{width:100%;padding:13px;background:var(--accent);border:none;border-radius:11px;
-  color:#000;font-family:var(--font);font-size:0.88rem;font-weight:800;cursor:pointer;
-  transition:opacity .15s,transform .1s;user-select:none}
-.log-btn:active{opacity:.8;transform:scale(.98)}
-.exp-btn{width:100%;padding:13px;background:transparent;border:1px solid var(--accent3);
-  border-radius:11px;color:var(--accent3);font-family:var(--font);font-size:0.88rem;
-  font-weight:700;cursor:pointer;transition:all .2s;margin-top:8px;user-select:none}
-.exp-btn:active{background:#1e0d0d;transform:scale(.98)}
+.field-input:focus{border-color:var(--yellow)}
+.field-input.exp:focus{border-color:var(--red)}
+textarea.field-input{resize:none;height:48px;font-size:0.82rem}
+.pay-row{display:flex;gap:8px;margin-bottom:12px}
+.pay-opt{flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);
+  background:var(--bg);color:var(--text2);font-family:var(--font);font-size:0.8rem;
+  font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
+.pay-opt.sel-cash{background:var(--yellow-bg);border-color:var(--yellow);color:var(--yellow)}
+.pay-opt.sel-transfer{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.field-row{display:flex;gap:10px}
+.field-row .field{flex:1}
+.submit-btn{width:100%;padding:14px;border:none;border-radius:12px;font-family:var(--font);
+  font-size:0.95rem;font-weight:800;cursor:pointer;transition:opacity .15s,transform .1s}
+.submit-btn:active{opacity:.85;transform:scale(.98)}
+.submit-btn.inc{background:var(--yellow);color:#000}
+.submit-btn.exp{background:var(--red);color:#fff}
 
 /* ── FEED ── */
-.feed-item{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--border)}
+.feed-section{background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:16px;margin-bottom:12px}
+.feed-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.feed-title{font-size:0.8rem;font-weight:700}
+.feed-count{font-size:0.65rem;color:var(--text2)}
+.feed-item{display:flex;align-items:center;gap:12px;padding:11px 0;
+  border-bottom:1px solid var(--border)}
 .feed-item:last-child{border-bottom:none}
 .feed-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.feed-dot.income{background:var(--accent2)}.feed-dot.expense{background:var(--accent3)}
+.feed-dot.inc{background:var(--green)}.feed-dot.exp{background:var(--red)}
 .feed-info{flex:1;min-width:0}
-.feed-note{font-size:0.73rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.feed-meta{font-size:0.6rem;color:var(--muted);margin-top:2px;font-family:var(--mono)}
-.feed-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
-.feed-amount{font-family:var(--mono);font-size:0.82rem;font-weight:600}
-.feed-amount.income{color:var(--accent2)}.feed-amount.expense{color:var(--accent3)}
-.feed-actions{display:flex;gap:6px}
-.feed-action-btn{background:none;border:none;font-size:0.75rem;cursor:pointer;opacity:.6;transition:opacity .2s}
-.feed-action-btn:hover{opacity:1}
-.empty-state{text-align:center;color:var(--muted);font-size:0.73rem;padding:20px 0;line-height:1.6}
+.feed-note{font-size:0.78rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.feed-meta{font-size:0.62rem;color:var(--text2);margin-top:2px}
+.feed-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+.feed-amt{font-size:0.85rem;font-weight:800}
+.feed-amt.inc{color:var(--green)}.feed-amt.exp{color:var(--red)}
+.feed-acts{display:flex;gap:8px}
+.feed-act{background:none;border:none;font-size:0.82rem;cursor:pointer;opacity:.5;
+  transition:opacity .2s}
+.feed-act:active{opacity:1}
+.empty{text-align:center;color:var(--text3);font-size:0.78rem;padding:24px 0;line-height:1.7}
 
-/* ── RESET BTN ── */
-.ghost-btn{width:100%;padding:12px;background:transparent;border:1px dashed var(--border);
-  border-radius:11px;color:var(--muted);font-family:var(--font);font-size:0.76rem;
-  cursor:pointer;transition:all .2s;margin-bottom:8px}
-.ghost-btn:active{border-color:var(--accent3);color:var(--accent3)}
-
-/* ── GAMIFICATION ── */
-.xp-bar-section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:12px}
-.xp-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.xp-level{font-size:0.72rem;font-weight:800;color:var(--purple)}
-.xp-points{font-size:0.65rem;font-family:var(--mono);color:var(--muted)}
-.xp-bar-bg{background:var(--border);border-radius:10px;height:8px;overflow:hidden}
-.xp-bar-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--purple),#c4b5fd);transition:width .6s ease}
-.level-title{font-size:0.62rem;color:var(--muted);margin-top:5px;font-family:var(--mono)}
-
-.streak-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.streak-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;text-align:center}
-.streak-num{font-size:1.8rem;font-weight:800;font-family:var(--mono);line-height:1}
-.streak-num.fire{color:var(--accent)}
-.streak-num.shield{color:var(--accent2)}
-.streak-label{font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
-
-.badges-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
-.badge-item{background:var(--card);border:1px solid var(--border);border-radius:12px;
-  padding:10px 6px;text-align:center;transition:all .3s}
-.badge-item.earned{border-color:var(--accent);background:#1e1a0e}
-.badge-item.earned .badge-icon{filter:none;opacity:1}
-.badge-icon{font-size:1.4rem;display:block;margin-bottom:4px;filter:grayscale(1);opacity:.3;transition:all .3s}
-.badge-name{font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;line-height:1.2}
-.badge-item.earned .badge-name{color:var(--accent)}
-
-/* ── SAVINGS JAR ── */
-.jar-section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;text-align:center}
-.jar-wrap{position:relative;width:80px;height:100px;margin:0 auto 10px}
-.jar-svg{width:100%;height:100%}
-.jar-amount{font-size:1.1rem;font-weight:800;font-family:var(--mono);color:var(--accent2)}
-.jar-label{font-size:0.62rem;color:var(--muted);margin-top:2px}
-.jar-milestone{font-size:0.68rem;color:var(--muted);margin-top:6px;font-family:var(--mono)}
+/* ── NEW REAM BUTTON ── */
+.new-ream-btn{width:100%;padding:14px;background:transparent;
+  border:1px dashed var(--border);border-radius:14px;color:var(--text2);
+  font-family:var(--font);font-size:0.85rem;font-weight:600;cursor:pointer;
+  transition:all .2s;margin-bottom:8px;display:flex;align-items:center;
+  justify-content:center;gap:8px}
+.new-ream-btn:active{border-color:var(--yellow);color:var(--yellow)}
 
 /* ── SUMMARY TAB ── */
-.summary-stat{display:flex;justify-content:space-between;align-items:center;
+.section-head{font-size:0.65rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.09em;color:var(--text2);margin-bottom:10px;margin-top:4px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:16px;margin-bottom:12px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;
   padding:11px 0;border-bottom:1px solid var(--border)}
-.summary-stat:last-child{border-bottom:none}
-.summary-stat-label{font-size:0.75rem;color:var(--muted)}
-.summary-stat-value{font-size:0.85rem;font-weight:800;font-family:var(--mono)}
-.summary-stat-value.g{color:var(--accent2)}.summary-stat-value.o{color:var(--accent)}
-.summary-stat-value.r{color:var(--accent3)}.summary-stat-value.p{color:var(--purple)}
+.stat-row:last-child{border-bottom:none}
+.stat-label{font-size:0.78rem;color:var(--text2)}
+.stat-val{font-size:0.88rem;font-weight:800}
+.stat-val.g{color:var(--green)}.stat-val.y{color:var(--yellow)}
+.stat-val.r{color:var(--red)}.stat-val.w{color:var(--text)}
 
-.hist-item{padding:12px 0;border-bottom:1px solid var(--border)}
-.hist-item:last-child{border-bottom:none}
-.hist-header{display:flex;justify-content:space-between;margin-bottom:4px}
-.hist-ream{font-size:0.75rem;font-weight:700}
-.hist-saved{font-size:0.75rem;font-weight:800;font-family:var(--mono);color:var(--accent2)}
-.hist-meta{font-size:0.62rem;color:var(--muted);font-family:var(--mono)}
+.ream-hist-card{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:14px 16px;margin-bottom:8px}
+.rhc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.rhc-name{font-size:0.82rem;font-weight:700}
+.rhc-saved{font-size:0.88rem;font-weight:800;color:var(--green)}
+.rhc-meta{font-size:0.65rem;color:var(--text2);line-height:1.6}
 
-/* ── SETTINGS TAB ── */
-.settings-group{margin-bottom:20px}
-.settings-group-title{font-size:0.65rem;text-transform:uppercase;letter-spacing:.08em;
-  color:var(--muted);margin-bottom:10px;padding-left:2px}
-.settings-item{background:var(--card);border:1px solid var(--border);border-radius:12px;
-  padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
-.settings-label{font-size:0.82rem;font-weight:600}
-.settings-sub{font-size:0.65rem;color:var(--muted);margin-top:2px}
-.settings-value{font-size:0.82rem;font-family:var(--mono);color:var(--accent);font-weight:700}
-.settings-input{background:var(--bg);border:1px solid var(--border);border-radius:8px;
-  padding:6px 10px;color:var(--text);font-family:var(--mono);font-size:0.85rem;
-  width:90px;text-align:right;outline:none}
-.settings-input:focus{border-color:var(--accent)}
-.toggle{width:44px;height:24px;background:var(--border);border-radius:12px;
-  position:relative;cursor:pointer;transition:background .3s;border:none;flex-shrink:0}
-.toggle.on{background:var(--accent2)}
-.toggle::after{content:'';position:absolute;width:18px;height:18px;background:#fff;
-  border-radius:50%;top:3px;left:3px;transition:transform .3s}
-.toggle.on::after{transform:translateX(20px)}
-.save-settings-btn{width:100%;padding:13px;background:var(--accent2);border:none;
-  border-radius:11px;color:#000;font-family:var(--font);font-size:0.88rem;
-  font-weight:800;cursor:pointer;margin-top:8px}
+.tx-item{display:flex;align-items:center;gap:12px;padding:11px 0;
+  border-bottom:1px solid var(--border)}
+.tx-item:last-child{border-bottom:none}
+.tx-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tx-dot.inc{background:var(--green)}.tx-dot.exp{background:var(--red)}
+.tx-info{flex:1;min-width:0}
+.tx-note{font-size:0.78rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx-meta{font-size:0.62rem;color:var(--text2);margin-top:2px}
+.tx-amt{font-size:0.85rem;font-weight:800;flex-shrink:0}
+.tx-amt.inc{color:var(--green)}.tx-amt.exp{color:var(--red)}
 
-/* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;
+/* ── SETTINGS ── */
+.settings-group{margin-bottom:24px}
+.settings-group-title{font-size:0.65rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.09em;color:var(--text2);margin-bottom:10px}
+.setting-row{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.setting-info{flex:1}
+.setting-label{font-size:0.85rem;font-weight:600}
+.setting-sub{font-size:0.65rem;color:var(--text2);margin-top:2px}
+.setting-input{background:var(--bg);border:1px solid var(--border);border-radius:8px;
+  padding:8px 10px;color:var(--text);font-family:var(--font);font-size:0.9rem;
+  width:100px;text-align:right;outline:none;-webkit-appearance:none}
+.setting-input:focus{border-color:var(--yellow)}
+.save-btn{width:100%;padding:14px;background:var(--green);border:none;border-radius:14px;
+  color:#000;font-family:var(--font);font-size:0.95rem;font-weight:800;cursor:pointer;margin-top:4px}
+.danger-btn{width:100%;padding:13px;background:transparent;border:1px solid var(--red-border);
+  border-radius:14px;color:var(--red);font-family:var(--font);font-size:0.88rem;
+  font-weight:700;cursor:pointer;margin-top:8px}
+.export-btn{width:100%;padding:13px;background:transparent;border:1px solid var(--border);
+  border-radius:14px;color:var(--text2);font-family:var(--font);font-size:0.88rem;
+  font-weight:600;cursor:pointer;margin-top:8px}
+
+/* ── MODAL OVERLAY ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;
   display:none;align-items:flex-end;justify-content:center}
 .modal-overlay.show{display:flex}
-.modal{background:var(--surface);border-radius:20px 20px 0 0;padding:24px 20px;
+.modal{background:#1a1a1a;border-radius:20px 20px 0 0;padding:24px 20px;
   width:100%;max-width:500px;border-top:1px solid var(--border);
-  animation:slideUp .3s ease}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-title{font-size:1rem;font-weight:800;margin-bottom:20px}
-.modal-btn-row{display:flex;gap:10px;margin-top:16px}
-.modal-cancel{flex:1;padding:12px;background:var(--card);border:1px solid var(--border);
-  border-radius:10px;color:var(--text);font-family:var(--font);font-weight:700;cursor:pointer;font-size:0.85rem}
-.modal-confirm{flex:1;padding:12px;background:var(--accent);border:none;
-  border-radius:10px;color:#000;font-family:var(--font);font-weight:800;cursor:pointer;font-size:0.85rem}
-.modal-delete{flex:1;padding:12px;background:var(--accent3);border:none;
-  border-radius:10px;color:#000;font-family:var(--font);font-weight:800;cursor:pointer;font-size:0.85rem}
-
-/* ── ACHIEVEMENT POPUP ── */
-.achievement-popup{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-120px);
-  background:linear-gradient(135deg,#1e1a0e,#2a1f00);border:2px solid var(--accent);
-  border-radius:16px;padding:14px 20px;z-index:600;transition:transform .4s ease;
-  text-align:center;min-width:220px;max-width:300px}
-.achievement-popup.show{transform:translateX(-50%) translateY(0)}
-.ach-icon{font-size:2rem;margin-bottom:4px}
-.ach-title{font-size:0.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:2px}
-.ach-name{font-size:0.9rem;font-weight:800}
-.ach-desc{font-size:0.65rem;color:var(--muted);margin-top:2px}
+  animation:slideUp .3s ease;padding-bottom:calc(24px + var(--sb))}
+.modal-title{font-size:1rem;font-weight:800;margin-bottom:6px}
+.modal-sub{font-size:0.78rem;color:var(--text2);margin-bottom:20px;line-height:1.5}
+.modal-row{display:flex;gap:10px;margin-top:16px}
+.modal-cancel{flex:1;padding:13px;background:var(--card2);border:1px solid var(--border);
+  border-radius:12px;color:var(--text);font-family:var(--font);font-weight:700;
+  cursor:pointer;font-size:0.88rem}
+.modal-ok{flex:1;padding:13px;background:var(--yellow);border:none;
+  border-radius:12px;color:#000;font-family:var(--font);font-weight:800;
+  cursor:pointer;font-size:0.88rem}
+.modal-del{flex:1;padding:13px;background:var(--red);border:none;
+  border-radius:12px;color:#fff;font-family:var(--font);font-weight:800;
+  cursor:pointer;font-size:0.88rem}
+.modal-stat{display:flex;justify-content:space-between;padding:10px 0;
+  border-bottom:1px solid var(--border);font-size:0.82rem}
+.modal-stat:last-of-type{border-bottom:none}
+.modal-stat span:last-child{font-weight:800;color:var(--yellow)}
+.modal-new-ream{width:100%;padding:13px;background:var(--yellow);border:none;
+  border-radius:12px;color:#000;font-family:var(--font);font-weight:800;
+  cursor:pointer;font-size:0.88rem;margin-top:12px}
 
 /* ── TOAST ── */
-.toast{position:fixed;bottom:calc(80px + var(--sb));left:50%;
-  transform:translateX(-50%) translateY(80px);padding:10px 20px;border-radius:30px;
-  font-weight:700;font-size:0.78rem;transition:transform .3s ease;z-index:999;
-  white-space:nowrap;font-family:var(--font)}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.toast.good{background:var(--accent2);color:#000}
-.toast.bad{background:var(--accent3);color:#000}
-.toast.info{background:var(--accent);color:#000}
+.toast{position:fixed;bottom:calc(72px + var(--sb));left:50%;
+  transform:translateX(-50%) translateY(30px);opacity:0;
+  padding:11px 22px;border-radius:99px;font-weight:700;font-size:0.8rem;
+  z-index:999;white-space:nowrap;font-family:var(--font);
+  transition:transform .25s ease,opacity .25s ease;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.toast.good{background:var(--green);color:#000}
+.toast.bad{background:var(--red);color:#fff}
+.toast.info{background:var(--yellow);color:#000}
 
-select option{background:#1a1a24}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
-.pop{animation:pop .3s ease}
+select option{background:#1a1a1a}
+@keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 </style>
 </head>
 <body>
 
 <!-- ONBOARDING -->
-<div id="onboarding">
-  <div class="ob-logo">Print<span>Flow</span></div>
-  <div class="ob-sub">Your print business, under control.</div>
-  <div class="ob-label">Your name</div>
-  <input class="ob-input" id="obName" placeholder="e.g. Chidi" maxlength="30">
-  <div class="ob-label">Business name (optional)</div>
-  <input class="ob-input" id="obBiz" placeholder="e.g. Campus Prints">
-  <button class="ob-btn" onclick="finishOnboarding()">Let's Go 🚀</button>
-  <div class="ob-note">Your data stays on your phone only.<br>Nothing is sent anywhere.</div>
+<div id="ob">
+  <div class="ob-logo">Print<b>Flow</b></div>
+  <div class="ob-tagline">Your print business, under control.</div>
+  <div class="ob-field">
+    <label class="ob-label">Your name</label>
+    <input class="ob-input" id="obName" placeholder="e.g. Chidi" maxlength="30">
+  </div>
+  <div class="ob-field">
+    <label class="ob-label">Business name (optional)</label>
+    <input class="ob-input" id="obBiz" placeholder="e.g. Campus Prints">
+  </div>
+  <button class="ob-btn" onclick="finishOB()">Let's Go 🚀</button>
 </div>
 
-<!-- ACHIEVEMENT POPUP -->
-<div class="achievement-popup" id="achPopup">
-  <div class="ach-icon" id="achIcon">🏆</div>
-  <div class="ach-title">Achievement Unlocked!</div>
-  <div class="ach-name" id="achName"></div>
-  <div class="ach-desc" id="achDesc"></div>
+<!-- REAM INFO MODAL -->
+<div class="modal-overlay" id="reamModal">
+  <div class="modal">
+    <div class="modal-title" id="reamModalTitle">Ream 1</div>
+    <div class="modal-sub">Your current ream at a glance</div>
+    <div id="reamModalStats"></div>
+    <button class="modal-new-ream" onclick="closeModal('reamModal');startNewReam()">📄 Start New Ream</button>
+    <div class="modal-row">
+      <button class="modal-cancel" onclick="closeModal('reamModal')">Close</button>
+    </div>
+  </div>
 </div>
 
 <!-- EDIT MODAL -->
 <div class="modal-overlay" id="editModal">
   <div class="modal">
-    <div class="modal-title">✏️ Edit Entry</div>
-    <div class="form-group" style="margin-bottom:12px">
-      <label>Amount (₦)</label>
-      <input type="number" id="editAmount" inputmode="numeric">
+    <div class="modal-title">Edit Entry</div>
+    <div class="modal-sub" id="editPreview"></div>
+    <div class="field">
+      <label class="field-label">Amount (₦)</label>
+      <input class="field-input" type="number" id="editAmt" inputmode="numeric">
     </div>
-    <div class="form-group" style="margin-bottom:12px">
-      <label>Note</label>
-      <input type="text" id="editNote" maxlength="60">
+    <div class="field">
+      <label class="field-label">Note</label>
+      <input class="field-input" type="text" id="editNote" maxlength="60">
     </div>
-    <div class="form-group" style="margin-bottom:12px">
-      <label>Category (expenses only)</label>
-      <select id="editCategory">
-        <option value="">— Income / not applicable —</option>
+    <div class="field" id="editCatField">
+      <label class="field-label">Category</label>
+      <select class="field-input" id="editCat">
         <option value="Personal">Personal</option>
         <option value="Food">Food</option>
         <option value="Transport">Transport</option>
@@ -334,9 +360,9 @@ select option{background:#1a1a24}
         <option value="Other">Other</option>
       </select>
     </div>
-    <div class="modal-btn-row">
+    <div class="modal-row">
       <button class="modal-cancel" onclick="closeModal('editModal')">Cancel</button>
-      <button class="modal-confirm" onclick="confirmEdit()">Save</button>
+      <button class="modal-ok" onclick="saveEdit()">Save Changes</button>
     </div>
   </div>
 </div>
@@ -344,313 +370,232 @@ select option{background:#1a1a24}
 <!-- DELETE MODAL -->
 <div class="modal-overlay" id="deleteModal">
   <div class="modal">
-    <div class="modal-title">🗑️ Delete Entry?</div>
-    <div style="font-size:0.8rem;color:var(--muted);line-height:1.6" id="deletePreview"></div>
-    <div class="modal-btn-row">
+    <div class="modal-title">Delete this entry?</div>
+    <div class="modal-sub" id="deletePreview"></div>
+    <div class="modal-row">
       <button class="modal-cancel" onclick="closeModal('deleteModal')">Cancel</button>
-      <button class="modal-delete" onclick="confirmDelete()">Delete</button>
+      <button class="modal-del" onclick="confirmDelete()">Delete</button>
     </div>
   </div>
 </div>
 
 <!-- HEADER -->
 <header>
-  <div class="logo">Print<span>Flow</span></div>
+  <div class="logo">Print<b>Flow</b></div>
   <div class="header-right">
-    <div class="ream-badge" id="reamBadge">Ream Day 1</div>
-    <button class="settings-btn" onclick="switchTab('settings')">⚙️</button>
+    <div class="ream-pill" id="reamPill" onclick="openReamModal()">Ream 1</div>
+    <button class="icon-btn" onclick="switchTab('settings')" title="Settings">⚙️</button>
   </div>
 </header>
 
 <!-- TAB: HOME -->
 <div class="tab active" id="tab-home">
 
-  <div class="flag red" id="flagOver"><div class="flag-icon">🚨</div><div class="flag-title">DAILY BUDGET EXCEEDED</div><div class="flag-body" id="flagOverMsg"></div></div>
-  <div class="flag yellow" id="flagNear"><div class="flag-icon">⚠️</div><div class="flag-title">APPROACHING DAILY LIMIT</div><div class="flag-body" id="flagNearMsg"></div></div>
-  <div class="flag blue" id="flagSlow"><div class="flag-icon">📉</div><div class="flag-title">NO RECENT REVENUE</div><div class="flag-body" id="flagSlowMsg"></div></div>
-  <div class="flag yellow" id="flagBehind"><div class="flag-icon">🐢</div><div class="flag-title">BEHIND TARGET PACE</div><div class="flag-body" id="flagBehindMsg"></div></div>
+  <!-- Flag banners -->
+  <div class="flag danger" id="fOver"><div class="flag-head">🚨 You've gone over budget today</div><div class="flag-body" id="fOverMsg"></div></div>
+  <div class="flag warn" id="fNear"><div class="flag-head">⚠️ Almost at your daily limit</div><div class="flag-body" id="fNearMsg"></div></div>
+  <div class="flag info" id="fSlow"><div class="flag-head">📉 No revenue in a while</div><div class="flag-body" id="fSlowMsg"></div></div>
+  <div class="flag warn" id="fBehind"><div class="flag-head">🐢 You're behind pace</div><div class="flag-body" id="fBehindMsg"></div></div>
 
-  <!-- XP Bar -->
-  <div class="xp-bar-section">
-    <div class="xp-row">
-      <div class="xp-level" id="xpLevelLabel">Level 1</div>
-      <div class="xp-points" id="xpPoints">0 XP</div>
+  <!-- Today cards -->
+  <div class="today-grid">
+    <div class="today-card earned" onclick="scrollToLog()">
+      <div class="today-label">Made today</div>
+      <div class="today-amount yellow" id="todayInc">₦0</div>
+      <div class="today-sub" id="todaySalesSub">0 sales</div>
     </div>
-    <div class="xp-bar-bg"><div class="xp-bar-fill" id="xpBar" style="width:0%"></div></div>
-    <div class="level-title" id="levelTitle">Apprentice Printer</div>
-  </div>
-
-  <!-- KPIs -->
-  <div class="kpi-grid">
-    <div class="kpi hl"><div class="kpi-label">Today's Revenue</div><div class="kpi-value o" id="todayRevenue">₦0</div><div class="kpi-sub" id="todaySub">No sales yet</div></div>
-    <div class="kpi"><div class="kpi-label">Today's Expenses</div><div class="kpi-value r" id="todayExpenses">₦0</div><div class="kpi-sub" id="expSub">Net: ₦0</div></div>
-    <div class="kpi full"><div class="kpi-label">Ream Total Revenue</div><div class="kpi-value g" id="reamRevenue">₦0</div><div class="kpi-sub" id="reamSub">Loading...</div></div>
-  </div>
-
-  <!-- Ream Progress -->
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px">
-      <div style="font-size:0.73rem;font-weight:700">📄 Ream Progress</div>
-      <div style="font-size:0.66rem;font-family:var(--mono);color:var(--muted)" id="reamPercent">0%</div>
+    <div class="today-card" onclick="switchTab('summary')">
+      <div class="today-label">Spent today</div>
+      <div class="today-amount red" id="todayExp">₦0</div>
+      <div class="today-sub" id="todayNetSub">Net: ₦0</div>
     </div>
-    <div class="bar-bg"><div class="bar-fill ok" id="reamBar" style="width:0%"></div></div>
-    <div style="display:flex;justify-content:space-between;font-size:0.6rem;font-family:var(--mono);color:var(--muted)">
-      <span id="reamEarned">₦0 earned</span><span id="reamLeft">₦25,000 to go</span>
+  </div>
+
+  <!-- Ream progress -->
+  <div class="ream-card" id="reamCard" onclick="switchTab('summary')">
+    <div class="ream-card-header">
+      <div class="ream-card-title">This ream — tap to see history</div>
+      <div style="width:36px"></div><!-- spacer for + btn -->
     </div>
-    <div style="margin-top:9px;font-size:0.64rem;color:var(--muted);line-height:1.6;font-family:var(--mono)" id="reamInsight">Log your first sale to see projections.</div>
-  </div>
-
-  <!-- Spend Box -->
-  <div class="spend-box safe" id="spendBox">
-    <div class="spend-title" id="spendTitle">✅ Spending on Track</div>
-    <div class="spend-big" id="spendBig">₦2,500</div>
-    <div class="spend-sub" id="spendSub">remaining today of ₦2,500 daily budget</div>
-    <div class="meter-label"><span id="meterLeft">₦0 spent today</span><span id="meterRight">₦2,500 limit</span></div>
-    <div class="meter-bg"><div class="meter-fill ok" id="meterFill" style="width:0%"></div></div>
-  </div>
-
-  <!-- Savings Jar -->
-  <div class="jar-section">
-    <div style="font-size:0.72rem;font-weight:700;margin-bottom:10px">🐷 Savings Jar</div>
-    <div class="jar-wrap">
-      <svg class="jar-svg" viewBox="0 0 80 100">
-        <rect x="10" y="20" width="60" height="70" rx="10" fill="#1a1a24" stroke="#2a2a3a" stroke-width="2"/>
-        <rect x="20" y="10" width="40" height="14" rx="5" fill="#2a2a3a"/>
-        <rect id="jarFill" x="12" y="88" width="56" height="0" rx="6" fill="#4ade80" opacity="0.7"/>
-        <text x="40" y="62" text-anchor="middle" font-family="Arial" font-size="18">🐷</text>
-      </svg>
+    <button class="ream-add-btn" onclick="event.stopPropagation();openReamModal()" title="Ream options">+</button>
+    <div class="progress-track">
+      <div class="progress-fill going" id="reamFill" style="width:0%"></div>
     </div>
-    <div class="jar-amount" id="jarAmount">₦0</div>
-    <div class="jar-label">total saved across all reams</div>
-    <div class="jar-milestone" id="jarMilestone"></div>
+    <div class="ream-numbers">
+      <span>Earned <b id="reamEarned">₦0</b></span>
+      <span id="reamPct" style="font-weight:800;color:var(--yellow)">0%</span>
+      <span>Target <b>₦25,000</b></span>
+    </div>
+    <div style="margin-top:10px;font-size:0.7rem;color:var(--text2)" id="reamNote"></div>
   </div>
 
-  <!-- Log Income -->
-  <div class="card">
-    <div class="section-title">+ Log Revenue</div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Amount (₦)</label>
-        <input type="number" id="incomeAmount" placeholder="e.g. 1500" inputmode="numeric">
+  <!-- Spend status -->
+  <div class="spend-box safe" id="spendBox" onclick="switchTab('summary')">
+    <div class="spend-status-label" id="spendLabel">Spending on Track — tap to see breakdown</div>
+    <div class="spend-amount" id="spendAmt">₦2,500</div>
+    <div class="spend-desc" id="spendDesc">left to spend today</div>
+    <div class="spend-meter-labels">
+      <span id="spentSoFar">₦0 spent</span>
+      <span id="dailyLimitLabel">₦2,500 limit</span>
+    </div>
+    <div class="meter-track">
+      <div class="meter-fill safe" id="meterFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Log section -->
+  <div class="log-section" id="logSection">
+    <div class="log-toggle">
+      <button class="log-toggle-btn active-inc" id="incToggle" onclick="setLogMode('income')">+ Log Income</button>
+      <button class="log-toggle-btn" id="expToggle" onclick="setLogMode('expense')">− Log Expense</button>
+    </div>
+
+    <!-- Income form -->
+    <div class="log-form" id="incForm">
+      <div class="field">
+        <label class="field-label">Amount (₦)</label>
+        <input class="field-input" type="number" id="incAmt" placeholder="e.g. 1500" inputmode="numeric">
       </div>
-    </div>
-    <label>Payment Method</label>
-    <div class="pay-toggle">
-      <button class="pay-btn ac" id="cashBtn" onclick="setPayment('cash')">💵 Cash</button>
-      <button class="pay-btn" id="transferBtn" onclick="setPayment('transfer')">🏦 Transfer</button>
-    </div>
-    <div class="form-group" style="margin-bottom:10px">
-      <label>Short Note (optional)</label>
-      <textarea id="incomeNote" placeholder="e.g. 3 students, thesis printing…"></textarea>
-    </div>
-    <button class="log-btn" onclick="logIncome()">LOG INCOME</button>
-  </div>
-
-  <!-- Log Expense -->
-  <div class="card">
-    <div class="section-title" style="color:var(--accent3)">− Log Expense</div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Amount (₦)</label>
-        <input type="number" id="expenseAmount" placeholder="e.g. 500" inputmode="numeric">
+      <label class="field-label">How they paid</label>
+      <div class="pay-row">
+        <button class="pay-opt sel-cash" id="cashBtn" onclick="setPayment('cash')">💵 Cash</button>
+        <button class="pay-opt" id="transferBtn" onclick="setPayment('transfer')">🏦 Transfer</button>
       </div>
-      <div class="form-group">
-        <label>Category</label>
-        <select id="expenseCategory">
-          <option value="Personal">Personal</option>
-          <option value="Food">Food</option>
-          <option value="Transport">Transport</option>
-          <option value="Restock">Paper/Restock</option>
-          <option value="Other">Other</option>
-        </select>
+      <div class="field">
+        <label class="field-label">Note (optional)</label>
+        <textarea class="field-input" id="incNote" placeholder="e.g. 3 students, thesis…"></textarea>
       </div>
+      <button class="submit-btn inc" onclick="logIncome()">Record Income</button>
     </div>
-    <div class="form-group" style="margin-bottom:10px">
-      <label>Short Note</label>
-      <textarea id="expenseNote" placeholder="e.g. lunch, transport, airtime…"></textarea>
-    </div>
-    <button class="exp-btn" onclick="logExpense()">LOG EXPENSE</button>
-  </div>
 
-  <!-- Recent Feed -->
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <div class="section-title" style="margin-bottom:0">Recent Activity</div>
-      <div style="font-size:0.62rem;color:var(--muted);font-family:var(--mono)" id="feedCount"></div>
-    </div>
-    <div id="feedList"><div class="empty-state">No transactions yet.<br>Log your first sale above ↑</div></div>
-  </div>
-
-  <button class="ghost-btn" onclick="newReam()">📄 Start New Ream of Paper</button>
-</div>
-
-<!-- TAB: GAME -->
-<div class="tab" id="tab-game">
-  <div style="margin-bottom:14px">
-    <div style="font-size:1rem;font-weight:800;margin-bottom:2px" id="gameGreeting">Hey! 👋</div>
-    <div style="font-size:0.72rem;color:var(--muted)" id="gameSubtitle">Keep going — you're doing great.</div>
-  </div>
-
-  <!-- XP + Level -->
-  <div class="xp-bar-section">
-    <div class="xp-row">
-      <div class="xp-level" id="xpLevelLabel2">Level 1</div>
-      <div class="xp-points" id="xpPoints2">0 XP</div>
-    </div>
-    <div class="xp-bar-bg"><div class="xp-bar-fill" id="xpBar2" style="width:0%"></div></div>
-    <div class="level-title" id="levelTitle2">Apprentice Printer — next level in 0 XP</div>
-  </div>
-
-  <!-- Streaks -->
-  <div class="streak-row">
-    <div class="streak-card">
-      <div class="streak-num fire" id="logStreak">0🔥</div>
-      <div class="streak-label">Day Logging Streak</div>
-    </div>
-    <div class="streak-card">
-      <div class="streak-num shield" id="budgetStreak">0🛡️</div>
-      <div class="streak-label">Budget Clean Streak</div>
-    </div>
-  </div>
-
-  <!-- Savings jar big -->
-  <div class="card" style="text-align:center">
-    <div style="font-size:0.72rem;font-weight:700;margin-bottom:8px">🐷 Total Savings Jar</div>
-    <div style="font-size:2.2rem;font-weight:800;font-family:var(--mono);color:var(--accent2)" id="jarAmount2">₦0</div>
-    <div style="font-size:0.65rem;color:var(--muted);margin-top:4px" id="jarMilestone2">Start saving to unlock milestones</div>
-    <div style="margin-top:10px">
-      <div class="bar-bg"><div class="bar-fill ok" id="jarBar" style="width:0%"></div></div>
-      <div style="display:flex;justify-content:space-between;font-size:0.6rem;font-family:var(--mono);color:var(--muted);margin-top:4px">
-        <span id="jarLeft2">₦0 saved</span><span id="jarNext">Next: ₦10,000</span>
+    <!-- Expense form -->
+    <div class="log-form" id="expForm" style="display:none">
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Amount (₦)</label>
+          <input class="field-input exp" type="number" id="expAmt" placeholder="e.g. 500" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label class="field-label">Category</label>
+          <select class="field-input exp" id="expCat">
+            <option value="Personal">Personal</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Restock">Paper/Restock</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
       </div>
+      <div class="field">
+        <label class="field-label">Note</label>
+        <textarea class="field-input exp" id="expNote" placeholder="e.g. lunch, transport…"></textarea>
+      </div>
+      <button class="submit-btn exp" onclick="logExpense()">Record Expense</button>
     </div>
   </div>
 
-  <!-- Badges -->
-  <div class="card">
-    <div class="section-title" style="color:var(--purple)">🏅 Achievements</div>
-    <div class="badges-grid" id="badgesGrid"></div>
+  <!-- Today's feed -->
+  <div class="feed-section">
+    <div class="feed-header">
+      <div class="feed-title">Today's transactions</div>
+      <div class="feed-count" id="feedCount"></div>
+    </div>
+    <div id="feedList"><div class="empty">Nothing logged yet today.<br>Record your first sale above ↑</div></div>
   </div>
 
-  <!-- Best stats -->
-  <div class="card">
-    <div class="section-title" style="color:var(--blue)">⚡ Personal Bests</div>
-    <div class="summary-stat"><span class="summary-stat-label">Best single sale</span><span class="summary-stat-value o" id="bestSale">₦0</span></div>
-    <div class="summary-stat"><span class="summary-stat-label">Best day ever</span><span class="summary-stat-value o" id="bestDay">₦0</span></div>
-    <div class="summary-stat"><span class="summary-stat-label">Best savings in a ream</span><span class="summary-stat-value g" id="bestReamSave">₦0</span></div>
-    <div class="summary-stat"><span class="summary-stat-label">Longest log streak</span><span class="summary-stat-value p" id="bestLogStreak">0 days</span></div>
-    <div class="summary-stat" style="border:none"><span class="summary-stat-label">Longest budget streak</span><span class="summary-stat-value p" id="bestBudgetStreak">0 days</span></div>
-  </div>
+  <button class="new-ream-btn" onclick="startNewReam()">📄 Start New Ream of Paper</button>
 </div>
 
 <!-- TAB: SUMMARY -->
 <div class="tab" id="tab-summary">
-  <div class="card">
-    <div class="section-title">📊 All-Time Summary</div>
-    <div class="summary-stat"><span class="summary-stat-label">Total revenue earned</span><span class="summary-stat-value g" id="statTotalRev">₦0</span></div>
-    <div class="summary-stat"><span class="summary-stat-label">Total expenses</span><span class="summary-stat-value r" id="statTotalExp">₦0</span></div>
-    <div class="summary-stat"><span class="summary-stat-label">Total saved</span><span class="summary-stat-value g" id="statTotalSaved">₦0</span></div>
-    <div class="summary-stat"><span class="summary-stat-label">Reams completed</span><span class="summary-stat-value o" id="statReams">0</span></div>
-    <div class="summary-stat"><span class="summary-stat-label">Days tracked</span><span class="summary-stat-value p" id="statDays">0</span></div>
-    <div class="summary-stat" style="border:none"><span class="summary-stat-label">Avg revenue per day</span><span class="summary-stat-value o" id="statAvgDay">₦0</span></div>
+
+  <div class="section-head">Current Ream</div>
+  <div class="stat-card">
+    <div class="stat-row"><span class="stat-label">Revenue earned</span><span class="stat-val g" id="ssCurRev">₦0</span></div>
+    <div class="stat-row"><span class="stat-label">Expenses paid</span><span class="stat-val r" id="ssCurExp">₦0</span></div>
+    <div class="stat-row"><span class="stat-label">Paper cost</span><span class="stat-val r" id="ssPaperCost">₦5,000</span></div>
+    <div class="stat-row"><span class="stat-label">What you actually made</span><span class="stat-val g" id="ssCurNet">₦0</span></div>
+    <div class="stat-row"><span class="stat-label">Days on this ream</span><span class="stat-val w" id="ssCurDays">1</span></div>
   </div>
 
-  <!-- Current ream summary -->
-  <div class="card">
-    <div class="section-title">📄 Current Ream</div>
-    <div class="summary-stat"><span class="summary-stat-label">Revenue so far</span><span class="summary-stat-value g" id="curRev">₦0</span></div>
-    <div class="summary-stat"><span class="summary-stat-label">Expenses so far</span><span class="summary-stat-value r" id="curExp">₦0</span></div>
-    <div class="summary-stat"><span class="summary-stat-label">Net (after paper cost)</span><span class="summary-stat-value g" id="curNet">₦0</span></div>
-    <div class="summary-stat"><span class="summary-stat-label">Days active</span><span class="summary-stat-value o" id="curDays">0</span></div>
-    <div class="summary-stat" style="border:none"><span class="summary-stat-label">Projected savings this ream</span><span class="summary-stat-value p" id="curProj">₦0</span></div>
+  <div class="section-head">Today's Spending by Category</div>
+  <div class="stat-card" id="ssExpBreak"><div class="empty">No expenses today.</div></div>
+
+  <div class="section-head">All-Time</div>
+  <div class="stat-card">
+    <div class="stat-row"><span class="stat-label">Total earned (ever)</span><span class="stat-val g" id="ssTotalRev">₦0</span></div>
+    <div class="stat-row"><span class="stat-label">Total spent (ever)</span><span class="stat-val r" id="ssTotalExp">₦0</span></div>
+    <div class="stat-row"><span class="stat-label">Reams completed</span><span class="stat-val y" id="ssTotalReams">0</span></div>
+    <div class="stat-row"><span class="stat-label">Best single sale</span><span class="stat-val y" id="ssBestSale">₦0</span></div>
+    <div class="stat-row"><span class="stat-label">Best day ever</span><span class="stat-val y" id="ssBestDay">₦0</span></div>
   </div>
 
-  <!-- Expense breakdown -->
-  <div class="card">
-    <div class="section-title">💸 Expense Breakdown (current ream)</div>
-    <div id="expBreakdown"><div class="empty-state">No expenses yet.</div></div>
-  </div>
+  <div class="section-head">Past Reams</div>
+  <div id="ssReamHist"><div class="empty" style="padding:20px 0">Complete your first ream to see history here.</div></div>
 
-  <!-- Ream history -->
-  <div class="card">
-    <div class="section-title">📜 Ream History</div>
-    <div id="reamHistory"><div class="empty-state">Complete your first ream to see history.</div></div>
-  </div>
+  <div class="section-head">All Transactions</div>
+  <div class="stat-card" id="ssAllTx"><div class="empty">No transactions yet.</div></div>
+
 </div>
 
 <!-- TAB: SETTINGS -->
 <div class="tab" id="tab-settings">
-  <div style="font-size:1rem;font-weight:800;margin-bottom:16px" id="settingsGreeting">Settings</div>
-
   <div class="settings-group">
-    <div class="settings-group-title">Business</div>
-    <div class="settings-item">
-      <div><div class="settings-label">Your Name</div></div>
-      <input class="settings-input" id="sName" style="width:130px;text-align:right">
+    <div class="settings-group-title">About You</div>
+    <div class="setting-row">
+      <div class="setting-info"><div class="setting-label">Your Name</div></div>
+      <input class="setting-input" id="sName" type="text">
     </div>
-    <div class="settings-item">
-      <div><div class="settings-label">Business Name</div></div>
-      <input class="settings-input" id="sBiz" style="width:130px;text-align:right">
+    <div class="setting-row">
+      <div class="setting-info"><div class="setting-label">Business Name</div></div>
+      <input class="setting-input" id="sBiz" type="text">
     </div>
   </div>
 
   <div class="settings-group">
-    <div class="settings-group-title">Ream Financials</div>
-    <div class="settings-item">
-      <div><div class="settings-label">Ream Cost (₦)</div><div class="settings-sub">What you pay per ream</div></div>
-      <input class="settings-input" id="sReamCost" type="number" inputmode="numeric">
+    <div class="settings-group-title">Ream Numbers</div>
+    <div class="setting-row">
+      <div class="setting-info">
+        <div class="setting-label">Cost per ream (₦)</div>
+        <div class="setting-sub">What you pay for one ream</div>
+      </div>
+      <input class="setting-input" id="sReamCost" type="number" inputmode="numeric">
     </div>
-    <div class="settings-item">
-      <div><div class="settings-label">Ream Target (₦)</div><div class="settings-sub">Revenue you make per ream</div></div>
-      <input class="settings-input" id="sReamTarget" type="number" inputmode="numeric">
+    <div class="setting-row">
+      <div class="setting-info">
+        <div class="setting-label">Revenue per ream (₦)</div>
+        <div class="setting-sub">What you make from one ream</div>
+      </div>
+      <input class="setting-input" id="sReamTarget" type="number" inputmode="numeric">
     </div>
-    <div class="settings-item">
-      <div><div class="settings-label">Save Goal (₦)</div><div class="settings-sub">Target savings per ream</div></div>
-      <input class="settings-input" id="sSaveGoal" type="number" inputmode="numeric">
+    <div class="setting-row">
+      <div class="setting-info">
+        <div class="setting-label">Ream lasts (days)</div>
+        <div class="setting-sub">How long one ream usually lasts</div>
+      </div>
+      <input class="setting-input" id="sReamDays" type="number" inputmode="numeric">
     </div>
-    <div class="settings-item">
-      <div><div class="settings-label">Daily Budget (₦)</div><div class="settings-sub">Max personal spend per day</div></div>
-      <input class="settings-input" id="sDailyBudget" type="number" inputmode="numeric">
-    </div>
-    <div class="settings-item">
-      <div><div class="settings-label">Ream Duration (days)</div><div class="settings-sub">How long 1 ream usually lasts</div></div>
-      <input class="settings-input" id="sReamDays" type="number" inputmode="numeric">
-    </div>
-  </div>
-
-  <div class="settings-group">
-    <div class="settings-group-title">Reminders</div>
-    <div class="settings-item">
-      <div><div class="settings-label">Daily Log Reminder</div><div class="settings-sub">Remind me to log sales each evening</div></div>
-      <button class="toggle" id="toggleReminder" onclick="toggleReminder()"></button>
-    </div>
-    <div class="settings-item">
-      <div><div class="settings-label">Budget Warning</div><div class="settings-sub">Warn me when near daily limit</div></div>
-      <button class="toggle on" id="toggleBudgetWarn" onclick="toggleSetting('budgetWarn','toggleBudgetWarn')"></button>
+    <div class="setting-row">
+      <div class="setting-info">
+        <div class="setting-label">Daily spending limit (₦)</div>
+        <div class="setting-sub">Max you allow yourself per day</div>
+      </div>
+      <input class="setting-input" id="sDailyBudget" type="number" inputmode="numeric">
     </div>
   </div>
 
-  <div class="settings-group">
-    <div class="settings-group-title">Display</div>
-    <div class="settings-item">
-      <div><div class="settings-label">Haptic Feedback</div><div class="settings-sub">Vibrate on log actions</div></div>
-      <button class="toggle on" id="toggleHaptic" onclick="toggleSetting('haptic','toggleHaptic')"></button>
-    </div>
-  </div>
+  <button class="save-btn" onclick="saveSettings()">Save Settings</button>
 
-  <button class="save-settings-btn" onclick="saveSettings()">Save Settings ✓</button>
-
-  <div class="settings-group" style="margin-top:20px">
+  <div class="settings-group" style="margin-top:24px">
     <div class="settings-group-title">Data</div>
-    <button class="ghost-btn" onclick="exportData()" style="margin-bottom:8px">📤 Export Data (JSON backup)</button>
-    <button class="ghost-btn" style="border-color:var(--accent3);color:var(--accent3)" onclick="confirmClearData()">🗑️ Clear All Data</button>
+    <button class="export-btn" onclick="exportData()">📤 Export Backup (JSON)</button>
+    <button class="danger-btn" onclick="clearData()">🗑️ Delete All Data</button>
   </div>
 </div>
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="nav-btn active" id="nav-home" onclick="switchTab('home')"><span class="nav-icon">🏠</span>Home</button>
-  <button class="nav-btn" id="nav-game" onclick="switchTab('game')"><span class="nav-icon">🏆</span>Game</button>
   <button class="nav-btn" id="nav-summary" onclick="switchTab('summary')"><span class="nav-icon">📊</span>Summary</button>
   <button class="nav-btn" id="nav-settings" onclick="switchTab('settings')"><span class="nav-icon">⚙️</span>Settings</button>
 </nav>
@@ -658,670 +603,386 @@ select option{background:#1a1a24}
 <div class="toast" id="toast"></div>
 
 <script>
-// ── DEFAULT SETTINGS ─────────────────────────────────────
-const DEFAULTS = {
-  reamCost:5000, reamTarget:25000, saveGoal:12500,
-  dailyBudget:2500, reamDays:3,
-  budgetWarn:true, haptic:true, reminder:false,
-  name:'', biz:''
-};
+// ─── DEFAULTS ────────────────────────────────────────────
+const DEF = { reamCost:5000, reamTarget:25000, reamDays:3, dailyBudget:2500, name:'', biz:'' };
 
-const NEAR_PCT=0.80, SLOW_THRESHOLD=2, BEHIND_RATIO=0.55;
+// ─── STATE ───────────────────────────────────────────────
+let S = load('pf_s4') || { reamStart:today(), txs:[], oldReams:[] };
+let ST = load('pf_st4') || {...DEF};
+let logMode = 'income', payment = 'cash', editIdx = null, deleteIdx = null;
 
-// ── LEVELS ───────────────────────────────────────────────
-const LEVELS=[
-  {lvl:1,title:'Apprentice Printer',xp:0},
-  {lvl:2,title:'Journeyman',xp:100},
-  {lvl:3,title:'Pro Printer',xp:300},
-  {lvl:4,title:'Print Veteran',xp:600},
-  {lvl:5,title:'Print Boss',xp:1000},
-  {lvl:6,title:'Print King 👑',xp:1500},
-  {lvl:7,title:'Print Legend 🌟',xp:2500},
-];
+function load(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null; }catch(e){return null;} }
+function save(){ try{ localStorage.setItem('pf_s4',JSON.stringify(S)); localStorage.setItem('pf_st4',JSON.stringify(ST)); }catch(e){} }
 
-// ── BADGES ───────────────────────────────────────────────
-const ALL_BADGES=[
-  {id:'first_sale',icon:'🖨️',name:'First Sale',desc:'Log your very first sale'},
-  {id:'clean_day',icon:'✅',name:'Clean Day',desc:'Stay under budget for a full day'},
-  {id:'full_ream',icon:'📄',name:'Full Ream',desc:'Hit your ream revenue target'},
-  {id:'streak3',icon:'🔥',name:'On Fire',desc:'Log sales 3 days in a row'},
-  {id:'streak7',icon:'🔥🔥',name:'Inferno',desc:'Log sales 7 days in a row'},
-  {id:'big_fish',icon:'🐟',name:'Big Fish',desc:'Single transaction over ₦5,000'},
-  {id:'whale',icon:'🐋',name:'Whale',desc:'Single transaction over ₦20,000'},
-  {id:'disciplined',icon:'🛡️',name:'Disciplined',desc:'Stay under budget 5 days in a row'},
-  {id:'saver',icon:'🐷',name:'First Savings',desc:'Save ₦10,000 across reams'},
-  {id:'saver2',icon:'💰',name:'Money Bag',desc:'Save ₦50,000 across reams'},
-  {id:'speed',icon:'⚡',name:'Speed Run',desc:'Hit ream target in 1 day'},
-  {id:'comeback',icon:'💪',name:'Comeback',desc:'Beat previous ream savings record'},
-];
+// ─── UTILS ───────────────────────────────────────────────
+function today(){ return new Date().toDateString(); }
+function fmt(n){ return Math.abs(Math.round(n)).toLocaleString('en-NG'); }
+function el(id){ return document.getElementById(id); }
+function reamTxs(){ return S.txs.filter(t=>!t.old); }
+function todayTxs(){ return S.txs.filter(t=>t.date===today()&&!t.old); }
+function sumInc(arr){ return arr.filter(t=>t.type==='inc').reduce((s,t)=>s+t.amt,0); }
+function sumExp(arr){ return arr.filter(t=>t.type==='exp').reduce((s,t)=>s+t.amt,0); }
+function dayNum(){ return Math.max(1,Math.floor((new Date()-new Date(S.reamStart))/86400000)+1); }
+function reamNum(){ return (S.oldReams||[]).length + 1; }
+function vibrate(){ try{ navigator.vibrate && navigator.vibrate(35); }catch(e){} }
 
-// ── STATE ────────────────────────────────────────────────
-let state=loadState(), settings=loadSettings(), editingIdx=null, deletingIdx=null, selectedPayment='cash';
-
-function loadState(){
-  try{const s=localStorage.getItem('pf_state_v3');if(s)return JSON.parse(s);}catch(e){}
-  return{reamStart:new Date().toDateString(),transactions:[],oldReams:[],
-    earnedBadges:[],xp:0,logStreak:0,budgetStreak:0,lastLogDate:'',lastBudgetOk:'',
-    bestLogStreak:0,bestBudgetStreak:0,totalSaved:0};
-}
-
-function loadSettings(){
-  try{const s=localStorage.getItem('pf_settings_v1');if(s)return Object.assign({},DEFAULTS,JSON.parse(s));}catch(e){}
-  return Object.assign({},DEFAULTS);
-}
-
-function save(){
-  try{localStorage.setItem('pf_state_v3',JSON.stringify(state));}catch(e){}
-  try{localStorage.setItem('pf_settings_v1',JSON.stringify(settings));}catch(e){}
-}
-
-// ── ONBOARDING ───────────────────────────────────────────
+// ─── ONBOARDING ──────────────────────────────────────────
 window.addEventListener('load',()=>{
-  if(!settings.name){
-    document.getElementById('onboarding').style.display='flex';
-  } else {
-    document.getElementById('onboarding').style.display='none';
-    render();
-  }
+  if(!ST.name){ el('ob').style.display='flex'; }
+  else { el('ob').style.display='none'; render(); }
 });
 
-function finishOnboarding(){
-  const n=document.getElementById('obName').value.trim();
-  if(!n){showToast('Enter your name','bad');return;}
-  settings.name=n;
-  settings.biz=document.getElementById('obBiz').value.trim();
-  save();
-  document.getElementById('onboarding').style.display='none';
-  render();
-  setTimeout(()=>showAchievement('first_sale'),800);
+function finishOB(){
+  const n = el('obName').value.trim();
+  if(!n){ toast('Enter your name','bad'); return; }
+  ST.name = n; ST.biz = el('obBiz').value.trim();
+  save(); el('ob').style.display='none'; render();
 }
 
-// ── TAB SWITCHING ────────────────────────────────────────
+// ─── TAB SWITCHING ────────────────────────────────────────
 function switchTab(t){
-  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(el=>el.classList.remove('active'));
-  document.getElementById('tab-'+t).classList.add('active');
-  const nb=document.getElementById('nav-'+t);
-  if(nb)nb.classList.add('active');
-  if(t==='summary')renderSummary();
-  if(t==='game')renderGame();
-  if(t==='settings')loadSettingsUI();
+  document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(e=>e.classList.remove('active'));
+  el('tab-'+t).classList.add('active');
+  const nb = el('nav-'+t); if(nb) nb.classList.add('active');
+  if(t==='summary') renderSummary();
+  if(t==='settings') loadSettings();
+  window.scrollTo(0,0);
 }
 
-// ── HELPERS ──────────────────────────────────────────────
-const today=()=>new Date().toDateString();
-const fmt=n=>Math.abs(Math.round(n)).toLocaleString('en-NG');
-const el=id=>document.getElementById(id);
-const getReamTx=()=>state.transactions.filter(t=>!t.oldReam);
-const getTodayTx=()=>state.transactions.filter(t=>t.date===today()&&!t.oldReam);
-const getTodayExp=()=>getTodayTx().filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
-const sumInc=tx=>tx.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
-const sumExp=tx=>tx.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
-const getDayNum=()=>Math.max(1,Math.floor((new Date()-new Date(state.reamStart))/86400000)+1);
-
-function setPayment(type){
-  selectedPayment=type;
-  el('cashBtn').className='pay-btn'+(type==='cash'?' ac':'');
-  el('transferBtn').className='pay-btn'+(type==='transfer'?' at':'');
+// ─── LOG MODE ────────────────────────────────────────────
+function setLogMode(m){
+  logMode = m;
+  el('incForm').style.display = m==='income'?'block':'none';
+  el('expForm').style.display = m==='expense'?'block':'none';
+  el('incToggle').className = 'log-toggle-btn'+(m==='income'?' active-inc':'');
+  el('expToggle').className = 'log-toggle-btn'+(m==='expense'?' active-exp':'');
 }
 
-function vibrate(){if(settings.haptic&&navigator.vibrate)navigator.vibrate(40);}
-
-// ── XP + LEVELS ──────────────────────────────────────────
-function addXP(pts){
-  const before=getCurrentLevel();
-  state.xp=(state.xp||0)+pts;
-  const after=getCurrentLevel();
-  save();
-  if(after.lvl>before.lvl){
-    setTimeout(()=>{
-      showToast(`🎉 Level Up! ${after.title}`,'info');
-    },500);
-  }
+function setPayment(p){
+  payment = p;
+  el('cashBtn').className = 'pay-opt'+(p==='cash'?' sel-cash':'');
+  el('transferBtn').className = 'pay-opt'+(p==='transfer'?' sel-transfer':'');
 }
 
-function getCurrentLevel(){
-  let cur=LEVELS[0];
-  for(const l of LEVELS){if(state.xp>=l.xp)cur=l;else break;}
-  return cur;
+function scrollToLog(){
+  el('logSection').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function getNextLevel(){
-  const cur=getCurrentLevel();
-  return LEVELS.find(l=>l.lvl===cur.lvl+1)||null;
-}
-
-function renderXP(){
-  const cur=getCurrentLevel();
-  const nxt=getNextLevel();
-  const xpInLevel=state.xp-cur.xp;
-  const xpNeeded=nxt?nxt.xp-cur.xp:1;
-  const pct=nxt?Math.round((xpInLevel/xpNeeded)*100):100;
-
-  ['xpLevelLabel','xpLevelLabel2'].forEach(id=>{if(el(id))el(id).textContent=`Level ${cur.lvl}`;});
-  ['xpPoints','xpPoints2'].forEach(id=>{if(el(id))el(id).textContent=`${state.xp} XP`;});
-  ['xpBar','xpBar2'].forEach(id=>{if(el(id))el(id).style.width=pct+'%';});
-  ['levelTitle'].forEach(id=>{if(el(id))el(id).textContent=cur.title;});
-  if(el('levelTitle2'))el('levelTitle2').textContent=`${cur.title}${nxt?` — ${nxt.xp-state.xp} XP to next level`:'— MAX LEVEL!'}`;
-}
-
-// ── STREAKS ──────────────────────────────────────────────
-function updateStreaks(){
-  const tod=today();
-  const yesterday=new Date(); yesterday.setDate(yesterday.getDate()-1);
-  const yStr=yesterday.toDateString();
-
-  // Log streak
-  if(state.lastLogDate===tod){/* same day */}
-  else if(state.lastLogDate===yStr){state.logStreak=(state.logStreak||0)+1;}
-  else if(state.lastLogDate!==tod){state.logStreak=1;}
-  state.lastLogDate=tod;
-  if((state.logStreak||0)>(state.bestLogStreak||0))state.bestLogStreak=state.logStreak;
-
-  // Budget streak
-  const todayExp=getTodayExp();
-  if(todayExp<=settings.dailyBudget){
-    if(state.lastBudgetOk===yStr||state.lastBudgetOk===tod){
-      if(state.lastBudgetOk!==tod){state.budgetStreak=(state.budgetStreak||0)+1;}
-    } else {state.budgetStreak=1;}
-    state.lastBudgetOk=tod;
-    if((state.budgetStreak||0)>(state.bestBudgetStreak||0))state.bestBudgetStreak=state.budgetStreak;
-  }
-}
-
-// ── BADGE LOGIC ──────────────────────────────────────────
-function checkBadges(newTx){
-  const earned=state.earnedBadges||[];
-  const give=(id)=>{
-    if(!earned.includes(id)){
-      earned.push(id);
-      state.earnedBadges=earned;
-      setTimeout(()=>showAchievement(id),800);
-      addXP(50);
-    }
-  };
-
-  const allTx=state.transactions.filter(t=>!t.oldReam);
-  const allIncome=allTx.filter(t=>t.type==='income');
-  const reamIncome=sumInc(allTx);
-
-  if(allIncome.length>=1)give('first_sale');
-  if(newTx&&newTx.amount>=5000)give('big_fish');
-  if(newTx&&newTx.amount>=20000)give('whale');
-  if(reamIncome>=settings.reamTarget)give('full_ream');
-  if(reamIncome>=settings.reamTarget&&getDayNum()===1)give('speed');
-  if((state.logStreak||0)>=3)give('streak3');
-  if((state.logStreak||0)>=7)give('streak7');
-  if((state.budgetStreak||0)>=5)give('disciplined');
-  if(getTodayExp()<=settings.dailyBudget&&sumInc(getTodayTx())>0)give('clean_day');
-  if((state.totalSaved||0)>=10000)give('saver');
-  if((state.totalSaved||0)>=50000)give('saver2');
-
-  save();
-}
-
-function showAchievement(id){
-  const b=ALL_BADGES.find(b=>b.id===id);
-  if(!b)return;
-  el('achIcon').textContent=b.icon;
-  el('achName').textContent=b.name;
-  el('achDesc').textContent=b.desc;
-  const p=el('achPopup');
-  p.classList.add('show');
-  setTimeout(()=>p.classList.remove('show'),3500);
-}
-
-// ── LOG INCOME ───────────────────────────────────────────
+// ─── LOG INCOME ──────────────────────────────────────────
 function logIncome(){
-  const amt=parseFloat(el('incomeAmount').value);
-  const note=el('incomeNote').value.trim()||'Sale';
-  if(!amt||amt<=0){showToast('Enter a valid amount','bad');return;}
+  const amt = parseFloat(el('incAmt').value);
+  if(!amt||amt<=0){ toast('Enter a valid amount','bad'); return; }
+  const note = el('incNote').value.trim() || 'Sale';
   vibrate();
-
-  const tx={type:'income',amount:amt,payment:selectedPayment,note,
-    date:today(),time:new Date().toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'})};
-  state.transactions.unshift(tx);
-
-  updateStreaks();
-  checkBadges(tx);
-  addXP(Math.max(5,Math.round(amt/100)));
-  save();
-
-  el('incomeAmount').value='';
-  el('incomeNote').value='';
-  render();
-  showToast(`+₦${fmt(amt)} logged ✓`,'good');
+  S.txs.unshift({ type:'inc', amt, payment, note, date:today(),
+    time:new Date().toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'}) });
+  save(); el('incAmt').value=''; el('incNote').value='';
+  render(); toast(`+₦${fmt(amt)} recorded`,'good');
 }
 
-// ── LOG EXPENSE ──────────────────────────────────────────
+// ─── LOG EXPENSE ─────────────────────────────────────────
 function logExpense(){
-  const amt=parseFloat(el('expenseAmount').value);
-  const note=el('expenseNote').value.trim()||'Expense';
-  const cat=el('expenseCategory').value;
-  if(!amt||amt<=0){showToast('Enter a valid amount','bad');return;}
+  const amt = parseFloat(el('expAmt').value);
+  if(!amt||amt<=0){ toast('Enter a valid amount','bad'); return; }
+  const note = el('expNote').value.trim() || el('expCat').value;
   vibrate();
-
-  state.transactions.unshift({type:'expense',amount:amt,category:cat,note,
-    date:today(),time:new Date().toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'})});
-  save();
-
-  el('expenseAmount').value='';
-  el('expenseNote').value='';
+  S.txs.unshift({ type:'exp', amt, cat:el('expCat').value, note, date:today(),
+    time:new Date().toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'}) });
+  save(); el('expAmt').value=''; el('expNote').value='';
   render();
-
-  const exp=getTodayExp();
-  if(exp>settings.dailyBudget)showToast(`🚨 ₦${fmt(exp-settings.dailyBudget)} over budget!`,'bad');
-  else if(exp>=settings.dailyBudget*NEAR_PCT)showToast(`⚠️ Only ₦${fmt(settings.dailyBudget-exp)} left today`,'info');
-  else showToast(`−₦${fmt(amt)} logged`,'bad');
+  const todaySpent = sumExp(todayTxs());
+  if(todaySpent > ST.dailyBudget) toast(`🚨 ₦${fmt(todaySpent-ST.dailyBudget)} over limit!`,'bad');
+  else if(todaySpent >= ST.dailyBudget*0.8) toast(`⚠️ ₦${fmt(ST.dailyBudget-todaySpent)} left today`,'info');
+  else toast(`−₦${fmt(amt)} recorded`,'bad');
 }
 
-// ── EDIT / DELETE ────────────────────────────────────────
-function openEdit(idx){
-  editingIdx=idx;
-  const t=state.transactions[idx];
-  el('editAmount').value=t.amount;
-  el('editNote').value=t.note||'';
-  el('editCategory').value=t.category||'';
+// ─── EDIT / DELETE ────────────────────────────────────────
+function openEdit(i){
+  editIdx = i;
+  const t = S.txs[i];
+  el('editPreview').textContent = `${t.type==='inc'?'Income':'Expense'} · ₦${fmt(t.amt)} · ${t.date}`;
+  el('editAmt').value = t.amt;
+  el('editNote').value = t.note||'';
+  el('editCatField').style.display = t.type==='exp'?'block':'none';
+  if(t.cat) el('editCat').value = t.cat;
   el('editModal').classList.add('show');
 }
 
-function confirmEdit(){
-  if(editingIdx===null)return;
-  const amt=parseFloat(el('editAmount').value);
-  const note=el('editNote').value.trim();
-  if(!amt||amt<=0){showToast('Enter a valid amount','bad');return;}
-  state.transactions[editingIdx].amount=amt;
-  state.transactions[editingIdx].note=note||state.transactions[editingIdx].note;
-  if(el('editCategory').value)state.transactions[editingIdx].category=el('editCategory').value;
-  save();render();closeModal('editModal');
-  showToast('Entry updated ✓','good');
+function saveEdit(){
+  const amt = parseFloat(el('editAmt').value);
+  if(!amt||amt<=0){ toast('Enter a valid amount','bad'); return; }
+  S.txs[editIdx].amt = amt;
+  S.txs[editIdx].note = el('editNote').value.trim() || S.txs[editIdx].note;
+  if(S.txs[editIdx].type==='exp') S.txs[editIdx].cat = el('editCat').value;
+  save(); render(); closeModal('editModal'); toast('Updated ✓','good');
 }
 
-function openDelete(idx){
-  deletingIdx=idx;
-  const t=state.transactions[idx];
-  el('deletePreview').textContent=`${t.type==='income'?'+':'-'}₦${fmt(t.amount)} · ${t.note} · ${t.date}`;
+function openDelete(i){
+  deleteIdx = i;
+  const t = S.txs[i];
+  el('deletePreview').textContent = `${t.type==='inc'?'+':'-'}₦${fmt(t.amt)} · ${t.note} · ${t.date}`;
   el('deleteModal').classList.add('show');
 }
 
 function confirmDelete(){
-  if(deletingIdx===null)return;
-  state.transactions.splice(deletingIdx,1);
-  save();render();closeModal('deleteModal');
-  showToast('Entry deleted','info');
+  S.txs.splice(deleteIdx,1);
+  save(); render(); closeModal('deleteModal'); toast('Deleted','info');
 }
 
-function closeModal(id){el(id).classList.remove('show');editingIdx=null;deletingIdx=null;}
+function closeModal(id){ el(id).classList.remove('show'); editIdx=null; deleteIdx=null; }
 
-// ── NEW REAM ─────────────────────────────────────────────
-function newReam(){
-  if(!confirm('Start a new ream? This ream will be saved to history.'))return;
-  // Save current ream to history
-  const reamTx=getReamTx();
-  const rev=sumInc(reamTx);
-  const exp=sumExp(reamTx);
-  const saved=Math.max(0,rev-exp-settings.reamCost);
-  state.oldReams=state.oldReams||[];
-  state.oldReams.push({start:state.reamStart,end:today(),rev,exp,saved,days:getDayNum()});
-  state.totalSaved=(state.totalSaved||0)+saved;
-
-  // Check comeback badge
-  const prevSaved=state.oldReams.length>1?state.oldReams[state.oldReams.length-2].saved:0;
-  if(saved>prevSaved&&state.oldReams.length>1){
-    const earned=state.earnedBadges||[];
-    if(!earned.includes('comeback')){
-      earned.push('comeback');state.earnedBadges=earned;
-      setTimeout(()=>showAchievement('comeback'),600);
-      addXP(50);
-    }
-  }
-
-  state.reamStart=today();
-  state.transactions=state.transactions.map(t=>({...t,oldReam:true}));
-  addXP(100);
-  save();render();
-  showToast('New ream started! 📄','good');
+// ─── REAM MODAL ──────────────────────────────────────────
+function openReamModal(){
+  const rn = reamNum();
+  const total = (S.oldReams||[]).length + 1;
+  const rt = reamTxs();
+  const rev = sumInc(rt);
+  const exp = sumExp(rt);
+  const net = rev - exp - ST.reamCost;
+  el('reamModalTitle').textContent = `Ream ${rn}`;
+  el('reamModalStats').innerHTML = `
+    <div class="modal-stat"><span>Current ream number</span><span>Ream ${rn}</span></div>
+    <div class="modal-stat"><span>Total reams used</span><span>${total}</span></div>
+    <div class="modal-stat"><span>Days on this ream</span><span>${dayNum()}</span></div>
+    <div class="modal-stat"><span>Revenue this ream</span><span>₦${fmt(rev)}</span></div>
+    <div class="modal-stat"><span>Expenses this ream</span><span>₦${fmt(exp)}</span></div>
+    <div class="modal-stat"><span>Net (after paper cost)</span><span>₦${fmt(net)}</span></div>
+  `;
+  el('reamModal').classList.add('show');
 }
 
-// ── FLAGS ────────────────────────────────────────────────
-function updateFlags(todayExp,reamIncome,dayNum){
-  const over=todayExp>settings.dailyBudget;
-  const near=!over&&todayExp>=settings.dailyBudget*NEAR_PCT&&todayExp>0;
-  const incomeDates=[...new Set(getReamTx().filter(t=>t.type==='income').map(t=>t.date))];
-  const lastDate=incomeDates[0];
-  const daysSince=lastDate?Math.floor((new Date()-new Date(lastDate))/86400000):dayNum;
-  const slow=daysSince>=SLOW_THRESHOLD&&reamIncome===0;
-  const behind=!slow&&dayNum>1&&reamIncome<(settings.reamTarget/settings.reamDays)*Math.min(dayNum,settings.reamDays)*BEHIND_RATIO;
+// ─── NEW REAM ────────────────────────────────────────────
+function startNewReam(){
+  closeModal('reamModal');
+  if(!confirm('Start a new ream? Current ream will be saved to history.')) return;
+  const rt = reamTxs();
+  const rev = sumInc(rt), exp = sumExp(rt);
+  const saved = Math.max(0, rev - exp - ST.reamCost);
+  S.oldReams = S.oldReams||[];
+  S.oldReams.push({ num:reamNum(), start:S.reamStart, end:today(), rev, exp, saved, days:dayNum() });
+  S.reamStart = today();
+  S.txs = S.txs.map(t=>({...t,old:true}));
+  save(); render(); toast('New ream started! 📄','good');
+}
 
-  ['flagOver','flagNear','flagSlow','flagBehind'].forEach(id=>el(id).classList.remove('show'));
-  if(over)el('flagOver').classList.add('show');
-  else if(near)el('flagNear').classList.add('show');
-  if(slow&&!over)el('flagSlow').classList.add('show');
-  if(behind&&!over&&!slow)el('flagBehind').classList.add('show');
+// ─── FLAGS ───────────────────────────────────────────────
+function updateFlags(todaySpent, reamInc, dn){
+  const over = todaySpent > ST.dailyBudget;
+  const near = !over && todaySpent >= ST.dailyBudget*0.8 && todaySpent>0;
 
-  if(over)el('flagOverMsg').textContent=`You've spent ₦${fmt(todayExp)} today — ₦${fmt(todayExp-settings.dailyBudget)} over your ₦${fmt(settings.dailyBudget)} limit. Stop personal spending now.`;
-  if(near)el('flagNearMsg').textContent=`₦${fmt(todayExp)} used of your ₦${fmt(settings.dailyBudget)} daily budget. Only ₦${fmt(settings.dailyBudget-todayExp)} left.`;
-  if(slow)el('flagSlowMsg').textContent=`No revenue in ${daysSince} day${daysSince!==1?'s':''}. Cut personal spending to ₦${fmt(Math.round(settings.dailyBudget*0.5))}/day.`;
+  const incDates = [...new Set(reamTxs().filter(t=>t.type==='inc').map(t=>t.date))];
+  const last = incDates[0];
+  const daysSince = last ? Math.floor((new Date()-new Date(last))/86400000) : dn;
+  const slow = daysSince>=2 && reamInc===0;
+  const expected = (ST.reamTarget/ST.reamDays)*Math.min(dn,ST.reamDays);
+  const behind = !slow && dn>1 && reamInc < expected*0.55;
+
+  ['fOver','fNear','fSlow','fBehind'].forEach(id=>el(id).classList.remove('show'));
+  if(over) el('fOver').classList.add('show');
+  else if(near) el('fNear').classList.add('show');
+  if(slow&&!over) el('fSlow').classList.add('show');
+  if(behind&&!over&&!slow) el('fBehind').classList.add('show');
+
+  if(over) el('fOverMsg').textContent=`You've spent ₦${fmt(todaySpent)} today. Your limit is ₦${fmt(ST.dailyBudget)}. Stop personal spending for today.`;
+  if(near) el('fNearMsg').textContent=`₦${fmt(todaySpent)} spent. Only ₦${fmt(ST.dailyBudget-todaySpent)} left for today — be careful.`;
+  if(slow) el('fSlowMsg').textContent=`No revenue logged in ${daysSince} day${daysSince!==1?'s':''}. Reduce personal spending until sales pick up.`;
   if(behind){
-    const dLeft=Math.max(1,settings.reamDays-dayNum);
-    const needed=Math.round((settings.reamTarget-reamIncome)/dLeft);
-    el('flagBehindMsg').textContent=`Need ₦${fmt(needed)}/day to hit target. Reduce spending to ₦${fmt(Math.min(settings.dailyBudget,1500))}/day.`;
+    const dLeft=Math.max(1,ST.reamDays-dn);
+    const needed=Math.round((ST.reamTarget-reamInc)/dLeft);
+    el('fBehindMsg').textContent=`You need about ₦${fmt(needed)}/day to hit your ₦${fmt(ST.reamTarget)} target for this ream.`;
   }
 }
 
-// ── SAVINGS JAR ──────────────────────────────────────────
-function renderJar(){
-  const total=state.totalSaved||0;
-  const milestones=[10000,25000,50000,100000,200000];
-  const nextM=milestones.find(m=>m>total)||milestones[milestones.length-1];
-  const pct=Math.min(100,Math.round((total/nextM)*100));
-  const fillH=Math.round((pct/100)*66);
-
-  ['jarAmount','jarAmount2'].forEach(id=>{if(el(id))el(id).textContent='₦'+fmt(total);});
-
-  const jarFill=document.getElementById('jarFill');
-  if(jarFill){
-    jarFill.setAttribute('y',String(90-fillH));
-    jarFill.setAttribute('height',String(fillH));
-  }
-  if(el('jarBar'))el('jarBar').style.width=pct+'%';
-  if(el('jarLeft2'))el('jarLeft2').textContent='₦'+fmt(total)+' saved';
-  if(el('jarNext'))el('jarNext').textContent='Next: ₦'+fmt(nextM);
-
-  const mStr=total>=nextM?`🎉 ₦${fmt(nextM)} milestone reached!`:`₦${fmt(nextM-total)} away from ₦${fmt(nextM)} milestone`;
-  ['jarMilestone','jarMilestone2'].forEach(id=>{if(el(id))el(id).textContent=mStr;});
-}
-
-// ── MAIN RENDER ──────────────────────────────────────────
+// ─── MAIN RENDER ─────────────────────────────────────────
 function render(){
-  const reamTx=getReamTx();
-  const todayTx=getTodayTx();
-  const dayNum=getDayNum();
-  const todayIncome=sumInc(todayTx);
-  const todayExp=sumExp(todayTx);
-  const reamIncome=sumInc(reamTx);
+  const rt = reamTxs(), tt = todayTxs(), dn = dayNum();
+  const reamInc = sumInc(rt), todayInc = sumInc(tt), todaySpent = sumExp(tt);
+  const rn = reamNum();
 
-  el('reamBadge').textContent=`Ream Day ${dayNum}`;
+  // Header
+  el('reamPill').textContent = `Ream ${rn}`;
 
-  // Greeting
-  const n=settings.name||'';
-  if(el('gameGreeting'))el('gameGreeting').textContent=`Hey ${n}! 👋`;
-  if(el('gameSubtitle')){
-    const ls=state.logStreak||0;
-    el('gameSubtitle').textContent=ls>=3?`🔥 ${ls}-day logging streak! Keep it up!`:`Keep going — you're building something real.`;
-  }
-  if(el('settingsGreeting'))el('settingsGreeting').textContent=`Settings`;
+  // Today cards
+  el('todayInc').textContent = '₦'+fmt(todayInc);
+  el('todaySalesSub').textContent = tt.filter(t=>t.type==='inc').length+' sales';
+  el('todayExp').textContent = '₦'+fmt(todaySpent);
+  el('todayNetSub').textContent = `Net: ₦${fmt(todayInc-todaySpent)}`;
 
-  // KPIs
-  el('todayRevenue').textContent='₦'+fmt(todayIncome);
-  el('todaySub').textContent=todayTx.filter(t=>t.type==='income').length+' sales today';
-  el('todayExpenses').textContent='₦'+fmt(todayExp);
-  el('expSub').textContent=`Net today: ₦${fmt(todayIncome-todayExp)}`;
-  el('reamRevenue').textContent='₦'+fmt(reamIncome);
-  el('reamSub').textContent=`Target ₦${fmt(settings.reamTarget)} · Cost ₦${fmt(settings.reamCost)} · Save ₦${fmt(settings.saveGoal)}`;
-
-  // Progress
-  const pct=Math.min(100,Math.round((reamIncome/settings.reamTarget)*100));
-  el('reamBar').style.width=pct+'%';
-  el('reamBar').className='bar-fill '+(pct>=100?'done':'ok');
-  el('reamPercent').textContent=pct+'%';
-  el('reamEarned').textContent='₦'+fmt(reamIncome)+' earned';
-  const toGo=Math.max(0,settings.reamTarget-reamIncome);
-  el('reamLeft').textContent=toGo>0?`₦${fmt(toGo)} to go`:'🎉 Target hit!';
-  const avg=dayNum>0?reamIncome/dayNum:0;
-  const proj=Math.round(avg*settings.reamDays);
-  const dLeft=Math.max(1,settings.reamDays-dayNum);
-  const needed=toGo>0?Math.round(toGo/dLeft):0;
-  let ins=reamIncome>0?`Avg ₦${fmt(avg)}/day · Projected: ₦${fmt(proj)}`:'Log your first sale to see projections.';
-  if(needed>0&&reamIncome>0)ins+=` · Need ₦${fmt(needed)}/day`;
-  el('reamInsight').textContent=ins;
+  // Ream progress
+  const pct = Math.min(100,Math.round((reamInc/ST.reamTarget)*100));
+  el('reamFill').style.width = pct+'%';
+  el('reamFill').className = 'progress-fill '+(pct>=100?'done':'going');
+  el('reamEarned').textContent = '₦'+fmt(reamInc);
+  el('reamPct').textContent = pct+'%';
+  const toGo = Math.max(0,ST.reamTarget-reamInc);
+  el('reamNote').textContent = toGo>0
+    ? `₦${fmt(toGo)} still to go · Day ${dn} of ~${ST.reamDays}`
+    : `🎉 Target hit! Great work.`;
 
   // Spend box
-  const rem=settings.dailyBudget-todayExp;
-  const spendPct=Math.min(120,Math.round((todayExp/settings.dailyBudget)*100));
-  let boxState,meterState,titleText,bigText,subText;
-  if(todayExp>settings.dailyBudget){
-    boxState='danger';meterState='over';titleText='🚨 Daily Budget Exceeded';
-    bigText=`−₦${fmt(Math.abs(rem))}`;subText=`over your ₦${fmt(settings.dailyBudget)} limit\nstop spending now`;
-  } else if(todayExp>=settings.dailyBudget*NEAR_PCT){
-    boxState='caution';meterState='near';titleText='⚠️ Approaching Daily Limit';
-    bigText=`₦${fmt(rem)}`;subText=`remaining today of ₦${fmt(settings.dailyBudget)} budget`;
+  const rem = ST.dailyBudget - todaySpent;
+  const spendPct = Math.min(100,Math.round((todaySpent/ST.dailyBudget)*100));
+  let boxCls, meterCls, labelTxt, amtTxt, descTxt;
+  if(todaySpent > ST.dailyBudget){
+    boxCls='over'; meterCls='over'; labelTxt='🚨 Over Budget — tap to see breakdown';
+    amtTxt=`₦${fmt(Math.abs(rem))}`; descTxt=`over your ₦${fmt(ST.dailyBudget)} limit today`;
+  } else if(todaySpent >= ST.dailyBudget*0.8){
+    boxCls='warn'; meterCls='warn'; labelTxt='⚠️ Nearly at Limit — tap to see breakdown';
+    amtTxt=`₦${fmt(rem)}`; descTxt=`left to spend today`;
   } else {
-    boxState='safe';meterState='ok';titleText='✅ Spending on Track';
-    bigText=`₦${fmt(rem)}`;subText=`remaining today of ₦${fmt(settings.dailyBudget)} budget`;
+    boxCls='safe'; meterCls='safe'; labelTxt='✅ Spending on Track — tap to see breakdown';
+    amtTxt=`₦${fmt(rem)}`; descTxt=`left to spend today`;
   }
-  el('spendBox').className='spend-box '+boxState;
-  el('spendTitle').textContent=titleText;
-  el('spendBig').textContent=bigText;
-  el('spendSub').textContent=subText;
-  el('meterLeft').textContent=`₦${fmt(todayExp)} spent today`;
-  el('meterRight').textContent=`₦${fmt(settings.dailyBudget)} limit`;
-  el('meterFill').className='meter-fill '+meterState;
-  el('meterFill').style.width=Math.min(100,spendPct)+'%';
+  el('spendBox').className = 'spend-box '+boxCls;
+  el('spendLabel').textContent = labelTxt;
+  el('spendAmt').textContent = amtTxt;
+  el('spendDesc').textContent = descTxt;
+  el('spentSoFar').textContent = `₦${fmt(todaySpent)} spent`;
+  el('dailyLimitLabel').textContent = `₦${fmt(ST.dailyBudget)} limit`;
+  el('meterFill').className = 'meter-fill '+meterCls;
+  el('meterFill').style.width = spendPct+'%';
 
   // Flags
-  updateFlags(todayExp,reamIncome,dayNum);
+  updateFlags(todaySpent, reamInc, dn);
 
-  // XP + Jar
-  renderXP();
-  renderJar();
-
-  // Feed
-  const recent=getReamTx().slice(0,20);
-  el('feedCount').textContent=recent.length+' entries this ream';
-  el('feedList').innerHTML=recent.length===0
-    ?'<div class="empty-state">No transactions yet.<br>Log your first sale above ↑</div>'
-    :recent.map((t,i)=>`
-      <div class="feed-item">
-        <div class="feed-dot ${t.type}"></div>
-        <div class="feed-info">
-          <div class="feed-note">${t.note}${t.category?' · '+t.category:''}</div>
-          <div class="feed-meta">${t.date===today()?'Today':t.date} · ${t.time} · ${t.payment||t.category||''}</div>
-        </div>
-        <div class="feed-right">
-          <div class="feed-amount ${t.type}">${t.type==='income'?'+':'−'}₦${fmt(t.amount)}</div>
-          <div class="feed-actions">
-            <button class="feed-action-btn" onclick="openEdit(${i})" title="Edit">✏️</button>
-            <button class="feed-action-btn" onclick="openDelete(${i})" title="Delete">🗑️</button>
+  // Feed — today's transactions
+  const todayAll = tt.slice(0,30);
+  el('feedCount').textContent = todayAll.length+' today';
+  el('feedList').innerHTML = todayAll.length===0
+    ? '<div class="empty">Nothing logged yet today.<br>Record your first sale above ↑</div>'
+    : todayAll.map((t,i)=>`
+        <div class="feed-item">
+          <div class="feed-dot ${t.type==='inc'?'inc':'exp'}"></div>
+          <div class="feed-info">
+            <div class="feed-note">${t.note}${t.cat?' · '+t.cat:''}</div>
+            <div class="feed-meta">${t.time} · ${t.payment||t.cat||''}</div>
           </div>
-        </div>
-      </div>`).join('');
+          <div class="feed-right">
+            <div class="feed-amt ${t.type==='inc'?'inc':'exp'}">${t.type==='inc'?'+':'−'}₦${fmt(t.amt)}</div>
+            <div class="feed-acts">
+              <button class="feed-act" onclick="openEdit(${i})">✏️</button>
+              <button class="feed-act" onclick="openDelete(${i})">🗑️</button>
+            </div>
+          </div>
+        </div>`).join('');
 }
 
-// ── SUMMARY RENDER ───────────────────────────────────────
+// ─── SUMMARY RENDER ──────────────────────────────────────
 function renderSummary(){
-  const allTx=[...state.transactions];
-  const reamTx=getReamTx();
-  const allInc=sumInc(allTx);
-  const allExp=sumExp(allTx);
-  const oldReams=state.oldReams||[];
-  const totalDays=oldReams.reduce((s,r)=>s+r.days,0)+getDayNum();
-  const totalRev=oldReams.reduce((s,r)=>s+r.rev,0)+sumInc(reamTx);
-  const totalExp=oldReams.reduce((s,r)=>s+r.exp,0)+sumExp(reamTx);
+  const rt = reamTxs(), dn = dayNum();
+  const curRev = sumInc(rt), curExp = sumExp(rt);
+  const curNet = curRev - curExp - ST.reamCost;
 
-  el('statTotalRev').textContent='₦'+fmt(totalRev);
-  el('statTotalExp').textContent='₦'+fmt(totalExp);
-  el('statTotalSaved').textContent='₦'+fmt(state.totalSaved||0);
-  el('statReams').textContent=oldReams.length;
-  el('statDays').textContent=totalDays;
-  el('statAvgDay').textContent='₦'+fmt(totalDays>0?totalRev/totalDays:0);
+  el('ssCurRev').textContent = '₦'+fmt(curRev);
+  el('ssCurExp').textContent = '₦'+fmt(curExp);
+  el('ssPaperCost').textContent = '₦'+fmt(ST.reamCost);
+  el('ssCurNet').textContent = (curNet<0?'−':'')+'₦'+fmt(Math.abs(curNet));
+  el('ssCurNet').className = 'stat-val '+(curNet>=0?'g':'r');
+  el('ssCurDays').textContent = dn;
 
-  // Current ream
-  const curRev=sumInc(reamTx);
-  const curExp=sumExp(reamTx);
-  const curNet=curRev-curExp-settings.reamCost;
-  const dayNum=getDayNum();
-  const avg=dayNum>0?curRev/dayNum:0;
-  const projSave=Math.max(0,Math.round(avg*settings.reamDays)-curExp-settings.reamCost);
-  el('curRev').textContent='₦'+fmt(curRev);
-  el('curExp').textContent='₦'+fmt(curExp);
-  el('curNet').textContent=(curNet>=0?'':'−')+'₦'+fmt(Math.abs(curNet));
-  el('curNet').className='summary-stat-value '+(curNet>=0?'g':'r');
-  el('curDays').textContent=dayNum;
-  el('curProj').textContent='₦'+fmt(projSave);
+  // Today expense breakdown by category
+  const todayExp = todayTxs().filter(t=>t.type==='exp');
+  const cats = {};
+  todayExp.forEach(t=>{ cats[t.cat||'Other']=(cats[t.cat||'Other']||0)+t.amt; });
+  const catKeys = Object.keys(cats);
+  el('ssExpBreak').innerHTML = catKeys.length===0
+    ? '<div class="empty">No expenses today.</div>'
+    : catKeys.sort((a,b)=>cats[b]-cats[a]).map(c=>`
+        <div class="stat-row">
+          <span class="stat-label">${c}</span>
+          <span class="stat-val r">₦${fmt(cats[c])}</span>
+        </div>`).join('');
 
-  // Expense breakdown
-  const cats={};
-  reamTx.filter(t=>t.type==='expense').forEach(t=>{cats[t.category||'Other']=(cats[t.category||'Other']||0)+t.amount;});
-  const catKeys=Object.keys(cats);
-  el('expBreakdown').innerHTML=catKeys.length===0
-    ?'<div class="empty-state">No expenses yet.</div>'
-    :catKeys.sort((a,b)=>cats[b]-cats[a]).map(c=>`
-      <div class="summary-stat">
-        <span class="summary-stat-label">${c}</span>
-        <span class="summary-stat-value r">₦${fmt(cats[c])}</span>
-      </div>`).join('');
-
-  // Ream history
-  el('reamHistory').innerHTML=oldReams.length===0
-    ?'<div class="empty-state">Complete your first ream to see history.</div>'
-    :oldReams.slice().reverse().map((r,i)=>`
-      <div class="hist-item">
-        <div class="hist-header">
-          <div class="hist-ream">Ream ${oldReams.length-i} · ${r.days} days</div>
-          <div class="hist-saved">Saved ₦${fmt(r.saved)}</div>
-        </div>
-        <div class="hist-meta">${r.start} → ${r.end} · Rev ₦${fmt(r.rev)} · Exp ₦${fmt(r.exp)}</div>
-      </div>`).join('');
-}
-
-// ── GAME RENDER ──────────────────────────────────────────
-function renderGame(){
-  renderXP();
-  renderJar();
-
-  el('logStreak').textContent=(state.logStreak||0)+'🔥';
-  el('budgetStreak').textContent=(state.budgetStreak||0)+'🛡️';
-
-  // Personal bests
-  const allInc=state.transactions.filter(t=>t.type==='income');
-  const bestSale=allInc.length?Math.max(...allInc.map(t=>t.amount)):0;
-  el('bestSale').textContent='₦'+fmt(bestSale);
-
-  // Best day
+  // All time
+  const allRev = (S.oldReams||[]).reduce((s,r)=>s+r.rev,0) + curRev;
+  const allExp = (S.oldReams||[]).reduce((s,r)=>s+r.exp,0) + curExp;
+  const allInc = S.txs.filter(t=>t.type==='inc');
+  const bestSale = allInc.length ? Math.max(...allInc.map(t=>t.amt)) : 0;
   const dayMap={};
-  allInc.forEach(t=>{dayMap[t.date]=(dayMap[t.date]||0)+t.amount;});
-  const bestDay=Object.values(dayMap).length?Math.max(...Object.values(dayMap)):0;
-  el('bestDay').textContent='₦'+fmt(bestDay);
+  allInc.forEach(t=>{ dayMap[t.date]=(dayMap[t.date]||0)+t.amt; });
+  const bestDay = Object.values(dayMap).length ? Math.max(...Object.values(dayMap)) : 0;
 
-  const oldReams=state.oldReams||[];
-  const bestReamSave=oldReams.length?Math.max(...oldReams.map(r=>r.saved)):0;
-  el('bestReamSave').textContent='₦'+fmt(bestReamSave);
-  el('bestLogStreak').textContent=(state.bestLogStreak||0)+' days';
-  el('bestBudgetStreak').textContent=(state.bestBudgetStreak||0)+' days';
+  el('ssTotalRev').textContent = '₦'+fmt(allRev);
+  el('ssTotalExp').textContent = '₦'+fmt(allExp);
+  el('ssTotalReams').textContent = (S.oldReams||[]).length;
+  el('ssBestSale').textContent = '₦'+fmt(bestSale);
+  el('ssBestDay').textContent = '₦'+fmt(bestDay);
 
-  // Badges
-  const earned=state.earnedBadges||[];
-  el('badgesGrid').innerHTML=ALL_BADGES.map(b=>`
-    <div class="badge-item ${earned.includes(b.id)?'earned':''}" title="${b.desc}">
-      <span class="badge-icon">${b.icon}</span>
-      <div class="badge-name">${b.name}</div>
-    </div>`).join('');
+  // Past reams
+  const old = [...(S.oldReams||[])].reverse();
+  el('ssReamHist').innerHTML = old.length===0
+    ? '<div class="empty" style="padding:12px 0">No completed reams yet.</div>'
+    : old.map(r=>`
+        <div class="ream-hist-card">
+          <div class="rhc-top">
+            <div class="rhc-name">Ream ${r.num} · ${r.days} day${r.days!==1?'s':''}</div>
+            <div class="rhc-saved">Saved ₦${fmt(r.saved)}</div>
+          </div>
+          <div class="rhc-meta">
+            ${r.start} → ${r.end}<br>
+            Revenue ₦${fmt(r.rev)} · Expenses ₦${fmt(r.exp)} · Paper ₦${fmt(ST.reamCost)}
+          </div>
+        </div>`).join('');
+
+  // All transactions
+  const allTx = S.txs.slice(0,100);
+  el('ssAllTx').innerHTML = allTx.length===0
+    ? '<div class="empty">No transactions yet.</div>'
+    : allTx.map(t=>`
+        <div class="tx-item">
+          <div class="tx-dot ${t.type==='inc'?'inc':'exp'}"></div>
+          <div class="tx-info">
+            <div class="tx-note">${t.note}${t.cat?' · '+t.cat:''}</div>
+            <div class="tx-meta">${t.date} · ${t.time} · ${t.payment||t.cat||''}</div>
+          </div>
+          <div class="tx-amt ${t.type==='inc'?'inc':'exp'}">${t.type==='inc'?'+':'−'}₦${fmt(t.amt)}</div>
+        </div>`).join('');
 }
 
-// ── SETTINGS ─────────────────────────────────────────────
-function loadSettingsUI(){
-  el('sName').value=settings.name||'';
-  el('sBiz').value=settings.biz||'';
-  el('sReamCost').value=settings.reamCost;
-  el('sReamTarget').value=settings.reamTarget;
-  el('sSaveGoal').value=settings.saveGoal;
-  el('sDailyBudget').value=settings.dailyBudget;
-  el('sReamDays').value=settings.reamDays;
-  el('toggleReminder').className='toggle'+(settings.reminder?' on':'');
-  el('toggleBudgetWarn').className='toggle'+(settings.budgetWarn?' on':'');
-  el('toggleHaptic').className='toggle'+(settings.haptic?' on':'');
+// ─── SETTINGS ────────────────────────────────────────────
+function loadSettings(){
+  el('sName').value = ST.name||'';
+  el('sBiz').value = ST.biz||'';
+  el('sReamCost').value = ST.reamCost;
+  el('sReamTarget').value = ST.reamTarget;
+  el('sReamDays').value = ST.reamDays;
+  el('sDailyBudget').value = ST.dailyBudget;
 }
 
 function saveSettings(){
-  settings.name=el('sName').value.trim()||settings.name;
-  settings.biz=el('sBiz').value.trim();
-  settings.reamCost=parseFloat(el('sReamCost').value)||settings.reamCost;
-  settings.reamTarget=parseFloat(el('sReamTarget').value)||settings.reamTarget;
-  settings.saveGoal=parseFloat(el('sSaveGoal').value)||settings.saveGoal;
-  settings.dailyBudget=parseFloat(el('sDailyBudget').value)||settings.dailyBudget;
-  settings.reamDays=parseFloat(el('sReamDays').value)||settings.reamDays;
-  save();render();
-  showToast('Settings saved ✓','good');
+  ST.name = el('sName').value.trim()||ST.name;
+  ST.biz = el('sBiz').value.trim();
+  ST.reamCost = parseFloat(el('sReamCost').value)||ST.reamCost;
+  ST.reamTarget = parseFloat(el('sReamTarget').value)||ST.reamTarget;
+  ST.reamDays = parseFloat(el('sReamDays').value)||ST.reamDays;
+  ST.dailyBudget = parseFloat(el('sDailyBudget').value)||ST.dailyBudget;
+  save(); render(); toast('Settings saved ✓','good');
 }
 
-function toggleSetting(key,btnId){
-  settings[key]=!settings[key];
-  el(btnId).className='toggle'+(settings[key]?' on':'');
-  save();
-}
-
-function toggleReminder(){
-  if(!settings.reminder){
-    if('Notification' in window){
-      Notification.requestPermission().then(p=>{
-        settings.reminder=p==='granted';
-        el('toggleReminder').className='toggle'+(settings.reminder?' on':'');
-        if(settings.reminder){
-          showToast('Reminders on ✓','good');
-          scheduleReminder();
-        } else {
-          showToast('Allow notifications in settings','info');
-        }
-        save();
-      });
-    } else {
-      showToast('Notifications not supported','info');
-    }
-  } else {
-    settings.reminder=false;
-    el('toggleReminder').className='toggle';
-    save();
-    showToast('Reminders off','info');
-  }
-}
-
-function scheduleReminder(){
-  if(settings.reminder&&'Notification' in window&&Notification.permission==='granted'){
-    const now=new Date();
-    const next=new Date();next.setHours(20,0,0,0);
-    if(next<=now)next.setDate(next.getDate()+1);
-    const ms=next-now;
-    setTimeout(()=>{
-      new Notification('PrintFlow 🖨️',{body:'Don\'t forget to log today\'s sales!',icon:'/icon.png'});
-    },ms);
-  }
-}
-
-// ── EXPORT ───────────────────────────────────────────────
 function exportData(){
-  const data={state,settings,exportedAt:new Date().toISOString()};
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.download=`printflow_backup_${new Date().toISOString().slice(0,10)}.json`;
-  a.click();URL.revokeObjectURL(url);
-  showToast('Data exported ✓','good');
+  const blob = new Blob([JSON.stringify({S,ST,at:new Date().toISOString()},null,2)],{type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download=`printflow_${new Date().toISOString().slice(0,10)}.json`;
+  a.click(); URL.revokeObjectURL(url);
+  toast('Backup saved ✓','good');
 }
 
-function confirmClearData(){
+function clearData(){
   if(confirm('Delete ALL data? This cannot be undone.')){
-    localStorage.clear();location.reload();
+    localStorage.clear(); location.reload();
   }
 }
 
-// ── TOAST ────────────────────────────────────────────────
-function showToast(msg,type='good'){
-  const t=el('toast');
-  t.textContent=msg;t.className=`toast ${type} show`;
+// ─── TOAST ───────────────────────────────────────────────
+function toast(msg, type='good'){
+  const t = el('toast');
+  t.textContent=msg; t.className=`toast ${type} show`;
   clearTimeout(t._t);
-  t._t=setTimeout(()=>t.classList.remove('show'),2500);
+  t._t = setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-// ── SERVICE WORKER ───────────────────────────────────────
-if('serviceWorker' in navigator){
-  const sw=`const C='pf-v2';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.add(self.location.href.split('/sw')[0]||'/')).then(()=>self.skipWaiting()))});self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(n=>n!==C).map(n=>caches.delete(n)))).then(()=>self.clients.claim()))});self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{if(res&&res.status===200){const cl=res.clone();caches.open(C).then(c=>c.put(e.request,cl))}return res}).catch(()=>r||new Response('Offline',{status:503}))))})`;
-  const blob=new Blob([sw],{type:'application/javascript'});
-  navigator.serviceWorker.register(URL.createObjectURL(blob),{scope:'/'}).catch(()=>{});
-}
-
-// Init
-if(settings.reminder)scheduleReminder();
 render();
 </script>
 </body>
