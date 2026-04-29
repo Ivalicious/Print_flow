@@ -11,300 +11,245 @@
 <title>PrintFlow</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ── RESET & BASE ── */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#0d0d0d;
-  --card:#161616;
-  --card2:#1e1e1e;
-  --border:#272727;
-  --green:#22c55e;
-  --green-bg:#0a1f12;
-  --green-border:#166534;
-  --yellow:#f59e0b;
-  --yellow-bg:#1c1500;
-  --yellow-border:#92400e;
-  --red:#ef4444;
-  --red-bg:#1c0a0a;
-  --red-border:#7f1d1d;
-  --text:#f5f5f5;
-  --text2:#a3a3a3;
-  --text3:#525252;
+  --bg:#0d0d0d;--card:#161616;--card2:#1e1e1e;--border:#272727;
+  --green:#22c55e;--gbg:#0a1f12;--gborder:#166534;
+  --yellow:#f59e0b;--ybg:#1c1500;--yborder:#92400e;
+  --red:#ef4444;--rbg:#1c0a0a;--rborder:#7f1d1d;
+  --blue:#60a5fa;--bbg:#0a0f1c;--bborder:#1e3a5f;
+  --text:#f5f5f5;--t2:#a3a3a3;--t3:#525252;
   --font:'Inter',sans-serif;
-  --sb:env(safe-area-inset-bottom,0px);
-  --st:env(safe-area-inset-top,0px);
+  --sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);
 }
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);overscroll-behavior:none}
-body{padding-top:var(--st);padding-bottom:calc(64px + var(--sb))}
+body{padding-top:var(--st);padding-bottom:calc(68px + var(--sb))}
 
-/* ── ONBOARDING ── */
+/* ONBOARDING */
 #ob{position:fixed;inset:0;background:var(--bg);z-index:9999;
   display:flex;flex-direction:column;justify-content:center;padding:32px 24px}
-.ob-logo{font-size:2.5rem;font-weight:900;margin-bottom:6px}
+.ob-logo{font-size:2.8rem;font-weight:900;margin-bottom:6px}
 .ob-logo b{color:var(--yellow)}
-.ob-tagline{color:var(--text2);font-size:0.9rem;margin-bottom:48px}
-.ob-field{margin-bottom:20px}
-.ob-label{font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
-  color:var(--text2);margin-bottom:8px;display:block}
+.ob-tag{color:var(--t2);font-size:0.88rem;margin-bottom:44px}
+.ob-label{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--t2);margin-bottom:7px;display:block}
 .ob-input{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:12px;
-  padding:14px 16px;color:var(--text);font-family:var(--font);font-size:1rem;outline:none}
+  padding:14px 16px;color:var(--text);font-family:var(--font);font-size:1rem;outline:none;
+  margin-bottom:16px;-webkit-appearance:none}
 .ob-input:focus{border-color:var(--yellow)}
 .ob-btn{width:100%;padding:16px;background:var(--yellow);border:none;border-radius:14px;
-  color:#000;font-family:var(--font);font-size:1rem;font-weight:800;cursor:pointer;margin-top:8px}
+  color:#000;font-family:var(--font);font-size:1rem;font-weight:800;cursor:pointer}
 
-/* ── HEADER ── */
+/* HEADER */
 header{position:sticky;top:0;z-index:100;background:var(--bg);
-  border-bottom:1px solid var(--border);
-  padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:1.1rem;font-weight:900}
-.logo b{color:var(--yellow)}
-.header-right{display:flex;align-items:center;gap:10px}
-.ream-pill{background:var(--card2);border:1px solid var(--border);border-radius:20px;
-  padding:6px 14px;font-size:0.75rem;font-weight:700;color:var(--yellow);cursor:pointer;
-  transition:background .15s}
-.ream-pill:active{background:var(--card)}
-.icon-btn{background:none;border:none;color:var(--text2);font-size:1.2rem;cursor:pointer;
-  padding:4px 6px;border-radius:8px;transition:background .15s}
-.icon-btn:active{background:var(--card2)}
+  border-bottom:1px solid var(--border);padding:13px 20px;
+  display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.1rem;font-weight:900}.logo b{color:var(--yellow)}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.pack-pill{background:var(--card2);border:1px solid var(--border);border-radius:20px;
+  padding:6px 14px;font-size:0.75rem;font-weight:700;color:var(--yellow);cursor:pointer}
+.pack-pill:active{background:var(--card)}
+.icon-btn{background:none;border:none;color:var(--t2);font-size:1.2rem;cursor:pointer;padding:4px 6px}
 
-/* ── BOTTOM NAV ── */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;
-  background:var(--bg);border-top:1px solid var(--border);
-  display:flex;padding-bottom:var(--sb)}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:10px 4px;background:none;border:none;color:var(--text3);font-family:var(--font);
-  font-size:0.6rem;font-weight:600;cursor:pointer;gap:3px;text-transform:uppercase;
-  letter-spacing:.05em;transition:color .2s}
-.nav-btn.active{color:var(--yellow)}
-.nav-icon{font-size:1.1rem;line-height:1}
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:var(--bg);border-top:1px solid var(--border);display:flex;padding-bottom:var(--sb)}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:9px 4px;background:none;border:none;color:var(--t3);font-family:var(--font);
+  font-size:0.6rem;font-weight:600;cursor:pointer;gap:3px;text-transform:uppercase;letter-spacing:.05em}
+.nb.on{color:var(--yellow)}
+.ni{font-size:1.1rem;line-height:1}
 
-/* ── TABS ── */
+/* TABS */
 .tab{display:none;padding:16px;max-width:500px;margin:0 auto}
-.tab.active{display:block}
+.tab.on{display:block}
 
-/* ── FLAG BANNERS ── */
-.flag{border-radius:14px;padding:14px 16px;margin-bottom:12px;display:none;
-  animation:slideIn .3s ease}
-.flag.show{display:block}
-.flag.danger{background:var(--red-bg);border:1px solid var(--red-border)}
-.flag.warn{background:var(--yellow-bg);border:1px solid var(--yellow-border)}
-.flag.info{background:#0a0f1c;border:1px solid #1e3a5f}
-.flag-head{font-size:0.8rem;font-weight:800;margin-bottom:4px}
-.flag.danger .flag-head{color:var(--red)}
-.flag.warn .flag-head{color:var(--yellow)}
-.flag.info .flag-head{color:#60a5fa}
-.flag-body{font-size:0.72rem;color:var(--text2);line-height:1.5}
+/* SECTION LABEL */
+.slabel{font-size:0.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
+  color:var(--t2);margin-bottom:9px;margin-top:2px}
 
-/* ── BIG TODAY CARD ── */
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:16px;margin-bottom:12px}
+.card.yellow-border{border-color:var(--yborder);background:var(--ybg)}
+.card.green-border{border-color:var(--gborder);background:var(--gbg)}
+.card.red-border{border-color:var(--rborder);background:var(--rbg)}
+.card.blue-border{border-color:var(--bborder);background:var(--bbg)}
+
+/* FLAG */
+.flag{border-radius:14px;padding:13px 15px;margin-bottom:11px;display:none;animation:sIn .3s ease}
+.flag.on{display:block}
+.flag.warn{background:var(--ybg);border:1px solid var(--yborder)}
+.flag.info{background:var(--bbg);border:1px solid var(--bborder)}
+.fhead{font-size:0.78rem;font-weight:800;margin-bottom:3px}
+.flag.warn .fhead{color:var(--yellow)}.flag.info .fhead{color:var(--blue)}
+.fbody{font-size:0.71rem;color:var(--t2);line-height:1.5}
+
+/* TODAY SECTION */
 .today-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.today-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
-  padding:16px;cursor:pointer;transition:background .15s}
-.today-card:active{background:var(--card2)}
-.today-card.earned{border-color:var(--yellow-border);background:var(--yellow-bg)}
-.today-label{font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
-  color:var(--text2);margin-bottom:8px}
-.today-amount{font-size:1.6rem;font-weight:900;line-height:1;margin-bottom:4px}
-.today-amount.yellow{color:var(--yellow)}
-.today-amount.red{color:var(--red)}
-.today-sub{font-size:0.65rem;color:var(--text2)}
+.today-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px}
+.today-card.hl{border-color:var(--yborder);background:var(--ybg)}
+.tc-label{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--t2);margin-bottom:7px}
+.tc-amount{font-size:1.7rem;font-weight:900;line-height:1;margin-bottom:3px}
+.tc-amount.y{color:var(--yellow)}.tc-amount.g{color:var(--green)}.tc-amount.b{color:var(--blue)}
+.tc-sub{font-size:0.63rem;color:var(--t2)}
 
-/* ── REAM PROGRESS CARD ── */
-.ream-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
-  padding:16px;margin-bottom:12px;cursor:pointer;transition:background .15s;position:relative}
-.ream-card:active{background:var(--card2)}
-.ream-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.ream-card-title{font-size:0.8rem;font-weight:700;color:var(--text)}
-.ream-card-pct{font-size:0.75rem;font-weight:800;color:var(--yellow)}
-.ream-add-btn{position:absolute;top:14px;right:14px;background:var(--yellow);border:none;
-  border-radius:8px;width:28px;height:28px;font-size:1rem;font-weight:900;color:#000;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
-.progress-track{background:var(--border);border-radius:99px;height:10px;overflow:hidden;margin-bottom:10px}
-.progress-fill{height:100%;border-radius:99px;transition:width .5s ease,background .3s}
-.progress-fill.going{background:var(--yellow)}
-.progress-fill.done{background:var(--green)}
-.ream-numbers{display:flex;justify-content:space-between;font-size:0.68rem;color:var(--text2)}
-.ream-numbers b{color:var(--text);font-weight:700}
+/* PROGRESS */
+.prog-track{background:var(--border);border-radius:99px;height:10px;overflow:hidden;margin-bottom:9px}
+.prog-fill{height:100%;border-radius:99px;transition:width .5s ease,background .3s}
+.prog-fill.going{background:var(--yellow)}.prog-fill.done{background:var(--green)}
+.prog-labels{display:flex;justify-content:space-between;font-size:0.68rem;color:var(--t2)}
+.prog-labels b{color:var(--text);font-weight:700}
 
-/* ── SPEND STATUS BOX ── */
-.spend-box{border-radius:16px;padding:18px;margin-bottom:12px;cursor:pointer;transition:all .15s}
-.spend-box.safe{background:var(--green-bg);border:1px solid var(--green-border)}
-.spend-box.warn{background:var(--yellow-bg);border:1px solid var(--yellow-border)}
-.spend-box.over{background:var(--red-bg);border:1px solid var(--red-border)}
-.spend-status-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;
-  letter-spacing:.08em;margin-bottom:6px}
-.spend-box.safe .spend-status-label{color:var(--green)}
-.spend-box.warn .spend-status-label{color:var(--yellow)}
-.spend-box.over .spend-status-label{color:var(--red)}
-.spend-amount{font-size:2.4rem;font-weight:900;line-height:1;margin-bottom:4px}
-.spend-box.safe .spend-amount{color:var(--green)}
-.spend-box.warn .spend-amount{color:var(--yellow)}
-.spend-box.over .spend-amount{color:var(--red)}
-.spend-desc{font-size:0.72rem;color:var(--text2);margin-bottom:14px}
-.spend-meter-labels{display:flex;justify-content:space-between;font-size:0.62rem;
-  color:var(--text2);margin-bottom:5px}
-.meter-track{background:var(--border);border-radius:99px;height:6px;overflow:hidden}
-.meter-fill{height:100%;border-radius:99px;transition:width .5s,background .3s}
-.meter-fill.safe{background:var(--green)}
-.meter-fill.warn{background:var(--yellow)}
-.meter-fill.over{background:var(--red)}
+/* SAVINGS BAR */
+.sav-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.sav-label{font-size:0.68rem;color:var(--t2)}
+.sav-val{font-size:0.78rem;font-weight:800}
+.sav-track{background:var(--border);border-radius:99px;height:7px;overflow:hidden}
+.sav-fill{height:100%;border-radius:99px;transition:width .5s}
+.sav-fill.personal{background:var(--green)}
+.sav-fill.business{background:var(--blue)}
 
-/* ── LOG BUTTONS ── */
-.log-section{margin-bottom:12px}
-.log-toggle{display:flex;gap:2px;background:var(--card);border:1px solid var(--border);
-  border-radius:14px;padding:4px;margin-bottom:12px}
-.log-toggle-btn{flex:1;padding:10px;border:none;border-radius:11px;font-family:var(--font);
-  font-size:0.8rem;font-weight:700;cursor:pointer;transition:all .2s;background:none;color:var(--text2)}
-.log-toggle-btn.active-inc{background:var(--yellow);color:#000}
-.log-toggle-btn.active-exp{background:var(--red);color:#fff}
-.log-form{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
-.field{margin-bottom:12px}
-.field-label{font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;
-  color:var(--text2);margin-bottom:6px;display:block}
-.field-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;
-  padding:12px 14px;color:var(--text);font-family:var(--font);font-size:0.95rem;outline:none;
-  transition:border-color .2s;-webkit-appearance:none}
-.field-input:focus{border-color:var(--yellow)}
-.field-input.exp:focus{border-color:var(--red)}
-textarea.field-input{resize:none;height:48px;font-size:0.82rem}
-.pay-row{display:flex;gap:8px;margin-bottom:12px}
-.pay-opt{flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);
-  background:var(--bg);color:var(--text2);font-family:var(--font);font-size:0.8rem;
-  font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
-.pay-opt.sel-cash{background:var(--yellow-bg);border-color:var(--yellow);color:var(--yellow)}
-.pay-opt.sel-transfer{background:var(--green-bg);border-color:var(--green);color:var(--green)}
-.field-row{display:flex;gap:10px}
-.field-row .field{flex:1}
-.submit-btn{width:100%;padding:14px;border:none;border-radius:12px;font-family:var(--font);
-  font-size:0.95rem;font-weight:800;cursor:pointer;transition:opacity .15s,transform .1s}
-.submit-btn:active{opacity:.85;transform:scale(.98)}
-.submit-btn.inc{background:var(--yellow);color:#000}
-.submit-btn.exp{background:var(--red);color:#fff}
+/* LOG DAILY */
+.log-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px}
+.log-title{font-size:0.85rem;font-weight:800;margin-bottom:14px}
+.input-row{display:flex;gap:10px;margin-bottom:12px}
+.input-group{flex:1}
+.ilabel{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--t2);margin-bottom:6px;display:block}
+.ifield{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;
+  padding:12px 13px;color:var(--text);font-family:var(--font);font-size:1rem;font-weight:700;
+  outline:none;-webkit-appearance:none;transition:border-color .2s}
+.ifield:focus{border-color:var(--yellow)}
+.ifield.small{font-size:0.88rem;font-weight:400}
+.note-field{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;
+  padding:11px 13px;color:var(--text);font-family:var(--font);font-size:0.85rem;
+  outline:none;resize:none;height:44px;-webkit-appearance:none;margin-bottom:12px}
+.note-field:focus{border-color:var(--yellow)}
+.log-btn{width:100%;padding:14px;border:none;border-radius:12px;font-family:var(--font);
+  font-size:0.92rem;font-weight:800;cursor:pointer;transition:opacity .15s,transform .1s}
+.log-btn:active{opacity:.85;transform:scale(.98)}
+.log-btn.yellow{background:var(--yellow);color:#000}
+.log-btn.red{background:var(--red);color:#fff}
+.log-btn.outline{background:transparent;border:1px dashed var(--border);color:var(--t2)}
+.log-btn.outline:active{border-color:var(--yellow);color:var(--yellow)}
 
-/* ── FEED ── */
-.feed-section{background:var(--card);border:1px solid var(--border);border-radius:16px;
-  padding:16px;margin-bottom:12px}
-.feed-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.feed-title{font-size:0.8rem;font-weight:700}
-.feed-count{font-size:0.65rem;color:var(--text2)}
-.feed-item{display:flex;align-items:center;gap:12px;padding:11px 0;
-  border-bottom:1px solid var(--border)}
-.feed-item:last-child{border-bottom:none}
-.feed-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.feed-dot.inc{background:var(--green)}.feed-dot.exp{background:var(--red)}
-.feed-info{flex:1;min-width:0}
-.feed-note{font-size:0.78rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.feed-meta{font-size:0.62rem;color:var(--text2);margin-top:2px}
-.feed-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
-.feed-amt{font-size:0.85rem;font-weight:800}
-.feed-amt.inc{color:var(--green)}.feed-amt.exp{color:var(--red)}
-.feed-acts{display:flex;gap:8px}
-.feed-act{background:none;border:none;font-size:0.82rem;cursor:pointer;opacity:.5;
-  transition:opacity .2s}
-.feed-act:active{opacity:1}
-.empty{text-align:center;color:var(--text3);font-size:0.78rem;padding:24px 0;line-height:1.7}
+/* DATE HEADER */
+.date-header{display:flex;justify-content:space-between;align-items:center;
+  background:var(--card2);border-radius:10px;padding:10px 14px;margin-bottom:10px}
+.date-str{font-size:0.78rem;font-weight:700}
+.date-status{font-size:0.65rem;font-weight:700;padding:3px 10px;border-radius:20px}
+.date-status.open{background:var(--gborder);color:var(--green)}
+.date-status.closed{background:var(--border);color:var(--t3)}
 
-/* ── NEW REAM BUTTON ── */
-.new-ream-btn{width:100%;padding:14px;background:transparent;
-  border:1px dashed var(--border);border-radius:14px;color:var(--text2);
-  font-family:var(--font);font-size:0.85rem;font-weight:600;cursor:pointer;
-  transition:all .2s;margin-bottom:8px;display:flex;align-items:center;
-  justify-content:center;gap:8px}
-.new-ream-btn:active{border-color:var(--yellow);color:var(--yellow)}
-
-/* ── SUMMARY TAB ── */
-.section-head{font-size:0.65rem;font-weight:700;text-transform:uppercase;
-  letter-spacing:.09em;color:var(--text2);margin-bottom:10px;margin-top:4px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
-  padding:16px;margin-bottom:12px}
-.stat-row{display:flex;justify-content:space-between;align-items:center;
-  padding:11px 0;border-bottom:1px solid var(--border)}
-.stat-row:last-child{border-bottom:none}
-.stat-label{font-size:0.78rem;color:var(--text2)}
-.stat-val{font-size:0.88rem;font-weight:800}
-.stat-val.g{color:var(--green)}.stat-val.y{color:var(--yellow)}
-.stat-val.r{color:var(--red)}.stat-val.w{color:var(--text)}
-
-.ream-hist-card{background:var(--card);border:1px solid var(--border);border-radius:14px;
+/* HISTORY ITEMS */
+.day-item{background:var(--card);border:1px solid var(--border);border-radius:14px;
   padding:14px 16px;margin-bottom:8px}
-.rhc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.rhc-name{font-size:0.82rem;font-weight:700}
-.rhc-saved{font-size:0.88rem;font-weight:800;color:var(--green)}
-.rhc-meta{font-size:0.65rem;color:var(--text2);line-height:1.6}
+.day-item-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.day-date{font-size:0.78rem;font-weight:700}
+.day-total{font-size:1rem;font-weight:900;color:var(--yellow)}
+.day-breakdown{display:flex;gap:12px}
+.day-breakdown span{font-size:0.68rem;color:var(--t2)}
+.day-breakdown b{font-weight:700;color:var(--text)}
+.day-actions{display:flex;gap:8px;margin-top:8px}
+.act-btn{background:none;border:1px solid var(--border);border-radius:8px;
+  padding:5px 12px;color:var(--t2);font-family:var(--font);font-size:0.7rem;cursor:pointer}
+.act-btn:active{border-color:var(--yellow);color:var(--yellow)}
 
-.tx-item{display:flex;align-items:center;gap:12px;padding:11px 0;
-  border-bottom:1px solid var(--border)}
-.tx-item:last-child{border-bottom:none}
-.tx-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.tx-dot.inc{background:var(--green)}.tx-dot.exp{background:var(--red)}
-.tx-info{flex:1;min-width:0}
-.tx-note{font-size:0.78rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tx-meta{font-size:0.62rem;color:var(--text2);margin-top:2px}
-.tx-amt{font-size:0.85rem;font-weight:800;flex-shrink:0}
-.tx-amt.inc{color:var(--green)}.tx-amt.exp{color:var(--red)}
+/* EXPENSE ITEMS */
+.exp-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+.exp-item:last-child{border-bottom:none}
+.exp-dot{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0}
+.exp-info{flex:1;min-width:0}
+.exp-note{font-size:0.78rem;font-weight:600}
+.exp-meta{font-size:0.62rem;color:var(--t2);margin-top:2px}
+.exp-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.exp-amt{font-size:0.88rem;font-weight:800;color:var(--red)}
+.exp-acts{display:flex;gap:8px}
+.exp-act{background:none;border:none;font-size:0.8rem;cursor:pointer;opacity:.5}
+.exp-act:active{opacity:1}
 
-/* ── SETTINGS ── */
-.settings-group{margin-bottom:24px}
-.settings-group-title{font-size:0.65rem;font-weight:700;text-transform:uppercase;
-  letter-spacing:.09em;color:var(--text2);margin-bottom:10px}
-.setting-row{background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.setting-info{flex:1}
-.setting-label{font-size:0.85rem;font-weight:600}
-.setting-sub{font-size:0.65rem;color:var(--text2);margin-top:2px}
-.setting-input{background:var(--bg);border:1px solid var(--border);border-radius:8px;
+/* SUMMARY STAT ROWS */
+.srow{display:flex;justify-content:space-between;align-items:center;
+  padding:12px 0;border-bottom:1px solid var(--border)}
+.srow:last-child{border-bottom:none}
+.srow-label{font-size:0.8rem;color:var(--t2)}
+.srow-val{font-size:0.92rem;font-weight:800}
+.srow-val.g{color:var(--green)}.srow-val.y{color:var(--yellow)}
+.srow-val.r{color:var(--red)}.srow-val.w{color:var(--text)}.srow-val.b{color:var(--blue)}
+
+/* PACK HISTORY CARD */
+.phcard{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:14px 16px;margin-bottom:8px}
+.phcard-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.phcard-name{font-size:0.85rem;font-weight:800}
+.phcard-rev{font-size:0.92rem;font-weight:900;color:var(--green)}
+.phcard-meta{font-size:0.65rem;color:var(--t2);line-height:1.7}
+
+/* SETTINGS */
+.sg-title{font-size:0.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
+  color:var(--t2);margin-bottom:10px;margin-top:4px}
+.srow-set{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;
+  justify-content:space-between;gap:12px}
+.sl{font-size:0.85rem;font-weight:600}
+.ss{font-size:0.65rem;color:var(--t2);margin-top:2px}
+.sinput{background:var(--bg);border:1px solid var(--border);border-radius:8px;
   padding:8px 10px;color:var(--text);font-family:var(--font);font-size:0.9rem;
   width:100px;text-align:right;outline:none;-webkit-appearance:none}
-.setting-input:focus{border-color:var(--yellow)}
-.save-btn{width:100%;padding:14px;background:var(--green);border:none;border-radius:14px;
-  color:#000;font-family:var(--font);font-size:0.95rem;font-weight:800;cursor:pointer;margin-top:4px}
-.danger-btn{width:100%;padding:13px;background:transparent;border:1px solid var(--red-border);
-  border-radius:14px;color:var(--red);font-family:var(--font);font-size:0.88rem;
-  font-weight:700;cursor:pointer;margin-top:8px}
-.export-btn{width:100%;padding:13px;background:transparent;border:1px solid var(--border);
-  border-radius:14px;color:var(--text2);font-family:var(--font);font-size:0.88rem;
-  font-weight:600;cursor:pointer;margin-top:8px}
+.sinput:focus{border-color:var(--yellow)}
+.sbtn{width:100%;padding:14px;border:none;border-radius:14px;font-family:var(--font);
+  font-size:0.92rem;font-weight:800;cursor:pointer;margin-bottom:8px}
+.sbtn.g{background:var(--green);color:#000}
+.sbtn.r{background:transparent;border:1px solid var(--rborder);color:var(--red)}
+.sbtn.o{background:transparent;border:1px solid var(--border);color:var(--t2)}
 
-/* ── MODAL OVERLAY ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;
   display:none;align-items:flex-end;justify-content:center}
-.modal-overlay.show{display:flex}
+.overlay.on{display:flex}
 .modal{background:#1a1a1a;border-radius:20px 20px 0 0;padding:24px 20px;
   width:100%;max-width:500px;border-top:1px solid var(--border);
-  animation:slideUp .3s ease;padding-bottom:calc(24px + var(--sb))}
-.modal-title{font-size:1rem;font-weight:800;margin-bottom:6px}
-.modal-sub{font-size:0.78rem;color:var(--text2);margin-bottom:20px;line-height:1.5}
-.modal-row{display:flex;gap:10px;margin-top:16px}
-.modal-cancel{flex:1;padding:13px;background:var(--card2);border:1px solid var(--border);
-  border-radius:12px;color:var(--text);font-family:var(--font);font-weight:700;
-  cursor:pointer;font-size:0.88rem}
-.modal-ok{flex:1;padding:13px;background:var(--yellow);border:none;
-  border-radius:12px;color:#000;font-family:var(--font);font-weight:800;
-  cursor:pointer;font-size:0.88rem}
-.modal-del{flex:1;padding:13px;background:var(--red);border:none;
-  border-radius:12px;color:#fff;font-family:var(--font);font-weight:800;
-  cursor:pointer;font-size:0.88rem}
-.modal-stat{display:flex;justify-content:space-between;padding:10px 0;
-  border-bottom:1px solid var(--border);font-size:0.82rem}
-.modal-stat:last-of-type{border-bottom:none}
-.modal-stat span:last-child{font-weight:800;color:var(--yellow)}
-.modal-new-ream{width:100%;padding:13px;background:var(--yellow);border:none;
-  border-radius:12px;color:#000;font-family:var(--font);font-weight:800;
-  cursor:pointer;font-size:0.88rem;margin-top:12px}
+  animation:sUp .3s ease;padding-bottom:calc(24px + var(--sb))}
+.mtitle{font-size:1rem;font-weight:800;margin-bottom:6px}
+.msub{font-size:0.78rem;color:var(--t2);margin-bottom:18px;line-height:1.5}
+.mfield{margin-bottom:12px}
+.mlabel{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--t2);margin-bottom:6px;display:block}
+.minput{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;
+  padding:12px 13px;color:var(--text);font-family:var(--font);font-size:0.95rem;
+  outline:none;-webkit-appearance:none}
+.minput:focus{border-color:var(--yellow)}
+.mrow{display:flex;gap:10px;margin-top:16px}
+.mbtn{flex:1;padding:13px;border-radius:12px;font-family:var(--font);
+  font-weight:800;cursor:pointer;font-size:0.88rem;border:none}
+.mbtn.cancel{background:var(--card2);color:var(--text);border:1px solid var(--border)}
+.mbtn.ok{background:var(--yellow);color:#000}
+.mbtn.del{background:var(--red);color:#fff}
 
-/* ── TOAST ── */
-.toast{position:fixed;bottom:calc(72px + var(--sb));left:50%;
-  transform:translateX(-50%) translateY(30px);opacity:0;
+/* PACK MODAL STATS */
+.pm-stat{display:flex;justify-content:space-between;padding:10px 0;
+  border-bottom:1px solid var(--border);font-size:0.82rem}
+.pm-stat:last-of-type{border-bottom:none}
+.pm-stat span:last-child{font-weight:800;color:var(--yellow)}
+.pm-end-btn{width:100%;padding:13px;background:var(--red);border:none;
+  border-radius:12px;color:#fff;font-family:var(--font);font-weight:800;
+  cursor:pointer;font-size:0.88rem;margin-top:14px}
+
+/* TOAST */
+.toast{position:fixed;bottom:calc(76px + var(--sb));left:50%;
+  transform:translateX(-50%) translateY(20px);opacity:0;
   padding:11px 22px;border-radius:99px;font-weight:700;font-size:0.8rem;
-  z-index:999;white-space:nowrap;font-family:var(--font);
-  transition:transform .25s ease,opacity .25s ease;pointer-events:none}
-.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-.toast.good{background:var(--green);color:#000}
-.toast.bad{background:var(--red);color:#fff}
-.toast.info{background:var(--yellow);color:#000}
+  z-index:999;white-space:nowrap;font-family:var(--font);pointer-events:none;
+  transition:transform .25s,opacity .25s}
+.toast.on{transform:translateX(-50%) translateY(0);opacity:1}
+.toast.g{background:var(--green);color:#000}
+.toast.r{background:var(--red);color:#fff}
+.toast.y{background:var(--yellow);color:#000}
 
 select option{background:#1a1a1a}
-@keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes sIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -312,69 +257,152 @@ select option{background:#1a1a1a}
 <!-- ONBOARDING -->
 <div id="ob">
   <div class="ob-logo">Print<b>Flow</b></div>
-  <div class="ob-tagline">Your print business, under control.</div>
-  <div class="ob-field">
-    <label class="ob-label">Your name</label>
-    <input class="ob-input" id="obName" placeholder="e.g. Chidi" maxlength="30">
-  </div>
-  <div class="ob-field">
-    <label class="ob-label">Business name (optional)</label>
-    <input class="ob-input" id="obBiz" placeholder="e.g. Campus Prints">
-  </div>
+  <div class="ob-tag">Your print business, under control.</div>
+  <label class="ob-label">Your name</label>
+  <input class="ob-input" id="obName" placeholder="e.g. Chidi" maxlength="30">
+  <label class="ob-label">Business name (optional)</label>
+  <input class="ob-input" id="obBiz" placeholder="e.g. Campus Prints">
   <button class="ob-btn" onclick="finishOB()">Let's Go 🚀</button>
 </div>
 
-<!-- REAM INFO MODAL -->
-<div class="modal-overlay" id="reamModal">
+<!-- PACK MODAL -->
+<div class="overlay" id="packModal">
   <div class="modal">
-    <div class="modal-title" id="reamModalTitle">Ream 1</div>
-    <div class="modal-sub">Your current ream at a glance</div>
-    <div id="reamModalStats"></div>
-    <button class="modal-new-ream" onclick="closeModal('reamModal');startNewReam()">📄 Start New Ream</button>
-    <div class="modal-row">
-      <button class="modal-cancel" onclick="closeModal('reamModal')">Close</button>
+    <div class="mtitle" id="pmTitle">Pack 1</div>
+    <div class="msub">Current pack at a glance</div>
+    <div id="pmStats"></div>
+    <button class="pm-end-btn" onclick="endPack()">End This Pack</button>
+    <div class="mrow">
+      <button class="mbtn cancel" onclick="closeM('packModal')">Close</button>
     </div>
   </div>
 </div>
 
-<!-- EDIT MODAL -->
-<div class="modal-overlay" id="editModal">
+<!-- LOG DAY MODAL -->
+<div class="overlay" id="logModal">
   <div class="modal">
-    <div class="modal-title">Edit Entry</div>
-    <div class="modal-sub" id="editPreview"></div>
-    <div class="field">
-      <label class="field-label">Amount (₦)</label>
-      <input class="field-input" type="number" id="editAmt" inputmode="numeric">
+    <div class="mtitle" id="logModalTitle">Log Today</div>
+    <div class="msub" id="logModalSub">Enter what you made today</div>
+    <div class="mfield">
+      <label class="mlabel">Cash (₦)</label>
+      <input class="minput" type="number" id="lmCash" placeholder="0" inputmode="numeric">
     </div>
-    <div class="field">
-      <label class="field-label">Note</label>
-      <input class="field-input" type="text" id="editNote" maxlength="60">
+    <div class="mfield">
+      <label class="mlabel">Transfer / Opay (₦)</label>
+      <input class="minput" type="number" id="lmTransfer" placeholder="0" inputmode="numeric">
     </div>
-    <div class="field" id="editCatField">
-      <label class="field-label">Category</label>
-      <select class="field-input" id="editCat">
-        <option value="Personal">Personal</option>
-        <option value="Food">Food</option>
-        <option value="Transport">Transport</option>
-        <option value="Restock">Paper/Restock</option>
-        <option value="Other">Other</option>
+    <div class="mfield">
+      <label class="mlabel">Note (optional)</label>
+      <input class="minput" type="text" id="lmNote" placeholder="e.g. busy day, slow day…" maxlength="60">
+    </div>
+    <div class="mrow">
+      <button class="mbtn cancel" onclick="closeM('logModal')">Cancel</button>
+      <button class="mbtn ok" onclick="saveDay()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT DAY MODAL -->
+<div class="overlay" id="editDayModal">
+  <div class="modal">
+    <div class="mtitle">Edit Day</div>
+    <div class="msub" id="editDaySub"></div>
+    <div class="mfield">
+      <label class="mlabel">Cash (₦)</label>
+      <input class="minput" type="number" id="edCash" inputmode="numeric">
+    </div>
+    <div class="mfield">
+      <label class="mlabel">Transfer / Opay (₦)</label>
+      <input class="minput" type="number" id="edTransfer" inputmode="numeric">
+    </div>
+    <div class="mfield">
+      <label class="mlabel">Note</label>
+      <input class="minput" type="text" id="edNote" maxlength="60">
+    </div>
+    <div class="mrow">
+      <button class="mbtn cancel" onclick="closeM('editDayModal')">Cancel</button>
+      <button class="mbtn ok" onclick="saveEditDay()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE DAY MODAL -->
+<div class="overlay" id="delDayModal">
+  <div class="modal">
+    <div class="mtitle">Delete this day?</div>
+    <div class="msub" id="delDaySub"></div>
+    <div class="mrow">
+      <button class="mbtn cancel" onclick="closeM('delDayModal')">Cancel</button>
+      <button class="mbtn del" onclick="confirmDelDay()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD EXPENSE MODAL -->
+<div class="overlay" id="expModal">
+  <div class="modal">
+    <div class="mtitle">Log Expense</div>
+    <div class="msub">This will be added to your cumulative expenses.</div>
+    <div class="mfield">
+      <label class="mlabel">Amount (₦)</label>
+      <input class="minput" type="number" id="emAmt" placeholder="e.g. 3000" inputmode="numeric">
+    </div>
+    <div class="mfield">
+      <label class="mlabel">Category</label>
+      <select class="minput" id="emCat">
+        <option value="Paper">Paper</option>
+        <option value="Spiral Band">Spiral Band</option>
+        <option value="Ink">Ink</option>
+        <option value="Unforeseen">Unforeseen</option>
       </select>
     </div>
-    <div class="modal-row">
-      <button class="modal-cancel" onclick="closeModal('editModal')">Cancel</button>
-      <button class="modal-ok" onclick="saveEdit()">Save Changes</button>
+    <div class="mfield">
+      <label class="mlabel">Note (optional)</label>
+      <input class="minput" type="text" id="emNote" placeholder="e.g. bought new ink cartridge" maxlength="60">
+    </div>
+    <div class="mrow">
+      <button class="mbtn cancel" onclick="closeM('expModal')">Cancel</button>
+      <button class="mbtn ok" style="background:var(--red);color:#fff" onclick="saveExp()">Add Expense</button>
     </div>
   </div>
 </div>
 
-<!-- DELETE MODAL -->
-<div class="modal-overlay" id="deleteModal">
+<!-- EDIT EXPENSE MODAL -->
+<div class="overlay" id="editExpModal">
   <div class="modal">
-    <div class="modal-title">Delete this entry?</div>
-    <div class="modal-sub" id="deletePreview"></div>
-    <div class="modal-row">
-      <button class="modal-cancel" onclick="closeModal('deleteModal')">Cancel</button>
-      <button class="modal-del" onclick="confirmDelete()">Delete</button>
+    <div class="mtitle">Edit Expense</div>
+    <div class="mfield">
+      <label class="mlabel">Amount (₦)</label>
+      <input class="minput" type="number" id="eeAmt" inputmode="numeric">
+    </div>
+    <div class="mfield">
+      <label class="mlabel">Category</label>
+      <select class="minput" id="eeCat">
+        <option value="Paper">Paper</option>
+        <option value="Spiral Band">Spiral Band</option>
+        <option value="Ink">Ink</option>
+        <option value="Unforeseen">Unforeseen</option>
+      </select>
+    </div>
+    <div class="mfield">
+      <label class="mlabel">Note</label>
+      <input class="minput" type="text" id="eeNote" maxlength="60">
+    </div>
+    <div class="mrow">
+      <button class="mbtn cancel" onclick="closeM('editExpModal')">Cancel</button>
+      <button class="mbtn ok" onclick="saveEditExp()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE EXPENSE MODAL -->
+<div class="overlay" id="delExpModal">
+  <div class="modal">
+    <div class="mtitle">Delete this expense?</div>
+    <div class="msub" id="delExpSub"></div>
+    <div class="mrow">
+      <button class="mbtn cancel" onclick="closeM('delExpModal')">Cancel</button>
+      <button class="mbtn del" onclick="confirmDelExp()">Delete</button>
     </div>
   </div>
 </div>
@@ -382,608 +410,22 @@ select option{background:#1a1a1a}
 <!-- HEADER -->
 <header>
   <div class="logo">Print<b>Flow</b></div>
-  <div class="header-right">
-    <div class="ream-pill" id="reamPill" onclick="openReamModal()">Ream 1</div>
-    <button class="icon-btn" onclick="switchTab('settings')" title="Settings">⚙️</button>
+  <div class="hdr-right">
+    <div class="pack-pill" id="packPill" onclick="openPackModal()">Pack 1</div>
+    <button class="icon-btn" onclick="goTab('settings')">⚙️</button>
   </div>
 </header>
 
-<!-- TAB: HOME -->
-<div class="tab active" id="tab-home">
+<!-- HOME TAB -->
+<div class="tab on" id="tab-home">
 
-  <!-- Flag banners -->
-  <div class="flag danger" id="fOver"><div class="flag-head">🚨 You've gone over budget today</div><div class="flag-body" id="fOverMsg"></div></div>
-  <div class="flag warn" id="fNear"><div class="flag-head">⚠️ Almost at your daily limit</div><div class="flag-body" id="fNearMsg"></div></div>
-  <div class="flag info" id="fSlow"><div class="flag-head">📉 No revenue in a while</div><div class="flag-body" id="fSlowMsg"></div></div>
-  <div class="flag warn" id="fBehind"><div class="flag-head">🐢 You're behind pace</div><div class="flag-body" id="fBehindMsg"></div></div>
+  <div class="flag warn" id="fUnlogged">
+    <div class="fhead">📋 Yesterday not logged yet</div>
+    <div class="fbody" id="fUnloggedMsg"></div>
+  </div>
 
-  <!-- Today cards -->
+  <!-- Today summary -->
+  <div class="slabel">Today</div>
   <div class="today-grid">
-    <div class="today-card earned" onclick="scrollToLog()">
-      <div class="today-label">Made today</div>
-      <div class="today-amount yellow" id="todayInc">₦0</div>
-      <div class="today-sub" id="todaySalesSub">0 sales</div>
-    </div>
-    <div class="today-card" onclick="switchTab('summary')">
-      <div class="today-label">Spent today</div>
-      <div class="today-amount red" id="todayExp">₦0</div>
-      <div class="today-sub" id="todayNetSub">Net: ₦0</div>
-    </div>
-  </div>
-
-  <!-- Ream progress -->
-  <div class="ream-card" id="reamCard" onclick="switchTab('summary')">
-    <div class="ream-card-header">
-      <div class="ream-card-title">This ream — tap to see history</div>
-      <div style="width:36px"></div><!-- spacer for + btn -->
-    </div>
-    <button class="ream-add-btn" onclick="event.stopPropagation();openReamModal()" title="Ream options">+</button>
-    <div class="progress-track">
-      <div class="progress-fill going" id="reamFill" style="width:0%"></div>
-    </div>
-    <div class="ream-numbers">
-      <span>Earned <b id="reamEarned">₦0</b></span>
-      <span id="reamPct" style="font-weight:800;color:var(--yellow)">0%</span>
-      <span>Target <b>₦25,000</b></span>
-    </div>
-    <div style="margin-top:10px;font-size:0.7rem;color:var(--text2)" id="reamNote"></div>
-  </div>
-
-  <!-- Spend status -->
-  <div class="spend-box safe" id="spendBox" onclick="switchTab('summary')">
-    <div class="spend-status-label" id="spendLabel">Spending on Track — tap to see breakdown</div>
-    <div class="spend-amount" id="spendAmt">₦2,500</div>
-    <div class="spend-desc" id="spendDesc">left to spend today</div>
-    <div class="spend-meter-labels">
-      <span id="spentSoFar">₦0 spent</span>
-      <span id="dailyLimitLabel">₦2,500 limit</span>
-    </div>
-    <div class="meter-track">
-      <div class="meter-fill safe" id="meterFill" style="width:0%"></div>
-    </div>
-  </div>
-
-  <!-- Log section -->
-  <div class="log-section" id="logSection">
-    <div class="log-toggle">
-      <button class="log-toggle-btn active-inc" id="incToggle" onclick="setLogMode('income')">+ Log Income</button>
-      <button class="log-toggle-btn" id="expToggle" onclick="setLogMode('expense')">− Log Expense</button>
-    </div>
-
-    <!-- Income form -->
-    <div class="log-form" id="incForm">
-      <div class="field">
-        <label class="field-label">Amount (₦)</label>
-        <input class="field-input" type="number" id="incAmt" placeholder="e.g. 1500" inputmode="numeric">
-      </div>
-      <label class="field-label">How they paid</label>
-      <div class="pay-row">
-        <button class="pay-opt sel-cash" id="cashBtn" onclick="setPayment('cash')">💵 Cash</button>
-        <button class="pay-opt" id="transferBtn" onclick="setPayment('transfer')">🏦 Transfer</button>
-      </div>
-      <div class="field">
-        <label class="field-label">Note (optional)</label>
-        <textarea class="field-input" id="incNote" placeholder="e.g. 3 students, thesis…"></textarea>
-      </div>
-      <button class="submit-btn inc" onclick="logIncome()">Record Income</button>
-    </div>
-
-    <!-- Expense form -->
-    <div class="log-form" id="expForm" style="display:none">
-      <div class="field-row">
-        <div class="field">
-          <label class="field-label">Amount (₦)</label>
-          <input class="field-input exp" type="number" id="expAmt" placeholder="e.g. 500" inputmode="numeric">
-        </div>
-        <div class="field">
-          <label class="field-label">Category</label>
-          <select class="field-input exp" id="expCat">
-            <option value="Personal">Personal</option>
-            <option value="Food">Food</option>
-            <option value="Transport">Transport</option>
-            <option value="Restock">Paper/Restock</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-      </div>
-      <div class="field">
-        <label class="field-label">Note</label>
-        <textarea class="field-input exp" id="expNote" placeholder="e.g. lunch, transport…"></textarea>
-      </div>
-      <button class="submit-btn exp" onclick="logExpense()">Record Expense</button>
-    </div>
-  </div>
-
-  <!-- Today's feed -->
-  <div class="feed-section">
-    <div class="feed-header">
-      <div class="feed-title">Today's transactions</div>
-      <div class="feed-count" id="feedCount"></div>
-    </div>
-    <div id="feedList"><div class="empty">Nothing logged yet today.<br>Record your first sale above ↑</div></div>
-  </div>
-
-  <button class="new-ream-btn" onclick="startNewReam()">📄 Start New Ream of Paper</button>
-</div>
-
-<!-- TAB: SUMMARY -->
-<div class="tab" id="tab-summary">
-
-  <div class="section-head">Current Ream</div>
-  <div class="stat-card">
-    <div class="stat-row"><span class="stat-label">Revenue earned</span><span class="stat-val g" id="ssCurRev">₦0</span></div>
-    <div class="stat-row"><span class="stat-label">Expenses paid</span><span class="stat-val r" id="ssCurExp">₦0</span></div>
-    <div class="stat-row"><span class="stat-label">Paper cost</span><span class="stat-val r" id="ssPaperCost">₦5,000</span></div>
-    <div class="stat-row"><span class="stat-label">What you actually made</span><span class="stat-val g" id="ssCurNet">₦0</span></div>
-    <div class="stat-row"><span class="stat-label">Days on this ream</span><span class="stat-val w" id="ssCurDays">1</span></div>
-  </div>
-
-  <div class="section-head">Today's Spending by Category</div>
-  <div class="stat-card" id="ssExpBreak"><div class="empty">No expenses today.</div></div>
-
-  <div class="section-head">All-Time</div>
-  <div class="stat-card">
-    <div class="stat-row"><span class="stat-label">Total earned (ever)</span><span class="stat-val g" id="ssTotalRev">₦0</span></div>
-    <div class="stat-row"><span class="stat-label">Total spent (ever)</span><span class="stat-val r" id="ssTotalExp">₦0</span></div>
-    <div class="stat-row"><span class="stat-label">Reams completed</span><span class="stat-val y" id="ssTotalReams">0</span></div>
-    <div class="stat-row"><span class="stat-label">Best single sale</span><span class="stat-val y" id="ssBestSale">₦0</span></div>
-    <div class="stat-row"><span class="stat-label">Best day ever</span><span class="stat-val y" id="ssBestDay">₦0</span></div>
-  </div>
-
-  <div class="section-head">Past Reams</div>
-  <div id="ssReamHist"><div class="empty" style="padding:20px 0">Complete your first ream to see history here.</div></div>
-
-  <div class="section-head">All Transactions</div>
-  <div class="stat-card" id="ssAllTx"><div class="empty">No transactions yet.</div></div>
-
-</div>
-
-<!-- TAB: SETTINGS -->
-<div class="tab" id="tab-settings">
-  <div class="settings-group">
-    <div class="settings-group-title">About You</div>
-    <div class="setting-row">
-      <div class="setting-info"><div class="setting-label">Your Name</div></div>
-      <input class="setting-input" id="sName" type="text">
-    </div>
-    <div class="setting-row">
-      <div class="setting-info"><div class="setting-label">Business Name</div></div>
-      <input class="setting-input" id="sBiz" type="text">
-    </div>
-  </div>
-
-  <div class="settings-group">
-    <div class="settings-group-title">Ream Numbers</div>
-    <div class="setting-row">
-      <div class="setting-info">
-        <div class="setting-label">Cost per ream (₦)</div>
-        <div class="setting-sub">What you pay for one ream</div>
-      </div>
-      <input class="setting-input" id="sReamCost" type="number" inputmode="numeric">
-    </div>
-    <div class="setting-row">
-      <div class="setting-info">
-        <div class="setting-label">Revenue per ream (₦)</div>
-        <div class="setting-sub">What you make from one ream</div>
-      </div>
-      <input class="setting-input" id="sReamTarget" type="number" inputmode="numeric">
-    </div>
-    <div class="setting-row">
-      <div class="setting-info">
-        <div class="setting-label">Ream lasts (days)</div>
-        <div class="setting-sub">How long one ream usually lasts</div>
-      </div>
-      <input class="setting-input" id="sReamDays" type="number" inputmode="numeric">
-    </div>
-    <div class="setting-row">
-      <div class="setting-info">
-        <div class="setting-label">Daily spending limit (₦)</div>
-        <div class="setting-sub">Max you allow yourself per day</div>
-      </div>
-      <input class="setting-input" id="sDailyBudget" type="number" inputmode="numeric">
-    </div>
-  </div>
-
-  <button class="save-btn" onclick="saveSettings()">Save Settings</button>
-
-  <div class="settings-group" style="margin-top:24px">
-    <div class="settings-group-title">Data</div>
-    <button class="export-btn" onclick="exportData()">📤 Export Backup (JSON)</button>
-    <button class="danger-btn" onclick="clearData()">🗑️ Delete All Data</button>
-  </div>
-</div>
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <button class="nav-btn active" id="nav-home" onclick="switchTab('home')"><span class="nav-icon">🏠</span>Home</button>
-  <button class="nav-btn" id="nav-summary" onclick="switchTab('summary')"><span class="nav-icon">📊</span>Summary</button>
-  <button class="nav-btn" id="nav-settings" onclick="switchTab('settings')"><span class="nav-icon">⚙️</span>Settings</button>
-</nav>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// ─── DEFAULTS ────────────────────────────────────────────
-const DEF = { reamCost:5000, reamTarget:25000, reamDays:3, dailyBudget:2500, name:'', biz:'' };
-
-// ─── STATE ───────────────────────────────────────────────
-let S = load('pf_s4') || { reamStart:today(), txs:[], oldReams:[] };
-let ST = load('pf_st4') || {...DEF};
-let logMode = 'income', payment = 'cash', editIdx = null, deleteIdx = null;
-
-function load(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null; }catch(e){return null;} }
-function save(){ try{ localStorage.setItem('pf_s4',JSON.stringify(S)); localStorage.setItem('pf_st4',JSON.stringify(ST)); }catch(e){} }
-
-// ─── UTILS ───────────────────────────────────────────────
-function today(){ return new Date().toDateString(); }
-function fmt(n){ return Math.abs(Math.round(n)).toLocaleString('en-NG'); }
-function el(id){ return document.getElementById(id); }
-function reamTxs(){ return S.txs.filter(t=>!t.old); }
-function todayTxs(){ return S.txs.filter(t=>t.date===today()&&!t.old); }
-function sumInc(arr){ return arr.filter(t=>t.type==='inc').reduce((s,t)=>s+t.amt,0); }
-function sumExp(arr){ return arr.filter(t=>t.type==='exp').reduce((s,t)=>s+t.amt,0); }
-function dayNum(){ return Math.max(1,Math.floor((new Date()-new Date(S.reamStart))/86400000)+1); }
-function reamNum(){ return (S.oldReams||[]).length + 1; }
-function vibrate(){ try{ navigator.vibrate && navigator.vibrate(35); }catch(e){} }
-
-// ─── ONBOARDING ──────────────────────────────────────────
-window.addEventListener('load',()=>{
-  if(!ST.name){ el('ob').style.display='flex'; }
-  else { el('ob').style.display='none'; render(); }
-});
-
-function finishOB(){
-  const n = el('obName').value.trim();
-  if(!n){ toast('Enter your name','bad'); return; }
-  ST.name = n; ST.biz = el('obBiz').value.trim();
-  save(); el('ob').style.display='none'; render();
-}
-
-// ─── TAB SWITCHING ────────────────────────────────────────
-function switchTab(t){
-  document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(e=>e.classList.remove('active'));
-  el('tab-'+t).classList.add('active');
-  const nb = el('nav-'+t); if(nb) nb.classList.add('active');
-  if(t==='summary') renderSummary();
-  if(t==='settings') loadSettings();
-  window.scrollTo(0,0);
-}
-
-// ─── LOG MODE ────────────────────────────────────────────
-function setLogMode(m){
-  logMode = m;
-  el('incForm').style.display = m==='income'?'block':'none';
-  el('expForm').style.display = m==='expense'?'block':'none';
-  el('incToggle').className = 'log-toggle-btn'+(m==='income'?' active-inc':'');
-  el('expToggle').className = 'log-toggle-btn'+(m==='expense'?' active-exp':'');
-}
-
-function setPayment(p){
-  payment = p;
-  el('cashBtn').className = 'pay-opt'+(p==='cash'?' sel-cash':'');
-  el('transferBtn').className = 'pay-opt'+(p==='transfer'?' sel-transfer':'');
-}
-
-function scrollToLog(){
-  el('logSection').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-// ─── LOG INCOME ──────────────────────────────────────────
-function logIncome(){
-  const amt = parseFloat(el('incAmt').value);
-  if(!amt||amt<=0){ toast('Enter a valid amount','bad'); return; }
-  const note = el('incNote').value.trim() || 'Sale';
-  vibrate();
-  S.txs.unshift({ type:'inc', amt, payment, note, date:today(),
-    time:new Date().toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'}) });
-  save(); el('incAmt').value=''; el('incNote').value='';
-  render(); toast(`+₦${fmt(amt)} recorded`,'good');
-}
-
-// ─── LOG EXPENSE ─────────────────────────────────────────
-function logExpense(){
-  const amt = parseFloat(el('expAmt').value);
-  if(!amt||amt<=0){ toast('Enter a valid amount','bad'); return; }
-  const note = el('expNote').value.trim() || el('expCat').value;
-  vibrate();
-  S.txs.unshift({ type:'exp', amt, cat:el('expCat').value, note, date:today(),
-    time:new Date().toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit'}) });
-  save(); el('expAmt').value=''; el('expNote').value='';
-  render();
-  const todaySpent = sumExp(todayTxs());
-  if(todaySpent > ST.dailyBudget) toast(`🚨 ₦${fmt(todaySpent-ST.dailyBudget)} over limit!`,'bad');
-  else if(todaySpent >= ST.dailyBudget*0.8) toast(`⚠️ ₦${fmt(ST.dailyBudget-todaySpent)} left today`,'info');
-  else toast(`−₦${fmt(amt)} recorded`,'bad');
-}
-
-// ─── EDIT / DELETE ────────────────────────────────────────
-function openEdit(i){
-  editIdx = i;
-  const t = S.txs[i];
-  el('editPreview').textContent = `${t.type==='inc'?'Income':'Expense'} · ₦${fmt(t.amt)} · ${t.date}`;
-  el('editAmt').value = t.amt;
-  el('editNote').value = t.note||'';
-  el('editCatField').style.display = t.type==='exp'?'block':'none';
-  if(t.cat) el('editCat').value = t.cat;
-  el('editModal').classList.add('show');
-}
-
-function saveEdit(){
-  const amt = parseFloat(el('editAmt').value);
-  if(!amt||amt<=0){ toast('Enter a valid amount','bad'); return; }
-  S.txs[editIdx].amt = amt;
-  S.txs[editIdx].note = el('editNote').value.trim() || S.txs[editIdx].note;
-  if(S.txs[editIdx].type==='exp') S.txs[editIdx].cat = el('editCat').value;
-  save(); render(); closeModal('editModal'); toast('Updated ✓','good');
-}
-
-function openDelete(i){
-  deleteIdx = i;
-  const t = S.txs[i];
-  el('deletePreview').textContent = `${t.type==='inc'?'+':'-'}₦${fmt(t.amt)} · ${t.note} · ${t.date}`;
-  el('deleteModal').classList.add('show');
-}
-
-function confirmDelete(){
-  S.txs.splice(deleteIdx,1);
-  save(); render(); closeModal('deleteModal'); toast('Deleted','info');
-}
-
-function closeModal(id){ el(id).classList.remove('show'); editIdx=null; deleteIdx=null; }
-
-// ─── REAM MODAL ──────────────────────────────────────────
-function openReamModal(){
-  const rn = reamNum();
-  const total = (S.oldReams||[]).length + 1;
-  const rt = reamTxs();
-  const rev = sumInc(rt);
-  const exp = sumExp(rt);
-  const net = rev - exp - ST.reamCost;
-  el('reamModalTitle').textContent = `Ream ${rn}`;
-  el('reamModalStats').innerHTML = `
-    <div class="modal-stat"><span>Current ream number</span><span>Ream ${rn}</span></div>
-    <div class="modal-stat"><span>Total reams used</span><span>${total}</span></div>
-    <div class="modal-stat"><span>Days on this ream</span><span>${dayNum()}</span></div>
-    <div class="modal-stat"><span>Revenue this ream</span><span>₦${fmt(rev)}</span></div>
-    <div class="modal-stat"><span>Expenses this ream</span><span>₦${fmt(exp)}</span></div>
-    <div class="modal-stat"><span>Net (after paper cost)</span><span>₦${fmt(net)}</span></div>
-  `;
-  el('reamModal').classList.add('show');
-}
-
-// ─── NEW REAM ────────────────────────────────────────────
-function startNewReam(){
-  closeModal('reamModal');
-  if(!confirm('Start a new ream? Current ream will be saved to history.')) return;
-  const rt = reamTxs();
-  const rev = sumInc(rt), exp = sumExp(rt);
-  const saved = Math.max(0, rev - exp - ST.reamCost);
-  S.oldReams = S.oldReams||[];
-  S.oldReams.push({ num:reamNum(), start:S.reamStart, end:today(), rev, exp, saved, days:dayNum() });
-  S.reamStart = today();
-  S.txs = S.txs.map(t=>({...t,old:true}));
-  save(); render(); toast('New ream started! 📄','good');
-}
-
-// ─── FLAGS ───────────────────────────────────────────────
-function updateFlags(todaySpent, reamInc, dn){
-  const over = todaySpent > ST.dailyBudget;
-  const near = !over && todaySpent >= ST.dailyBudget*0.8 && todaySpent>0;
-
-  const incDates = [...new Set(reamTxs().filter(t=>t.type==='inc').map(t=>t.date))];
-  const last = incDates[0];
-  const daysSince = last ? Math.floor((new Date()-new Date(last))/86400000) : dn;
-  const slow = daysSince>=2 && reamInc===0;
-  const expected = (ST.reamTarget/ST.reamDays)*Math.min(dn,ST.reamDays);
-  const behind = !slow && dn>1 && reamInc < expected*0.55;
-
-  ['fOver','fNear','fSlow','fBehind'].forEach(id=>el(id).classList.remove('show'));
-  if(over) el('fOver').classList.add('show');
-  else if(near) el('fNear').classList.add('show');
-  if(slow&&!over) el('fSlow').classList.add('show');
-  if(behind&&!over&&!slow) el('fBehind').classList.add('show');
-
-  if(over) el('fOverMsg').textContent=`You've spent ₦${fmt(todaySpent)} today. Your limit is ₦${fmt(ST.dailyBudget)}. Stop personal spending for today.`;
-  if(near) el('fNearMsg').textContent=`₦${fmt(todaySpent)} spent. Only ₦${fmt(ST.dailyBudget-todaySpent)} left for today — be careful.`;
-  if(slow) el('fSlowMsg').textContent=`No revenue logged in ${daysSince} day${daysSince!==1?'s':''}. Reduce personal spending until sales pick up.`;
-  if(behind){
-    const dLeft=Math.max(1,ST.reamDays-dn);
-    const needed=Math.round((ST.reamTarget-reamInc)/dLeft);
-    el('fBehindMsg').textContent=`You need about ₦${fmt(needed)}/day to hit your ₦${fmt(ST.reamTarget)} target for this ream.`;
-  }
-}
-
-// ─── MAIN RENDER ─────────────────────────────────────────
-function render(){
-  const rt = reamTxs(), tt = todayTxs(), dn = dayNum();
-  const reamInc = sumInc(rt), todayInc = sumInc(tt), todaySpent = sumExp(tt);
-  const rn = reamNum();
-
-  // Header
-  el('reamPill').textContent = `Ream ${rn}`;
-
-  // Today cards
-  el('todayInc').textContent = '₦'+fmt(todayInc);
-  el('todaySalesSub').textContent = tt.filter(t=>t.type==='inc').length+' sales';
-  el('todayExp').textContent = '₦'+fmt(todaySpent);
-  el('todayNetSub').textContent = `Net: ₦${fmt(todayInc-todaySpent)}`;
-
-  // Ream progress
-  const pct = Math.min(100,Math.round((reamInc/ST.reamTarget)*100));
-  el('reamFill').style.width = pct+'%';
-  el('reamFill').className = 'progress-fill '+(pct>=100?'done':'going');
-  el('reamEarned').textContent = '₦'+fmt(reamInc);
-  el('reamPct').textContent = pct+'%';
-  const toGo = Math.max(0,ST.reamTarget-reamInc);
-  el('reamNote').textContent = toGo>0
-    ? `₦${fmt(toGo)} still to go · Day ${dn} of ~${ST.reamDays}`
-    : `🎉 Target hit! Great work.`;
-
-  // Spend box
-  const rem = ST.dailyBudget - todaySpent;
-  const spendPct = Math.min(100,Math.round((todaySpent/ST.dailyBudget)*100));
-  let boxCls, meterCls, labelTxt, amtTxt, descTxt;
-  if(todaySpent > ST.dailyBudget){
-    boxCls='over'; meterCls='over'; labelTxt='🚨 Over Budget — tap to see breakdown';
-    amtTxt=`₦${fmt(Math.abs(rem))}`; descTxt=`over your ₦${fmt(ST.dailyBudget)} limit today`;
-  } else if(todaySpent >= ST.dailyBudget*0.8){
-    boxCls='warn'; meterCls='warn'; labelTxt='⚠️ Nearly at Limit — tap to see breakdown';
-    amtTxt=`₦${fmt(rem)}`; descTxt=`left to spend today`;
-  } else {
-    boxCls='safe'; meterCls='safe'; labelTxt='✅ Spending on Track — tap to see breakdown';
-    amtTxt=`₦${fmt(rem)}`; descTxt=`left to spend today`;
-  }
-  el('spendBox').className = 'spend-box '+boxCls;
-  el('spendLabel').textContent = labelTxt;
-  el('spendAmt').textContent = amtTxt;
-  el('spendDesc').textContent = descTxt;
-  el('spentSoFar').textContent = `₦${fmt(todaySpent)} spent`;
-  el('dailyLimitLabel').textContent = `₦${fmt(ST.dailyBudget)} limit`;
-  el('meterFill').className = 'meter-fill '+meterCls;
-  el('meterFill').style.width = spendPct+'%';
-
-  // Flags
-  updateFlags(todaySpent, reamInc, dn);
-
-  // Feed — today's transactions
-  const todayAll = tt.slice(0,30);
-  el('feedCount').textContent = todayAll.length+' today';
-  el('feedList').innerHTML = todayAll.length===0
-    ? '<div class="empty">Nothing logged yet today.<br>Record your first sale above ↑</div>'
-    : todayAll.map((t,i)=>`
-        <div class="feed-item">
-          <div class="feed-dot ${t.type==='inc'?'inc':'exp'}"></div>
-          <div class="feed-info">
-            <div class="feed-note">${t.note}${t.cat?' · '+t.cat:''}</div>
-            <div class="feed-meta">${t.time} · ${t.payment||t.cat||''}</div>
-          </div>
-          <div class="feed-right">
-            <div class="feed-amt ${t.type==='inc'?'inc':'exp'}">${t.type==='inc'?'+':'−'}₦${fmt(t.amt)}</div>
-            <div class="feed-acts">
-              <button class="feed-act" onclick="openEdit(${i})">✏️</button>
-              <button class="feed-act" onclick="openDelete(${i})">🗑️</button>
-            </div>
-          </div>
-        </div>`).join('');
-}
-
-// ─── SUMMARY RENDER ──────────────────────────────────────
-function renderSummary(){
-  const rt = reamTxs(), dn = dayNum();
-  const curRev = sumInc(rt), curExp = sumExp(rt);
-  const curNet = curRev - curExp - ST.reamCost;
-
-  el('ssCurRev').textContent = '₦'+fmt(curRev);
-  el('ssCurExp').textContent = '₦'+fmt(curExp);
-  el('ssPaperCost').textContent = '₦'+fmt(ST.reamCost);
-  el('ssCurNet').textContent = (curNet<0?'−':'')+'₦'+fmt(Math.abs(curNet));
-  el('ssCurNet').className = 'stat-val '+(curNet>=0?'g':'r');
-  el('ssCurDays').textContent = dn;
-
-  // Today expense breakdown by category
-  const todayExp = todayTxs().filter(t=>t.type==='exp');
-  const cats = {};
-  todayExp.forEach(t=>{ cats[t.cat||'Other']=(cats[t.cat||'Other']||0)+t.amt; });
-  const catKeys = Object.keys(cats);
-  el('ssExpBreak').innerHTML = catKeys.length===0
-    ? '<div class="empty">No expenses today.</div>'
-    : catKeys.sort((a,b)=>cats[b]-cats[a]).map(c=>`
-        <div class="stat-row">
-          <span class="stat-label">${c}</span>
-          <span class="stat-val r">₦${fmt(cats[c])}</span>
-        </div>`).join('');
-
-  // All time
-  const allRev = (S.oldReams||[]).reduce((s,r)=>s+r.rev,0) + curRev;
-  const allExp = (S.oldReams||[]).reduce((s,r)=>s+r.exp,0) + curExp;
-  const allInc = S.txs.filter(t=>t.type==='inc');
-  const bestSale = allInc.length ? Math.max(...allInc.map(t=>t.amt)) : 0;
-  const dayMap={};
-  allInc.forEach(t=>{ dayMap[t.date]=(dayMap[t.date]||0)+t.amt; });
-  const bestDay = Object.values(dayMap).length ? Math.max(...Object.values(dayMap)) : 0;
-
-  el('ssTotalRev').textContent = '₦'+fmt(allRev);
-  el('ssTotalExp').textContent = '₦'+fmt(allExp);
-  el('ssTotalReams').textContent = (S.oldReams||[]).length;
-  el('ssBestSale').textContent = '₦'+fmt(bestSale);
-  el('ssBestDay').textContent = '₦'+fmt(bestDay);
-
-  // Past reams
-  const old = [...(S.oldReams||[])].reverse();
-  el('ssReamHist').innerHTML = old.length===0
-    ? '<div class="empty" style="padding:12px 0">No completed reams yet.</div>'
-    : old.map(r=>`
-        <div class="ream-hist-card">
-          <div class="rhc-top">
-            <div class="rhc-name">Ream ${r.num} · ${r.days} day${r.days!==1?'s':''}</div>
-            <div class="rhc-saved">Saved ₦${fmt(r.saved)}</div>
-          </div>
-          <div class="rhc-meta">
-            ${r.start} → ${r.end}<br>
-            Revenue ₦${fmt(r.rev)} · Expenses ₦${fmt(r.exp)} · Paper ₦${fmt(ST.reamCost)}
-          </div>
-        </div>`).join('');
-
-  // All transactions
-  const allTx = S.txs.slice(0,100);
-  el('ssAllTx').innerHTML = allTx.length===0
-    ? '<div class="empty">No transactions yet.</div>'
-    : allTx.map(t=>`
-        <div class="tx-item">
-          <div class="tx-dot ${t.type==='inc'?'inc':'exp'}"></div>
-          <div class="tx-info">
-            <div class="tx-note">${t.note}${t.cat?' · '+t.cat:''}</div>
-            <div class="tx-meta">${t.date} · ${t.time} · ${t.payment||t.cat||''}</div>
-          </div>
-          <div class="tx-amt ${t.type==='inc'?'inc':'exp'}">${t.type==='inc'?'+':'−'}₦${fmt(t.amt)}</div>
-        </div>`).join('');
-}
-
-// ─── SETTINGS ────────────────────────────────────────────
-function loadSettings(){
-  el('sName').value = ST.name||'';
-  el('sBiz').value = ST.biz||'';
-  el('sReamCost').value = ST.reamCost;
-  el('sReamTarget').value = ST.reamTarget;
-  el('sReamDays').value = ST.reamDays;
-  el('sDailyBudget').value = ST.dailyBudget;
-}
-
-function saveSettings(){
-  ST.name = el('sName').value.trim()||ST.name;
-  ST.biz = el('sBiz').value.trim();
-  ST.reamCost = parseFloat(el('sReamCost').value)||ST.reamCost;
-  ST.reamTarget = parseFloat(el('sReamTarget').value)||ST.reamTarget;
-  ST.reamDays = parseFloat(el('sReamDays').value)||ST.reamDays;
-  ST.dailyBudget = parseFloat(el('sDailyBudget').value)||ST.dailyBudget;
-  save(); render(); toast('Settings saved ✓','good');
-}
-
-function exportData(){
-  const blob = new Blob([JSON.stringify({S,ST,at:new Date().toISOString()},null,2)],{type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href=url; a.download=`printflow_${new Date().toISOString().slice(0,10)}.json`;
-  a.click(); URL.revokeObjectURL(url);
-  toast('Backup saved ✓','good');
-}
-
-function clearData(){
-  if(confirm('Delete ALL data? This cannot be undone.')){
-    localStorage.clear(); location.reload();
-  }
-}
-
-// ─── TOAST ───────────────────────────────────────────────
-function toast(msg, type='good'){
-  const t = el('toast');
-  t.textContent=msg; t.className=`toast ${type} show`;
-  clearTimeout(t._t);
-  t._t = setTimeout(()=>t.classList.remove('show'),2500);
-}
-
-render();
-</script>
-</body>
-</html>
+    <div class="today-card hl">
+      <div class="tc-labe
